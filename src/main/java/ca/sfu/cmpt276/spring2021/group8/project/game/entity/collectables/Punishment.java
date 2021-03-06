@@ -7,4 +7,13 @@ import java.awt.*;
 
 public class Punishment extends Collectable{
 
+
+    protected Punishment(Maze maze) {
+        super(maze);
+    }
+
+    @Override
+    public void render(Graphics g, WorldScreenAdapter s) {
+
+    }
 }
