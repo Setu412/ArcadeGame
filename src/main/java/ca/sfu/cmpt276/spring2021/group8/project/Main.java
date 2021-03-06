@@ -26,14 +26,14 @@ public class Main {
 
     public static void main(String[] args) {
         Game game = new Game();
-        JFrame f = new JFrame();
+        Frame f = new Frame();
         final Canvas canvas = new Canvas();
         canvas.setSize(width, height);
         f.add(canvas);
         f.pack();
         f.setSize(width, height);
         f.setVisible(true);
-        f.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
+        //f.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
         canvas.createBufferStrategy(2);
         canvas.addKeyListener(game);
         canvas.addComponentListener(new ComponentAdapter() {
