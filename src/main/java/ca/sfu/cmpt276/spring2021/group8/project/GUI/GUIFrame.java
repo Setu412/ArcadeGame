@@ -1,7 +1,7 @@
 package GUI;
 
 import javax.swing.*;
-import java.awt.*;
+import GUI.GUIPanelContainer;
 
 public class GUIFrame extends JFrame {
     GUIPanelContainer panelContainer=new GUIPanelContainer();
@@ -18,5 +18,10 @@ public class GUIFrame extends JFrame {
         setLocationRelativeTo(null);
         setVisible(true);
         setResizable(false);
+
+    }
+
+    public GUIPanelContainer getPanelContainer() {
+        return panelContainer;
     }
 }

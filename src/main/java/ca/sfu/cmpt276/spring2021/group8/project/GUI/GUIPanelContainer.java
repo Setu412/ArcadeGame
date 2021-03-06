@@ -23,4 +23,7 @@ public class GUIPanelContainer extends JPanel {
                 cardLayout.show(this,"1"));
     }
 
+    public MainMenuPanel getMainMenuPanel() {
+        return mainMenuPanel;
+    }
 }
