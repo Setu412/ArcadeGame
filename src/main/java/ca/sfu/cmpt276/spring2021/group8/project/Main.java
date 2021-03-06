@@ -2,6 +2,8 @@ package ca.sfu.cmpt276.spring2021.group8.project;
 
 
 import ca.sfu.cmpt276.spring2021.group8.project.game.*;
+
+import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 import java.awt.image.*;
@@ -12,11 +14,12 @@ public class Main {
 
     public static void main(String[] args) {
         Game game = new Game();
-        Frame f = new Frame();
+        JFrame f = new JFrame();
         final Canvas canvas = new Canvas();
         canvas.setSize(width, height);
         f.add(canvas);
         f.pack();
+        f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         f.setSize(width, height);
         f.setVisible(true);
         canvas.createBufferStrategy(2);
