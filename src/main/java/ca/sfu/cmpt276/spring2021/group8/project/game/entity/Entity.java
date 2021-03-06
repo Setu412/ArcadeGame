@@ -19,8 +19,8 @@ public abstract class Entity {
         this.position = position;
     }
 
-    protected void tryMove(Point position) {
-        if (!maze.isValidPosition(position)) {
+    protected void tryMove(Point position, int[] originalXY) {
+        if (!maze.isValidPosition(position, originalXY)) {
             return;
         }
 
