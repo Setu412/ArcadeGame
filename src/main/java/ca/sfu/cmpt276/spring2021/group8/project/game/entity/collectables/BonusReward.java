@@ -7,13 +7,12 @@ import java.awt.*;
 
 public class BonusReward extends Collectable{
 
+    private int BonusRewardScore = 5;
 
     public void updateScore(){
 
-        //determine position
-        Point PlayerPosition = getPosition();
-        //Need Maze coordinates
-        if(PlayerPosition.x == getMazeXCoordinate() && PlayerPosition.y == getMazeYCoordinate()) {
+        //Match with Maze Coordinate
+        if(Maze[getMazeXCoordinate()][getMazeYCoordinate()] == 5) {
             score = score + BonusRewardScore;
         }
 

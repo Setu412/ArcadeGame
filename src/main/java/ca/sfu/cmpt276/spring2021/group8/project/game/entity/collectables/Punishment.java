@@ -11,10 +11,19 @@ public class Punishment extends Collectable{
 
     public void updateScore(){
 
-        Point PlayerPosition = getPosition();
-        //Need Maze coordinates
-        if(PlayerPosition.x == getMazeXCoordinate() && PlayerPosition.y == getMazeYCoordinate()) {
+        //Match with Maze Coordinate
+        if(Maze[getMazeXCoordinate()][getMazeYCoordinate()] == -5) {
             score = score + PunishmentScore;
+        }
+
+        checkValidScore();
+
+    }
+
+    private void checkValidScore() {
+        if(score < 0 )
+        {
+            //Stop the game..Failed
         }
     }
 

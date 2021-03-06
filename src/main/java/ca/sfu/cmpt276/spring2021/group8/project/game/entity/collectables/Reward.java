@@ -11,10 +11,8 @@ public class Reward extends Collectable{
 
     public void updateScore(){
 
-        //determine position
-        Point PlayerPosition = getPosition();
-        //Need Maze coordinates
-        if(PlayerPosition.x == getMazeXCoordinate() && PlayerPosition.y == getMazeYCoordinate()) {
+        //Match with Maze Coordinate
+        if(Maze[getMazeXCoordinate()][getMazeYCoordinate()] == 2) {
             score = score + RewardScore;
         }
     }
