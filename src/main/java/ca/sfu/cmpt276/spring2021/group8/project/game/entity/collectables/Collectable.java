@@ -8,4 +8,7 @@ public abstract class Collectable extends Entity {
     protected Collectable(Maze maze) {
         super(maze);
     }
+
+    //abstract interact method, for when the player interacts with the collectable
+    public abstract void intersect();
 }
