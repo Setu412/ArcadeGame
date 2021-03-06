@@ -7,7 +7,13 @@ import java.awt.*;
 
 public class Reward extends Collectable{
 
-    private int RewardScore = 5;
+    private int RewardScore = 2;
+
+    public void updateScore(){
+
+        //determine position
+        score = score + RewardScore;
+    }
 
     protected Reward(Maze maze) {
         super(maze);

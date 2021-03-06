@@ -9,6 +9,12 @@ public class BonusReward extends Collectable{
 
     private int BonusRewardScore = 5;
 
+    public void updateScore(){
+
+        //determine position
+        score = score + BonusRewardScore;
+    }
+
     protected BonusReward(Maze maze) {
         super(maze);
     }
