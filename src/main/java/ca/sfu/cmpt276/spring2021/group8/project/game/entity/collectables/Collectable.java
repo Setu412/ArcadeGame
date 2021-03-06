@@ -5,7 +5,4 @@ import ca.sfu.cmpt276.spring2021.group8.project.game.entity.Entity;
 
 public abstract class Collectable extends Entity {
 
-    protected Collectable(Maze maze) {
-        super(maze);
-    }
 }

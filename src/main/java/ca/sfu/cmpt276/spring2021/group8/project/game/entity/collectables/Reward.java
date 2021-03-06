@@ -7,12 +7,4 @@ import java.awt.*;
 
 public class Reward extends Collectable{
 
-    protected Reward(Maze maze) {
-        super(maze);
-    }
-
-    @Override
-    public void render(Graphics g, WorldScreenAdapter s) {
-
-    }
 }
