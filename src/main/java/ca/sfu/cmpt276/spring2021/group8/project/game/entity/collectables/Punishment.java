@@ -7,6 +7,15 @@ import java.awt.*;
 
 public class Punishment extends Collectable{
 
+    private int PunishmentScore = -5;
+
+    public void updateScore(){
+
+        Point PlayerPosition = getPosition();
+
+        //determine position
+        score = score + PunishmentScore;
+    }
 
     protected Punishment(Maze maze) {
         super(maze);

@@ -8,6 +8,12 @@ import java.awt.*;
 public class BonusReward extends Collectable{
 
 
+    public void updateScore(){
+
+        //determine position
+        score = score + BonusRewardScore;
+    }
+
     protected BonusReward(Maze maze) {
         super(maze);
     }
