@@ -7,6 +7,7 @@ public abstract class Collectable extends Entity {
 
     int score;
 
+
     protected Collectable(Maze maze) {
         super(maze);
     }

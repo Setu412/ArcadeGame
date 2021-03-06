@@ -12,7 +12,12 @@ public class BonusReward extends Collectable{
     public void updateScore(){
 
         //determine position
-        score = score + BonusRewardScore;
+        Point PlayerPosition = getPosition();
+        //Need Maze coordinates
+        if(PlayerPosition.x == getMazeXCoordinate() && PlayerPosition.y == getMazeYCoordinate()) {
+            score = score + BonusRewardScore;
+        }
+
     }
 
     protected BonusReward(Maze maze) {

@@ -13,9 +13,10 @@ public class Punishment extends Collectable{
     public void updateScore(){
 
         Point PlayerPosition = getPosition();
-
-        //determine position
-        score = score + PunishmentScore;
+        //Need Maze coordinates
+        if(PlayerPosition.x == getMazeXCoordinate() && PlayerPosition.y == getMazeYCoordinate()) {
+            score = score + PunishmentScore;
+        }
     }
 
     protected Punishment(Maze maze) {
