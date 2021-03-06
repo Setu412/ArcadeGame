@@ -7,7 +7,6 @@ import java.awt.*;
 
 public class BonusReward extends Collectable{
 
-    private int BonusRewardScore = 5;
 
     public void updateScore(){
 

@@ -9,7 +9,6 @@ public class Punishment extends Collectable{
 
     private int PunishmentScore = -5;
 
-
     public void updateScore(){
 
         Point PlayerPosition = getPosition();
@@ -27,5 +26,4 @@ public class Punishment extends Collectable{
     public void render(Graphics g, WorldScreenAdapter s) {
 
     }
-
 }
