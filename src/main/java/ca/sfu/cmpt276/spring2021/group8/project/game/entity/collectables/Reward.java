@@ -26,3 +26,8 @@ public class Reward extends Collectable{
 
     }
 }
+
+
+//update score
+//render reward image
+//remove reward image from the maze canvas after recieving

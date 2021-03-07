@@ -7,8 +7,8 @@ import java.awt.*;
 
 public abstract class Collectable extends Entity {
 
-    int score;
-    Point PlayerPosition = getPosition();
+    int score; //final
+    Point NewPlayerPosition = getPosition();
 
     protected Collectable(Maze maze) {
         super(maze);
@@ -20,7 +20,7 @@ public abstract class Collectable extends Entity {
     //check if the player interacts with the collectable and updates accordingly
     public void intersect()
     {
-        if(PlayerPosition.x == getMazeXCoordinate() && PlayerPosition.y == getMazeYCoordinate())
+        if(NewPlayerPosition.x == getMazeXCoordinate() && NewPlayerPosition.y == getMazeYCoordinate())
         {
             updateScore();
         }

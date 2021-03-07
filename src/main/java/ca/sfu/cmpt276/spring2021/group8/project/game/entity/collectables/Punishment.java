@@ -12,9 +12,10 @@ public class Punishment extends Collectable{
     public void updateScore(){
 
         //Match with Maze Coordinate
-        if(Maze[getMazeXCoordinate()][getMazeYCoordinate()] == -5) {
+        //if(Maze[getMazeXCoordinate()][getMazeYCoordinate()] == -5) {
             score = score + PunishmentScore;
-        }
+             //== 0
+        //}
 
         checkValidScore();
 
