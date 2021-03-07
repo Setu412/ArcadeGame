@@ -1,5 +1,7 @@
 package ca.sfu.cmpt276.spring2021.group8.project.game;
 
+import ca.sfu.cmpt276.spring2021.group8.project.game.entity.collectables.Collectable;
+
 import java.awt.Point;
 import java.util.Random;
 
@@ -21,9 +23,10 @@ public class Maze {
     private int BONUS_NUM = 5;
     private int TOTAL_OBJECTS = 60;
     private int BARRIERS_NUM = 5;
+    private int rewardCollected = 0;
 
     private Point start;
-    private Point exit;
+    private Point exit ;
 
     // Score variables
     private int score = 0;
@@ -206,7 +209,7 @@ public class Maze {
         // Check if next position contains anything
         int result = moveInMaze(p, originalXY);
 
-        if (result = -1) {
+        if (result == -1) {
             // * Game is over
             return false;
 
@@ -218,14 +221,17 @@ public class Maze {
             return true;
         } else if (result == -2) {
             // * Punishment collected, update frame at location (p.x, p.y) before moving player
+            if(isNegative())
+            {
+                // TODO call the function that ends the game--loosing screen appears
+            }
             return true;
         }
 
         // Game is won
-        /*
         if (result == 9) {
-            return something;
-        } */
+            //TODO winning screen
+        }
 
         return true;
     }
@@ -315,11 +321,17 @@ public class Maze {
             setCoordValue(nextX,  nextY, 1);
             setCoordValue(X, Y, 0);
             updateScore(this.REGULAR_POINTS);
+            rewardCollected++;
+
             return 2;
         case 3:
             setCoordValue(nextX, nextY, 1);
             setCoordValue(X,  Y,  0);
             updateScore(this.BONUS_POINTS);
+            if(isCompleted())
+            {
+                setCoordValue(exit.x,exit.y,9);
+            }
             return 3;
         case 4:
             return 4;
@@ -328,14 +340,27 @@ public class Maze {
         case 7:
             return 7;
         case 8:
-            if (unlockedStatus()) {
+            /*if (unlockedStatus()) {
                 setCoordValue(nextX, nextY, 1);
                 setCoordValue(X, Y, 9);
                 return 9;
-            }
+            }*/
             return 8;
+
+            case 9: return 9;
+
         }
 
+    }
+
+
+
+    private boolean isNegative() {
+        if(this.score < 0)
+        {
+            return true;
+        }
+        return false;
     }
 
     public int getScore() {
@@ -346,8 +371,13 @@ public class Maze {
         this.score += x;
     }
 
-    public boolean unlockedStatus() {
-        if (this.score >= this.UNLOCKED_SCORE) {
+    /*public boolean unlockedStatus() {
+        setCoordValue(nextX, nextY, 1);
+        setCoordValue(X, Y, 9);
+    }*/
+
+    private boolean isCompleted() {
+        if(rewardCollected == 40){
             return true;
         }
         return false;

@@ -9,7 +9,7 @@ public class Punishment extends Collectable{
 
     private int PunishmentScore = -5;
 
-    public void updateScore(){
+    /*public void updateScore(){
 
         //Match with Maze Coordinate
         //if(Maze[getMazeXCoordinate()][getMazeYCoordinate()] == -5) {
@@ -19,7 +19,7 @@ public class Punishment extends Collectable{
 
         checkValidScore();
 
-    }
+    }*/
 
     private void checkValidScore() {
         if(score < 0 )
