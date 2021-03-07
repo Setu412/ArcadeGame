@@ -3,13 +3,16 @@ package ca.sfu.cmpt276.spring2021.group8.project.game.entity;
 import ca.sfu.cmpt276.spring2021.group8.project.game.*;
 import java.awt.*;
 
-public abstract class Entity {
+public abstract class Entity extends World{
+
     final protected Maze maze;
     private Point position = new Point();
 
     protected Entity(Maze maze) {
+        super(maze);
         this.maze = maze;
     }
+
 
     public Point getPosition() {
         return new Point(position);
@@ -21,6 +24,7 @@ public abstract class Entity {
 
     protected void tryMove(Point position, int[] originalXY) {
         if (!maze.isValidPosition(position, originalXY)) {
+            //System.out.println("invalid move");
             return;
         }
 

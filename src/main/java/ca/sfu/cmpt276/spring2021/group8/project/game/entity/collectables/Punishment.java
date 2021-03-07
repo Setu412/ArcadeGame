@@ -9,23 +9,12 @@ public class Punishment extends Collectable{
 
     private int PunishmentScore = -5;
 
-    /*public void updateScore(){
+    public void updateScore(){
+        score = score + PunishmentScore;
+    }
 
-        //Match with Maze Coordinate
-        //if(Maze[getMazeXCoordinate()][getMazeYCoordinate()] == -5) {
-            score = score + PunishmentScore;
-             //== 0
-        //}
+    private void checkValidScore(){
 
-        checkValidScore();
-
-    }*/
-
-    private void checkValidScore() {
-        if(score < 0 )
-        {
-            //Stop the game..Failed
-        }
     }
 
     protected Punishment(Maze maze) {

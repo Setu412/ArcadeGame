@@ -1,12 +1,22 @@
 package ca.sfu.cmpt276.spring2021.group8.project.game;
 
 import ca.sfu.cmpt276.spring2021.group8.project.Draw;
+import ca.sfu.cmpt276.spring2021.group8.project.game.entity.Enemy;
+import ca.sfu.cmpt276.spring2021.group8.project.game.entity.Entity;
 import ca.sfu.cmpt276.spring2021.group8.project.game.entity.Player;
+import ca.sfu.cmpt276.spring2021.group8.project.game.entity.collectables.BonusReward;
+import ca.sfu.cmpt276.spring2021.group8.project.game.entity.collectables.Punishment;
+import ca.sfu.cmpt276.spring2021.group8.project.game.entity.collectables.Reward;
+
 import java.awt.*;
 
 public class World {
-    private Maze maze;
+    protected Maze maze;
     private Player player;
+    private Reward reward;
+    private BonusReward bonusReward;
+    private Punishment punishment;
+    private Enemy enemy;
     private WorldScreenAdapter adapter;
 
     public World(Maze maze) {
@@ -73,5 +83,13 @@ public class World {
 
         // render entities
         player.render(g, adapter);
+        reward.render(g,adapter);
+        punishment.render(g,adapter);
+        bonusReward.render(g,adapter);
+        enemy.render(g,adapter);
+    }
+
+    public void accessCollectables(int result){
+
     }
 }

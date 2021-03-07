@@ -183,7 +183,7 @@ public class Maze {
             return new Point(start.x, start.y - 1);
         }
         */
-        return new Point(0, 0);
+        return new Point(1, 1);
     }
 
 
@@ -296,8 +296,8 @@ public class Maze {
         int nextX = p.x;
         int nextY = p.y;
 
-        int X = originalXY[1];
-        int Y = originalXY[2];
+        int X = originalXY[0];
+        int Y = originalXY[1];
 
         int result = getCoordValue(nextX, nextY);
 
@@ -305,6 +305,7 @@ public class Maze {
         default:
             return 0;
         case -2:
+            //accessCollectables(result);
             setCoordValue(nextX, nextY, 1);
             setCoordValue(X, Y, 0);
             updateScore(this.PUNISHMENT_POINTS);
@@ -322,7 +323,6 @@ public class Maze {
             setCoordValue(X, Y, 0);
             updateScore(this.REGULAR_POINTS);
             rewardCollected++;
-
             return 2;
         case 3:
             setCoordValue(nextX, nextY, 1);
@@ -353,8 +353,6 @@ public class Maze {
 
     }
 
-
-
     private boolean isNegative() {
         if(this.score < 0)
         {
@@ -382,5 +380,8 @@ public class Maze {
         }
         return false;
     }
-    
+
+    public int getValueAtXYinMaze(int x, int y){
+        return maze[x][y];
+    }
 }

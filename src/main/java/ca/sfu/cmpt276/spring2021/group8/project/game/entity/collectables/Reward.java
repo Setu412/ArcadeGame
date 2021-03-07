@@ -9,13 +9,12 @@ public class Reward extends Collectable{
 
     private int RewardScore = 2;
 
-    /*public void updateScore(){
+    public void updateScore(){
 
-        //Match with Maze Coordinate
-        if(Maze[getMazeXCoordinate()][getMazeYCoordinate()] == 2) {
-            score = score + RewardScore;
-        }
-    }*/
+        //update the score
+        score = score + RewardScore;
+
+    }
 
     protected Reward(Maze maze) {
         super(maze);
