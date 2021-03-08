@@ -83,13 +83,9 @@ public class World {
 
         // render entities
         player.render(g, adapter);
-        reward.render(g,adapter);
-        punishment.render(g,adapter);
-        bonusReward.render(g,adapter);
-        enemy.render(g,adapter);
-    }
-
-    public void accessCollectables(int result){
-
+        //reward.render(g,adapter);
+        //punishment.render(g,adapter);
+        //bonusReward.render(g,adapter);
+        //enemy.render(g,adapter);
     }
 }
