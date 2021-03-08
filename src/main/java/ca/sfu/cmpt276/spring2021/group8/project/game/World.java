@@ -1,18 +1,33 @@
 package ca.sfu.cmpt276.spring2021.group8.project.game;
 
 import ca.sfu.cmpt276.spring2021.group8.project.Draw;
+import ca.sfu.cmpt276.spring2021.group8.project.game.entity.Enemy;
+import ca.sfu.cmpt276.spring2021.group8.project.game.entity.Entity;
 import ca.sfu.cmpt276.spring2021.group8.project.game.entity.Player;
+import ca.sfu.cmpt276.spring2021.group8.project.game.entity.collectables.BonusReward;
+import ca.sfu.cmpt276.spring2021.group8.project.game.entity.collectables.Punishment;
+import ca.sfu.cmpt276.spring2021.group8.project.game.entity.collectables.Reward;
+
 import java.awt.*;
 
 public class World {
-    private Maze maze;
+    protected Maze maze;
     private Player player;
+    private Reward rewards;
+    private BonusReward bonusRewards;
+    private Punishment punishments;
     private WorldScreenAdapter adapter;
+
+    private int tickCount = 0;
 
     public World(Maze maze) {
         this.maze = maze;
         this.player = new Player(maze);
         this.adapter = new WorldScreenAdapter(maze.getSize(), new Point(60, 60));
+
+        this.punishments = new Punishment(maze);
+        this.rewards = new Reward(maze);
+        this.bonusRewards = new BonusReward(maze);
     }
 
     public World(Point size) {
@@ -62,6 +77,8 @@ public class World {
     }
 
     public void render(Graphics g, Point size) {
+
+        tickCount++;
         Point gridSize = adapter.gridSize();
 
         int xoffset = (size.x - gridSize.x) / 2;
@@ -73,5 +90,20 @@ public class World {
 
         // render entities
         player.render(g, adapter);
+
+        rewards.render(g,adapter);
+        punishments.render(g,adapter);
+
+        //logic to make bonus reward appear in few ticks
+        if(tickCount%10 == 0)
+        {
+            maze.TimedApprearance();
+            //0-10
+            //10-20 generate, bonus reward will be there on the maze
+            //20-30 removed
+            //should be removed or generated
+        }
+        bonusRewards.render(g,adapter);
+
     }
 }

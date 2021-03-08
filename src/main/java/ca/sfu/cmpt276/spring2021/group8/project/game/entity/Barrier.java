@@ -16,3 +16,11 @@ public class Barrier extends Entity{
         
     }
 }
+/**
+ *Maze class already ensured player doesnt move into barries
+ *
+ * render and image for barries
+ */
+
+
+

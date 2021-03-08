@@ -7,10 +7,13 @@ import java.util.Random;
 
 /* Issues
  1) What happens when player loses the game?
- 2) What happens when player collects an reward/?
- 3) What happens when player unlocks door?
- 4) Should set a height and width of board and stick with it
- 
+ 2) What happens when player unlocks door?
+ 3) Should set a height and width of board and stick with it
+
+ 4) Solve the height and width issue
+ 5) timed Appearance of bonus rewards
+ 6) Enemy
+
 */
 
 public class Maze {
@@ -23,7 +26,6 @@ public class Maze {
     private int BONUS_NUM = 5;
     private int TOTAL_OBJECTS = 60;
     private int BARRIERS_NUM = 5;
-    private int rewardCollected = 0;
 
     private Point start;
     private Point exit ;
@@ -33,6 +35,8 @@ public class Maze {
     private int REGULAR_POINTS = 250;
     private int BONUS_POINTS = 500;
     private int PUNISHMENT_POINTS = -400;
+
+    private boolean isBonusOnMaze;
 
     // Maze element ID's:
     // -2 <- punishment
@@ -60,7 +64,7 @@ public class Maze {
                             {4, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 4},
                             {4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4}
                         };
-    
+
     // Constructors
     public Maze() {
         int x1;
@@ -154,7 +158,7 @@ public class Maze {
             }
             maze[x1][x2] = 5;
         }
-
+        this.isBonusOnMaze = false;
     }
 
     public Maze(Point size) {
@@ -183,7 +187,7 @@ public class Maze {
             return new Point(start.x, start.y - 1);
         }
         */
-        return new Point(0, 0);
+        return new Point(1, 1);
     }
 
 
@@ -191,41 +195,43 @@ public class Maze {
         return new Point(size);
     }
 
+    public int getWIDTH() {
+        return WIDTH;
+    }
+
+    public int getHEIGHT(){
+        return HEIGHT;
+    }
+
     // Returns whether or not move is possible
-    public boolean isValidPosition(Point p, int[] originalXY) {
+    public int isValidPosition(Point p, int[] originalXY) {
         // Check if next position is out of bounds
         if (p.x < 1) {
-            return false;
+            return 0;
         } else if (p.x >= size.x - 1) {
-            return false;
+            return 0;
         }
 
         if (p.y < 1) {
-            return false;
+            return 0;
         } else if (p.y >= size.y - 1) {
-            return false;
+            return 0;
         }
 
         // Check if next position contains anything
-        int result = moveInMaze(p, originalXY);
+        int result = getCoordValue(p.x, p.y);
+        //int result = moveInMaze(p, originalXY);
 
-        if (result == -1) {
-            // * Game is over
-            return false;
-
-        } else if (result == 4 || result == 5 || result == 7 || result == 8 ) {
-            return false;
-        } else if (result == 2 || result == 3) {
-            // * Reward collected, update frame at location (p.x, p.y) before moving player
-            
-            return true;
-        } else if (result == -2) {
-            // * Punishment collected, update frame at location (p.x, p.y) before moving player
-            if(isNegative())
-            {
-                // TODO call the function that ends the game--loosing screen appears
-            }
-            return true;
+        if (result == 4 || result == 5 || result == 7 || result == 8 ) {
+            return 0;
+        } else if(result == -1) { //enemy
+            return -1;
+        } else if (result == 2){ // * Reward collected, update frame at location (p.x, p.y) before moving player
+            return 2;
+        } else if(result == 3) { // * Reward collected, update frame at location (p.x, p.y) before moving player
+            return 3;
+        } else if (result == -2) { // * Punishment collected, update frame at location (p.x, p.y) before moving player
+            return -2;
         }
 
         // Game is won
@@ -233,8 +239,70 @@ public class Maze {
             //TODO winning screen
         }
 
-        return true;
+        return 1;
     }
+
+    // Try to move player to coordinate
+    /*public int moveInMaze(Point p, int[] originalXY) {
+        int nextX = p.x;
+        int nextY = p.y;
+
+        int X = originalXY[0];
+        int Y = originalXY[1];
+
+        int result = getCoordValue(nextX, nextY);
+
+        switch (result) {
+            default:
+                return 0;
+            case -2:
+                //accessCollectables(result);
+                setCoordValue(nextX, nextY, 1);
+                setCoordValue(X, Y, 0);
+                updateScore(this.PUNISHMENT_POINTS);
+                return -2;
+            case -1:
+                setCoordValue(nextX, nextY, 1);
+                setCoordValue(X,  Y,  0);
+                return -1;
+            case 0:
+                setCoordValue(nextX, nextY, 1);
+                setCoordValue(X, Y, 0);
+                return 0;
+            case 2:
+                setCoordValue(nextX,  nextY, 1);
+                setCoordValue(X, Y, 0);
+                updateScore(this.REGULAR_POINTS);
+                rewardCollected++;
+                return 2;
+            case 3:
+                setCoordValue(nextX, nextY, 1);
+                setCoordValue(X,  Y,  0);
+                updateScore(this.BONUS_POINTS);
+                if(isCompleted())
+                {
+                    setCoordValue(exit.x,exit.y,9);
+                }
+                return 3;
+            case 4:
+                return 4;
+            case 5:
+                return 5;
+            case 7:
+                return 7;
+            case 8:
+            *//*if (unlockedStatus()) {
+                setCoordValue(nextX, nextY, 1);
+                setCoordValue(X, Y, 9);
+                return 9;
+            }*//*
+                return 8;
+
+            case 9: return 9;
+
+        }
+
+    }*/
 
     // Maze related methods
     // --------------------------------------------------------
@@ -291,68 +359,6 @@ public class Maze {
         }
     }
 
-    // Try to move player to coordinate
-    public int moveInMaze(Point p, int[] originalXY) {
-        int nextX = p.x;
-        int nextY = p.y;
-
-        int X = originalXY[1];
-        int Y = originalXY[2];
-
-        int result = getCoordValue(nextX, nextY);
-
-        switch (result) {
-        default:
-            return 0;
-        case -2:
-            setCoordValue(nextX, nextY, 1);
-            setCoordValue(X, Y, 0);
-            updateScore(this.PUNISHMENT_POINTS);
-            return -2;
-        case -1:
-            setCoordValue(nextX, nextY, 1);
-            setCoordValue(X,  Y,  0);
-            return -1;
-        case 0:
-            setCoordValue(nextX, nextY, 1);
-            setCoordValue(X, Y, 0);
-            return 0;
-        case 2:
-            setCoordValue(nextX,  nextY, 1);
-            setCoordValue(X, Y, 0);
-            updateScore(this.REGULAR_POINTS);
-            rewardCollected++;
-
-            return 2;
-        case 3:
-            setCoordValue(nextX, nextY, 1);
-            setCoordValue(X,  Y,  0);
-            updateScore(this.BONUS_POINTS);
-            if(isCompleted())
-            {
-                setCoordValue(exit.x,exit.y,9);
-            }
-            return 3;
-        case 4:
-            return 4;
-        case 5:
-            return 5;
-        case 7:
-            return 7;
-        case 8:
-            /*if (unlockedStatus()) {
-                setCoordValue(nextX, nextY, 1);
-                setCoordValue(X, Y, 9);
-                return 9;
-            }*/
-            return 8;
-
-            case 9: return 9;
-
-        }
-
-    }
-
 
 
     private boolean isNegative() {
@@ -363,24 +369,55 @@ public class Maze {
         return false;
     }
 
-    public int getScore() {
-        return this.score;
-    }
+
 
     public void updateScore(int x) {
         this.score += x;
     }
 
-    /*public boolean unlockedStatus() {
+    public void completed() {
+        setCoordValue(exit.x, exit.y, 9);
+    }
+
+    public void TimedApprearance(){
+        // generate 3
+        // remove 3
+        //say 5
+        if( isBonusOnMaze == true )
+            removeBonusFromMaze();
+        else
+            setBonusCoord();
+    }
+
+    public void setBonusCoord(){
+        //loop through
+        //generate xy coordinate
+        //while value at xy does not equal to  0 generate again
+        //maze (x,y) == 3
+        isBonusOnMaze = true;
+    }
+
+    public void removeBonusFromMaze(){
+        //loop through
+        //find 3
+        //at that coordinate change it
+        isBonusOnMaze = false;
+    }
+
+}
+    /*
+
+    public boolean unlockedStatus() {
         setCoordValue(nextX, nextY, 1);
         setCoordValue(X, Y, 9);
-    }*/
-
-    private boolean isCompleted() {
-        if(rewardCollected == 40){
-            return true;
-        }
-        return false;
     }
-    
-}
+
+    public int getValueAtXYinMaze(int x, int y){
+        return maze[x][y];
+    }
+
+    public int getScore() {
+        return this.score;
+    }
+
+    */
