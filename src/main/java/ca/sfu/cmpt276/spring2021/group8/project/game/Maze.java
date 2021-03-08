@@ -206,7 +206,7 @@ public class Maze {
         // Check if next position contains anything
         int result = moveInMaze(p, originalXY);
 
-        if (result = -1) {
+        if (result == -1) {
             // * Game is over
             return false;
 
@@ -334,6 +334,7 @@ public class Maze {
                 return 9;
             }
             return 8;
+
         }
 
     }
@@ -352,5 +353,5 @@ public class Maze {
         }
         return false;
     }
-    
+
 }

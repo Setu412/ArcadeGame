@@ -28,7 +28,7 @@ public class Main {
 
     public static void main(String[] args) {
         Game game = new Game();
-        Frame f = new Frame();
+        JFrame f = new JFrame();
         final Canvas canvas = new Canvas();
         canvas.setSize(width, height);
         f.add(canvas);

@@ -4,7 +4,7 @@ import ca.sfu.cmpt276.spring2021.group8.project.game.*;
 import java.awt.*;
 
 public abstract class Entity {
-    final protected Maze maze;
+    final protected Maze maze; //change to tryMove parameter
     private Point position = new Point();
 
     protected Entity(Maze maze) {
