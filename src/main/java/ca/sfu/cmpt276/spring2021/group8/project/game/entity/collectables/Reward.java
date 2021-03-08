@@ -15,17 +15,23 @@ public class Reward extends Entity {
         super(maze);
     }
 
-    public int updateScore(int score){
+    /*public int updateScore(int score){
         score  = score + RewardScore;
         return score;
-    }
+    }*/
 
     @Override
     public void render(Graphics g, WorldScreenAdapter adapter) {
         Rectangle offset = g.getClipBounds();
-        Point playerScreenPosition = adapter.convert(getPosition());
-        g.setColor(Color.ORANGE);
-        Draw.dot(g, offset.x + playerScreenPosition.x + adapter.gridHorizontalSpacing()/2, offset.y + playerScreenPosition.y + adapter.gridVerticalSpacing()/2, 16);
 
+        for(int i=0 ; i<maze.getHEIGHT() ; i++) {
+            for (int j = 0; j < maze.getWIDTH(); j++) {
+                if (maze.getCoordValue(j, i) == 2) {
+                    Point rewardScreenPosition = adapter.convert(i, j);
+                    g.setColor(Color.ORANGE);
+                    Draw.dot(g, offset.x + rewardScreenPosition.x + adapter.gridHorizontalSpacing()/2, offset.y + rewardScreenPosition.y + adapter.gridVerticalSpacing()/2, 16);
+                }
+            }
+        }
     }
 }

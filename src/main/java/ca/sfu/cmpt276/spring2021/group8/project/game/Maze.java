@@ -7,10 +7,13 @@ import java.util.Random;
 
 /* Issues
  1) What happens when player loses the game?
- 2) What happens when player collects an reward/?
- 3) What happens when player unlocks door?
- 4) Should set a height and width of board and stick with it
- 
+ 2) What happens when player unlocks door?
+ 3) Should set a height and width of board and stick with it
+
+ 4) Solve the height and width issue
+ 5) timed Appearance of bonus rewards
+ 6) Enemy
+
 */
 
 public class Maze {
@@ -23,7 +26,6 @@ public class Maze {
     private int BONUS_NUM = 5;
     private int TOTAL_OBJECTS = 60;
     private int BARRIERS_NUM = 5;
-    private int rewardCollected = 0;
 
     private Point start;
     private Point exit ;
@@ -33,6 +35,8 @@ public class Maze {
     private int REGULAR_POINTS = 250;
     private int BONUS_POINTS = 500;
     private int PUNISHMENT_POINTS = -400;
+
+    private boolean isBonusOnMaze;
 
     // Maze element ID's:
     // -2 <- punishment
@@ -60,7 +64,7 @@ public class Maze {
                             {4, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 4},
                             {4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4}
                         };
-    
+
     // Constructors
     public Maze() {
         int x1;
@@ -154,7 +158,7 @@ public class Maze {
             }
             maze[x1][x2] = 5;
         }
-
+        this.isBonusOnMaze = false;
     }
 
     public Maze(Point size) {
@@ -189,6 +193,14 @@ public class Maze {
 
     public Point getSize() {
         return new Point(size);
+    }
+
+    public int getWIDTH() {
+        return WIDTH;
+    }
+
+    public int getHEIGHT(){
+        return HEIGHT;
     }
 
     // Returns whether or not move is possible
@@ -367,6 +379,30 @@ public class Maze {
         setCoordValue(exit.x, exit.y, 9);
     }
 
+    public void TimedApprearance(){
+        // generate 3
+        // remove 3
+        //say 5
+        if( isBonusOnMaze == true )
+            removeBonusFromMaze();
+        else
+            setBonusCoord();
+    }
+
+    public void setBonusCoord(){
+        //loop through
+        //generate xy coordinate
+        //while value at xy does not equal to  0 generate again
+        //maze (x,y) == 3
+        isBonusOnMaze = true;
+    }
+
+    public void removeBonusFromMaze(){
+        //loop through
+        //find 3
+        //at that coordinate change it
+        isBonusOnMaze = false;
+    }
 
 }
     /*

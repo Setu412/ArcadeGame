@@ -13,16 +13,21 @@ import java.awt.*;
 public class World {
     protected Maze maze;
     private Player player;
-    private Reward reward;
-    private BonusReward bonusReward;
-    private Punishment punishment;
-    private Enemy enemy;
+    private Reward rewards;
+    private BonusReward bonusRewards;
+    private Punishment punishments;
     private WorldScreenAdapter adapter;
+
+    private int tickCount = 0;
 
     public World(Maze maze) {
         this.maze = maze;
         this.player = new Player(maze);
         this.adapter = new WorldScreenAdapter(maze.getSize(), new Point(60, 60));
+
+        this.punishments = new Punishment(maze);
+        this.rewards = new Reward(maze);
+        this.bonusRewards = new BonusReward(maze);
     }
 
     public World(Point size) {
@@ -72,6 +77,8 @@ public class World {
     }
 
     public void render(Graphics g, Point size) {
+
+        tickCount++;
         Point gridSize = adapter.gridSize();
 
         int xoffset = (size.x - gridSize.x) / 2;
@@ -83,9 +90,20 @@ public class World {
 
         // render entities
         player.render(g, adapter);
-        //reward.render(g,adapter);
-        //punishment.render(g,adapter);
-        //bonusReward.render(g,adapter);
-        //enemy.render(g,adapter);
+
+        rewards.render(g,adapter);
+        punishments.render(g,adapter);
+
+        //logic to make bonus reward appear in few ticks
+        if(tickCount%10 == 0)
+        {
+            maze.TimedApprearance();
+            //0-10
+            //10-20 generate, bonus reward will be there on the maze
+            //20-30 removed
+            //should be removed or generated
+        }
+        bonusRewards.render(g,adapter);
+
     }
 }

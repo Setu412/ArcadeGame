@@ -45,21 +45,23 @@ public abstract class Entity {
 
     void afterMoving(int movedIntoValue ){
 
+        int BonusRewardScore = 5;
+        int RewardScore = 2;
+        int PunishmentScore = -5;
+
         switch(movedIntoValue){
             case -1: //game over moved in enemy
                 //TODO stop the game --> loosing screen
                 break;
             case -2: // moved in punishment
-                Punishment punishment = new Punishment(maze);
-                score = punishment.updateScore(score);
+                score = score + PunishmentScore;
                 if(score < 0)
                 {
                     //TODO stop the game --> loosing screen
                 }
                 break;
             case 2: // moved into reward
-                Reward reward = new Reward(maze);
-                score = reward.updateScore(score);
+                score = score + RewardScore;
                 checkAllRewards++;
                 if(checkAllRewards == 40)
                 {
@@ -68,8 +70,7 @@ public abstract class Entity {
 
                 break;
             case 3: // moved into bonusReward
-                BonusReward bonusReward = new BonusReward(maze);
-                score = bonusReward.updateScore(score);
+                score = score + BonusRewardScore;
                 break;
             case 9: //game is won
                 //TODO won the game --> winning screen
