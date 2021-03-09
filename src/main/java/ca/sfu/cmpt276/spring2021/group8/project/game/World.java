@@ -31,6 +31,19 @@ public class World {
         return player.getPosition();
     }
 
+    public GameEffect getGameEffect() {
+        Point pos = player.getPosition();
+        // if (false) { // check if hit enemy
+        //     return MovementEffect.createLoseEffect();
+        // }
+
+        // if (false) { // check if hit collectible
+        //     return MovementEffect.createScoreEffect(collectible.value);
+        // }
+
+        return null;
+    }
+
     public void movePlayer(Direction direction) {
         player.move(maze, direction);
     }

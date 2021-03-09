@@ -17,6 +17,16 @@ public class Game implements KeyListener {
          * all game logic calling here and returning here
          * change isRunning to false when player wants to stop
          */
+
+        GameEffect effect = world.getGameEffect();
+        if (effect != null) {
+            if (effect.lose) {
+                // TODO lose game here
+                System.out.println("lost the game :(");
+            }
+
+            this.score += effect.score;
+        }
     }
 
     private String getFormattedTime() {
