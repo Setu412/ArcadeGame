@@ -11,29 +11,7 @@ public class Player extends Entity {
     }
 
     public void move(Maze maze, Direction direction) {
-        Point position = getPosition();
-        switch (direction) {
-            default:
-                return;
-
-            case West:
-                position.x -= 1;
-                break;
-
-            case North:
-                position.y -= 1;
-                break;
-
-            case East:
-                position.x += 1;
-                break;
-
-            case South:
-                position.y += 1;
-                break;
-        }
-
-        tryMove(maze, position);
+        tryMove(maze, direction.getNewPosition(getPosition()));
     }
 
     @Override
