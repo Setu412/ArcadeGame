@@ -29,9 +29,13 @@ public class Game implements KeyListener {
         }
     }
 
+    private long msSinceGameStart() {
+        return System.currentTimeMillis() - startTime;
+    }
+
     private String getFormattedTime() {
         // TODO format time as xx:xx
-        return String.valueOf((System.currentTimeMillis() - startTime)/1000);
+        return String.valueOf(msSinceGameStart()/1000);
     }
 
     public void render(Graphics g, Point size) {
