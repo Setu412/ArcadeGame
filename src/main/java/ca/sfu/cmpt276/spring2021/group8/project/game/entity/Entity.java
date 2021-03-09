@@ -27,8 +27,8 @@ public abstract class Entity {
         this.position = position;
     }
 
-    protected void tryMove(Point position, int[] originalXY) {
-        int isValidPosition = maze.isValidPosition(position, originalXY);
+    protected void tryMove(Point position, Point originalXY) {
+        int isValidPosition = maze.isValidPosition(position);
         //isValidPosition == 0 mean its a wall and you cant move
         //isValidPosition == some other value, means player has moved into something
         if ( isValidPosition == 0) {
@@ -36,7 +36,7 @@ public abstract class Entity {
         }
 
         this.position = position;
-        maze.setCoordValue(originalXY[0], originalXY[1], 0);
+        maze.setCoordValue(originalXY.x, originalXY.y, 0);
         //Now, player has moved to new position and its position has changed
         //creating a function to reflect what would happen if player makes that move
         // could be enemy, reward, punishments

@@ -14,7 +14,7 @@ public class Player extends Entity {
 
     public void move(Direction direction) {
         Point position = getPosition();
-        int[] currentXY = {position.x, position.y};
+        Point currentXY = getPosition();
         switch (direction) {
             default:
                 return;

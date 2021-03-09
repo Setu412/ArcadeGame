@@ -13,6 +13,7 @@ import java.util.Random;
  4) Solve the height and width issue
  5) timed Appearance of bonus rewards
  6) Enemy
+ 7) Need to figure out starting position (on entrance or next to it)
 
 */
 
@@ -23,18 +24,19 @@ public class Maze {
     private int WIDTH = 20;
     private int HEIGHT = 12;
     private int REWARDS_NUM = 40;
-    private int BONUS_NUM = 5;
+    private int BONUS_NUM = 1;
     private int TOTAL_OBJECTS = 60;
     private int BARRIERS_NUM = 5;
 
     private Point start;
     private Point exit ;
+    private Point bonus;
 
     // Score variables
-    private int score = 0;
-    private int REGULAR_POINTS = 250;
-    private int BONUS_POINTS = 500;
-    private int PUNISHMENT_POINTS = -400;
+    //private int score = 0;
+    //private int REGULAR_POINTS = 250;
+    //private int BONUS_POINTS = 500;
+    //private int PUNISHMENT_POINTS = -400;
 
     private boolean isBonusOnMaze;
 
@@ -51,7 +53,7 @@ public class Maze {
     //  8 <- exit (9) if it is unlocked
     // X <- [][]
     // Y <- []
-    private int[][] maze ={{4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4},
+    private int[][] maze ={ {4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4},
                             {4, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 4},
                             {4, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 4},
                             {4, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 4},
@@ -129,7 +131,7 @@ public class Maze {
         this.exit = new Point(x1, x2); 
 
         // Randomly generate internal walls
-        generateWalls(); 
+        //generateWalls(); 
         
         // Randomly generate items (make sure not on top of anything)
         for (int i=0; i < this.TOTAL_OBJECTS; i++) {
@@ -141,8 +143,6 @@ public class Maze {
             }
             if (i < this.REWARDS_NUM - 1) {
                 maze[x1][x2] = 2;
-            } else if (i >= this.REWARDS_NUM - 1 && i < this.REWARDS_NUM - 1 + this.BONUS_NUM - 1) {
-                maze[x1][x2] = 3;
             } else {
                 maze[x1][x2] = -2;
             }
@@ -204,7 +204,7 @@ public class Maze {
     }
 
     // Returns whether or not move is possible
-    public int isValidPosition(Point p, int[] originalXY) {
+    public int isValidPosition(Point p) {
         // Check if next position is out of bounds
         if (p.x < 1) {
             return 0;
@@ -337,13 +337,7 @@ public class Maze {
         return r.nextInt((max - min) + 1) + min;
     }
 
-    // Generate coordinate in maze 
-    static Point getACoord(int min, int max) {
-        Point p = new Point();
-        p.x = getRandomInt(min, max);
-        p.y = getRandomInt(min, max);
-        return p;
-    }
+
     
     // Print out the maze
     public void displayMaze() {
@@ -369,12 +363,6 @@ public class Maze {
         return false;
     }
 
-
-
-    public void updateScore(int x) {
-        this.score += x;
-    }
-
     public void completed() {
         setCoordValue(exit.x, exit.y, 9);
     }
@@ -390,18 +378,31 @@ public class Maze {
     }
 
     public void setBonusCoord(){
-        //loop through
-        //generate xy coordinate
-        //while value at xy does not equal to  0 generate again
-        //maze (x,y) == 3
+        int x1 = getRandomInt(1, this.HEIGHT - 2)
+        int x2 = getRandomInt(1, this.WIDTH - 2)
+        while (maze[x1][x2] != 0) {
+            int x1 = getRandomInt(1, this.HEIGHT - 2)
+            int x2 = getRandomInt(1, this.WIDTH - 2)   
+        }
+        maze[x1][x2] = 3;
+        bonus.setLocation(x2, x1);
+        
         isBonusOnMaze = true;
     }
 
     public void removeBonusFromMaze(){
-        //loop through
-        //find 3
-        //at that coordinate change it
-        isBonusOnMaze = false;
+        for (int i=0; i < this.HEIGHT; i++) {
+            for (int j=0; j < this.WIDTH; i++) {
+                if (maze[i][j] == 3) {
+                    maze[i][j] = 0;
+                    isBonusOnMaze = false;
+                }
+            }
+        }
+
+        // Or this way
+        maze[bonus.getY][bonus.getX] = 0;
+        
     }
 
 }
