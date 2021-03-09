@@ -4,12 +4,7 @@ import ca.sfu.cmpt276.spring2021.group8.project.game.*;
 import java.awt.*;
 
 public abstract class Entity {
-    final protected Maze maze;
     private Point position = new Point();
-
-    protected Entity(Maze maze) {
-        this.maze = maze;
-    }
 
     public Point getPosition() {
         return new Point(position);
@@ -19,7 +14,7 @@ public abstract class Entity {
         this.position = position;
     }
 
-    protected void tryMove(Point position) {
+    protected void tryMove(Maze maze, Point position) {
         if (!maze.isValidPosition(position)) {
             return;
         }

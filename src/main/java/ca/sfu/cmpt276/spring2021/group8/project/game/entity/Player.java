@@ -6,12 +6,11 @@ import ca.sfu.cmpt276.spring2021.group8.project.Draw;
 import ca.sfu.cmpt276.spring2021.group8.project.game.*;
 
 public class Player extends Entity {
-    public Player(Maze maze) {
-        super(maze);
-        super.move(maze.startPosition());
+    public Player(Point startPosition) {
+        super.move(startPosition);
     }
 
-    public void move(Direction direction) {
+    public void move(Maze maze, Direction direction) {
         Point position = getPosition();
         switch (direction) {
             default:
@@ -34,7 +33,7 @@ public class Player extends Entity {
                 break;
         }
 
-        tryMove(position);
+        tryMove(maze, position);
     }
 
     @Override

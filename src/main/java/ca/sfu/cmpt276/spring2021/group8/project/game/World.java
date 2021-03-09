@@ -11,7 +11,7 @@ public class World {
 
     public World(Maze maze) {
         this.maze = maze;
-        this.player = new Player(maze);
+        this.player = new Player(maze.startPosition());
         this.adapter = new WorldScreenAdapter(maze.getSize(), new Point(60, 60));
     }
 
@@ -32,7 +32,7 @@ public class World {
     }
 
     public void movePlayer(Direction direction) {
-        player.move(direction);
+        player.move(maze, direction);
     }
 
     private void drawGrid(Graphics g, int xoffset, int yoffset) {
