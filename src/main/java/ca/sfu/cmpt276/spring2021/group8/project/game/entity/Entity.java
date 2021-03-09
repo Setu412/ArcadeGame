@@ -6,12 +6,12 @@ import java.awt.*;
 public abstract class Entity {
     private Point position = new Point();
 
-    public Point getPosition() {
-        return new Point(position);
+    protected Entity(Point startPosition) {
+        this.position = startPosition;
     }
 
-    protected void move(Point position) {
-        this.position = position;
+    public Point getPosition() {
+        return new Point(position);
     }
 
     protected void tryMove(Maze maze, Point position) {

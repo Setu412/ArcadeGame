@@ -7,7 +7,7 @@ import ca.sfu.cmpt276.spring2021.group8.project.game.*;
 
 public class Player extends Entity {
     public Player(Point startPosition) {
-        super.move(startPosition);
+        super(startPosition);
     }
 
     public void move(Maze maze, Direction direction) {
