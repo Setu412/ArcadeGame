@@ -9,8 +9,6 @@ import java.awt.event.*;
 import java.awt.image.*;
 import GUI.GUIFrame;
 
-import javax.swing.*;
-
 public class Main {
     final static int width = 1280;
     final static int height = 720;
@@ -33,7 +31,7 @@ public class Main {
         canvas.setSize(width, height);
         f.add(canvas);
         f.pack();
-        f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        //f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         f.setSize(width, height);
         f.setVisible(true);
         //f.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
@@ -83,14 +81,4 @@ public class Main {
         }
     }
 
-    // @Override
-    // public void paint(Graphics g) {
-    //     super.paint(g);
-
-    //     Rectangle rect = this.getBounds();
-    //     // subtract the offset to get the actual canvas size
-    //     Point size = new Point(rect.width, rect.height);
-
-    //     game.paint(g, size);
-    // }
 }

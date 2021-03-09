@@ -2,11 +2,12 @@ package ca.sfu.cmpt276.spring2021.group8.project.game;
 
 import java.awt.*;
 import java.awt.event.*;
+import java.sql.SQLOutput;
 
 public class Game implements KeyListener {
     private long startTime = System.currentTimeMillis();
     private long score = 0;
-    private World world = new World(20, 10);
+    private World world = new World(20, 12);
 
     public Game() {
         // TODO initialize resources here
@@ -66,7 +67,7 @@ public class Game implements KeyListener {
                 direction = Direction.South;
                 break;
         }
-
+        //System.out.println(e.getKeyCode());
         this.world.movePlayer(direction);
     }
 
