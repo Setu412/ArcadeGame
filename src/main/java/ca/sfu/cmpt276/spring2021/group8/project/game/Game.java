@@ -17,6 +17,7 @@ public class Game implements KeyListener {
          * all game logic calling here and returning here
          * change isRunning to false when player wants to stop
          */
+        world.update(deltaTime);
 
         GameEffect effect = world.getGameEffect();
         if (effect != null) {

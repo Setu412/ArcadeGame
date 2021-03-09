@@ -1,18 +1,26 @@
 package ca.sfu.cmpt276.spring2021.group8.project.game;
 
 import ca.sfu.cmpt276.spring2021.group8.project.Draw;
-import ca.sfu.cmpt276.spring2021.group8.project.game.entity.Player;
+import ca.sfu.cmpt276.spring2021.group8.project.game.entity.*;
 import java.awt.*;
+import java.util.LinkedList;
 
 public class World {
+    private final static long MS_PER_ENEMY_MOVE = 1000;
+
     private Maze maze;
     private Player player;
+    private LinkedList<Enemy> enemies = new LinkedList<>();
     private WorldScreenAdapter adapter;
+    private long msSinceLastMove = 0;
 
     public World(Maze maze) {
         this.maze = maze;
         this.player = new Player(maze.startPosition());
         this.adapter = new WorldScreenAdapter(maze.getSize(), new Point(60, 60));
+
+        // TODO probably generate non-player entities here
+        // this.enemies.add(new Enemy(this.player.getTargetedMovementGenerator(maze), new Point(0, 0)));
     }
 
     public World(Point size) {
@@ -29,6 +37,17 @@ public class World {
 
     public Point playerPosition() {
         return player.getPosition();
+    }
+
+    public void update(long deltaTime) {
+        msSinceLastMove += deltaTime;
+        if (msSinceLastMove > MS_PER_ENEMY_MOVE) {
+            msSinceLastMove -= MS_PER_ENEMY_MOVE;
+
+            for (Enemy enemy : enemies) {
+                enemy.move(maze);
+            }
+        }
     }
 
     public GameEffect getGameEffect() {
@@ -84,7 +103,14 @@ public class World {
 
         g.clipRect(xoffset, yoffset, gridSize.x, gridSize.y);
 
-        // render entities
+        /**
+         * render all the entities
+         */
+        for (Enemy enemy : enemies) {
+            enemy.render(g, adapter);
+        }
+
+        // render the player last so it is on top
         player.render(g, adapter);
     }
 }
