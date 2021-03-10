@@ -89,11 +89,11 @@ public class World {
         g.clipRect(xoffset, yoffset, gridSize.x, gridSize.y);
 
         // render entities
-        player.render(g, adapter);
+
 
         rewards.render(g,adapter);
         punishments.render(g,adapter);
-
+        player.render(g, adapter);
         //logic to make bonus reward appear in few ticks
         if(tickCount%10 == 0)
         {

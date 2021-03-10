@@ -35,7 +35,7 @@ public abstract class Entity {
             return;
         }
 
-        this.position = position;
+        this.position = position; //changes value according to player movement
         maze.setCoordValue(originalXY[0], originalXY[1], 0);
         //Now, player has moved to new position and its position has changed
         //creating a function to reflect what would happen if player makes that move

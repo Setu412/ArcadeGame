@@ -24,10 +24,10 @@ public class Punishment extends Entity {
     public void render(Graphics g, WorldScreenAdapter adapter) {
         Rectangle offset = g.getClipBounds();
 
-        for(int i=0 ; i<maze.getHEIGHT() ; i++) {
-            for (int j = 0; j < maze.getWIDTH(); j++) {
-                if (maze.getCoordValue(j, i) == -2) {
-                    Point punishmentScreenPosition = adapter.convert(i, j);
+        for(int y=0 ; y<maze.getHEIGHT() ; y++) {
+            for (int x = 0; x < maze.getWIDTH(); x++) {
+                if (maze.getCoordValue(x, y) == -2) {
+                    Point punishmentScreenPosition = adapter.convert(x, y);
                     g.setColor(Color.PINK);
                     Draw.dot(g, offset.x + punishmentScreenPosition.x + adapter.gridHorizontalSpacing()/2, offset.y + punishmentScreenPosition.y + adapter.gridVerticalSpacing()/2, 16);
                 }

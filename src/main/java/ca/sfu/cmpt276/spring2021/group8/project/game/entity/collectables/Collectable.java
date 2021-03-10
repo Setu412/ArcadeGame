@@ -7,6 +7,7 @@ import java.awt.*;
 
 //this class is of no use now
 public abstract class Collectable extends Entity {
+
     protected Collectable(Maze maze) {
         super(maze);
     }
