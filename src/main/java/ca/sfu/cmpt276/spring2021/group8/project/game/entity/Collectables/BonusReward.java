@@ -7,6 +7,7 @@ import java.awt.*;
 
 public class BonusReward extends Entity {
 
+
     public BonusReward(Point rewardCoordinate) {
         super(rewardCoordinate);
     }

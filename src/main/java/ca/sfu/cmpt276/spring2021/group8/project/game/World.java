@@ -24,7 +24,7 @@ public class World {
 
     final static int REWARDS_POINTS = 2;
     final static int PUNISHMENT_POINTS = -4;
-    final static int BR_POINTS = 5;
+    final static int BONUS_POINTS = 5;
 
 
     public World(Maze maze) {
@@ -33,20 +33,18 @@ public class World {
         this.adapter = new WorldScreenAdapter(maze.getSize(), new Point(60, 60));
 
         for(int i=0;i<40;i++){
-
             Point p = maze.getCollectablePoint();
             rewards.add(new Reward(p));
         }
 
         for(int i=0;i<15;i++){
-
             Point p = maze.getCollectablePoint();
             punishments.add(new Punishment(p));
         }
         //maze.resetMaze();
 
+
         // TODO probably generate non-player entities here
-        this.collectible = new Collectible(maze)
         // this.enemies.add(new Enemy(this.player.getTargetedMovementGenerator(maze), new Point(0, 0)));
     }
 
@@ -79,32 +77,32 @@ public class World {
 
     public GameEffect getGameEffect() {
         Point pos = player.getPosition();
+
         // if (false) { // check if hit enemy
+        //
         //     return MovementEffect.createLoseEffect();
         // }
 
-        // if (false) { // check if hit collectible
+        if (false) { // check if hit collectible
 
-        //IDETIFY COLLECTIBLE
-
-        //     return MovementEffect.createScoreEffect(reward score, puni, BR);
-        // }
-        for (int i=0; i < rewards.size(); i++) {
-            if (pos == rewards[i].position) {
-                return MovementEffect.createScoreEffect(REWARDS_POINTS);
+            //MovementEffect?
+            /**
+             * Indentifies type of COllectable and called createScoreEffect to update score
+             */
+            for (int i = 0; i < rewards.size(); i++) {
+                if (pos == rewards.get(i).getPosition()) {
+                    //return MovementEffect.createScoreEffect(REWARDS_POINTS);
+                }
+            }
+            for (int i = 0; i < punishments.size(); i++) {
+                if (pos == punishments.get(i).getPosition()) {
+                    //return MovementEffect.createScoreEffect(PUNISHMENT_POINTS);
+                }
+            }
+            if (pos == bonusReward.getPosition()) {
+                    //return MovmeentEffect.createScoreEffect(BONUS_POINTS);
             }
         }
-        for (int i=0; i < punishment.size(); i++) {
-            if (pos == rewards[i].position) {
-                return MovementEffect.createScoreEffect(PUNISHMENT_POINTS);
-            }
-        }
-        for (int i=0; i < bonus.size(); i++) {
-            if (pos == rewards[i].position) {
-                return MovmeentEffect.createScoreEffect(BONUS_POINTS);
-            }
-        }
-
         return null;
     }
 
