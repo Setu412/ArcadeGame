@@ -22,6 +22,10 @@ public abstract class Entity {
         return new Point(position);
     }
 
+    public void setPosition(Point Position){
+        this.position = Position;
+    }
+
     public MovementGenerator getTargetedMovementGenerator(Maze maze) {
         return new TargetedMovementGenerator(maze, this);
     }

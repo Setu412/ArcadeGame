@@ -9,8 +9,12 @@ import java.awt.*;
 public class BonusReward extends Entity {
 
 
-    public BonusReward(Point rewardCoordinate) {
-        super(rewardCoordinate);
+    public BonusReward(Point BonusRewardCoordinate) {
+        super(BonusRewardCoordinate);
+    }
+
+    public void updateBRCoordinates(Point newPoint){
+        this.setPosition(newPoint);
     }
 
     @Override

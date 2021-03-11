@@ -19,7 +19,7 @@ public class World {
     private WorldScreenAdapter adapter;
     private ArrayList<Reward> rewards = new ArrayList<Reward>();
     private ArrayList<Punishment> punishments = new ArrayList<Punishment>();
-    //private ArrayList<BonusReward> bonusReward = new ArrayList<BonusReward>();
+    private BonusReward bonusReward;
     private long msSinceLastMove = 0;
     private GameEffect MovementEffect;
 
@@ -33,6 +33,7 @@ public class World {
         this.player = new Player(maze.startPosition());
         this.adapter = new WorldScreenAdapter(maze.getSize(), new Point(60, 60));
 
+        this.bonusReward = new BonusReward(new Point());
         for(int i=0;i<40;i++){
             Point p = maze.getCollectablePoint();
             rewards.add(new Reward(p));
@@ -76,6 +77,19 @@ public class World {
                 enemy.move(maze);
             }
         }
+        updateBRstatus();
+    }
+
+    //does not work correctly.. requires reimplementation
+    private void updateBRstatus() {
+        if(msSinceLastMove == 5){
+            if(bonusReward.getPosition().equals(new Point())) {
+                Point p = maze.getCollectablePoint();
+                bonusReward.updateBRCoordinates(p);
+            }
+            else
+                bonusReward.updateBRCoordinates(new Point());
+        }
     }
 
     public GameEffect getGameEffect() {
@@ -93,24 +107,21 @@ public class World {
              * Indentifies type of COllectable and called createScoreEffect to update score
              */
             for (int i = 0; i < rewards.size(); i++) {
-                if (pos.x ==  rewards.get(i).getPosition().x && pos.y ==  rewards.get(i).getPosition().y) {
-                    System.out.println("Ran into reward");
+                if (rewards.get(i).getPosition().equals(pos)) {
                     rewards.remove(i);
                     return MovementEffect.createScoreEffect(REWARDS_POINTS);
                 }
             }
             for (int i = 0; i < punishments.size(); i++) {
-                if (pos.x ==  punishments.get(i).getPosition().x && pos.y ==  punishments.get(i).getPosition().y) {
+                if (punishments.get(i).getPosition().equals(pos)) {
                     punishments.remove(i);
-                    System.out.println("Ran into punishment");
                     return MovementEffect.createScoreEffect(PUNISHMENT_POINTS);
                 }
             }
-            /*
-            if (pos == bonusReward.get(0).getPosition()) {
-                    rewards.remove(0);
-                    //return MovmeentEffect.createScoreEffect(BONUS_POINTS);
-            }*/
+            if (bonusReward.getPosition().equals(pos)) {
+                bonusReward.updateBRCoordinates(new Point());
+                return MovementEffect.createScoreEffect(BONUS_POINTS);
+            }
         }
         return null;
     }
@@ -155,6 +166,7 @@ public class World {
 
         g.clipRect(xoffset, yoffset, gridSize.x, gridSize.y);
 
+        bonusReward.render(g,adapter);
         maze.render(g,adapter);
         /**
          * render all the entities
@@ -168,6 +180,7 @@ public class World {
         for (Punishment i : punishments) {
             i.render(g, adapter);
         }
+
         // render the player last so it is on top
         player.render(g, adapter);
     }
