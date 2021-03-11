@@ -16,4 +16,6 @@ public class GameEffect {
         this.score = score;
         this.lose = lose;
     }
+
+    // logic for update score
 }

@@ -4,13 +4,18 @@ import ca.sfu.cmpt276.spring2021.group8.project.game.*;
 import ca.sfu.cmpt276.spring2021.group8.project.game.entity.movement.TargetedMovementGenerator;
 import ca.sfu.cmpt276.spring2021.group8.project.game.entity.movement.MovementGenerator;
 
+import javax.swing.text.Position;
 import java.awt.*;
 
 public abstract class Entity {
+
     private Point position = new Point();
 
     protected Entity(Point startPosition) {
         this.position = startPosition;
+    }
+
+    public Entity() {
     }
 
     public Point getPosition() {

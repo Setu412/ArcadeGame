@@ -2,7 +2,12 @@ package ca.sfu.cmpt276.spring2021.group8.project.game;
 
 import ca.sfu.cmpt276.spring2021.group8.project.Draw;
 import ca.sfu.cmpt276.spring2021.group8.project.game.entity.*;
+import ca.sfu.cmpt276.spring2021.group8.project.game.entity.Collectables.BonusReward;
+import ca.sfu.cmpt276.spring2021.group8.project.game.entity.Collectables.Punishment;
+import ca.sfu.cmpt276.spring2021.group8.project.game.entity.Collectables.Reward;
+
 import java.awt.*;
+import java.util.ArrayList;
 import java.util.LinkedList;
 
 public class World {
@@ -12,12 +17,33 @@ public class World {
     private Player player;
     private LinkedList<Enemy> enemies = new LinkedList<>();
     private WorldScreenAdapter adapter;
+    private ArrayList<Reward> rewards = new ArrayList<Reward>();
+    private ArrayList<Punishment> punishments = new ArrayList<Punishment>();
+    private BonusReward bonusReward = new BonusReward(new Point(0,0));
     private long msSinceLastMove = 0;
+
+    final static int REWARDS_POINTS = 2;
+    final static int PUNISHMENT_POINTS = -4;
+    final static int BR_POINTS = 5;
+
 
     public World(Maze maze) {
         this.maze = maze;
         this.player = new Player(maze.startPosition());
         this.adapter = new WorldScreenAdapter(maze.getSize(), new Point(60, 60));
+
+        for(int i=0;i<40;i++){
+
+            Point p = maze.getCollectablePoint();
+            rewards.add(new Reward(p));
+        }
+
+        for(int i=0;i<15;i++){
+
+            Point p = maze.getCollectablePoint();
+            punishments.add(new Punishment(p));
+        }
+        //maze.resetMaze();
 
         // TODO probably generate non-player entities here
         this.collectible = new Collectible(maze)
@@ -58,7 +84,10 @@ public class World {
         // }
 
         // if (false) { // check if hit collectible
-        //     return MovementEffect.createScoreEffect(collectible.value);
+
+        //IDETIFY COLLECTIBLE
+
+        //     return MovementEffect.createScoreEffect(reward score, puni, BR);
         // }
         for (int i=0; i < rewards.size(); i++) {
             if (pos == rewards[i].position) {
