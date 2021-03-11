@@ -20,6 +20,7 @@ public class World {
         this.adapter = new WorldScreenAdapter(maze.getSize(), new Point(60, 60));
 
         // TODO probably generate non-player entities here
+        this.collectible = new Collectible(maze)
         // this.enemies.add(new Enemy(this.player.getTargetedMovementGenerator(maze), new Point(0, 0)));
     }
 
@@ -59,6 +60,21 @@ public class World {
         // if (false) { // check if hit collectible
         //     return MovementEffect.createScoreEffect(collectible.value);
         // }
+        for (int i=0; i < rewards.size(); i++) {
+            if (pos == rewards[i].position) {
+                return MovementEffect.createScoreEffect(REWARDS_POINTS);
+            }
+        }
+        for (int i=0; i < punishment.size(); i++) {
+            if (pos == rewards[i].position) {
+                return MovementEffect.createScoreEffect(PUNISHMENT_POINTS);
+            }
+        }
+        for (int i=0; i < bonus.size(); i++) {
+            if (pos == rewards[i].position) {
+                return MovmeentEffect.createScoreEffect(BONUS_POINTS);
+            }
+        }
 
         return null;
     }
