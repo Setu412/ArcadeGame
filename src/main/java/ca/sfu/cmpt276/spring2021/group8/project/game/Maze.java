@@ -122,8 +122,48 @@ public class Maze {
         return true;
     }
 
-    public Point getCollectablePoint() {
-        Point p = new Point();
-        return p;
+    // Get value at coordinate
+    public int getCoordValue(int x, int y) {
+        return this.maze[y][x];
     }
+
+       // Generate random integer within range
+    static int getRandomInt(int min, int max) {
+        Random r = new Random();
+        return r.nextInt((max - min) + 1) + min;
+    }
+    
+    // Returns an unused Point in the maze for an collectible object to use
+    public Point getCollectiblePoint() {
+            int x1 = getRandomInt(1, this.HEIGHT - 2);
+            int x2 = getRandomInt(1, this.WIDTH - 2);
+            while (maze[x1][x2] != 0) {
+                x1 = getRandomInt(1, this.HEIGHT - 2);
+                x2 = getRandomInt(1, this.WIDTH - 2);
+            }
+            maze[x1][x2] = 2;
+            return new Point(x2, x1);
+    }
+
+    // Resets the maze to the original design (call after creating all the collectible objects) 
+    // * Issue: doesn't have any interal walls right now
+    public Point resetMaze() {
+        for (int i=0; i < this.HEIGHT; i++) {
+            for (int j=0; j < this.WIDTH; j++) {
+                if (maze[i][j] != 4 || maze[i][j] != 0) {
+                    maze[i][j] = 0;
+                }
+            }
+        }
+    }
+
+
+
+    // Check if player has hit collectible
+    public Point hitCollectible(ArrayList<collectible> collectibles) {
+        // loop through arraylist of rewards, punishment, bonuns
+        // if player point and collectible point are the same
+            // return point of collectible to pop
+    }
+ 
 }
