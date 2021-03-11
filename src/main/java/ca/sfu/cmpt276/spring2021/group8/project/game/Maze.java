@@ -36,4 +36,9 @@ public class Maze {
 
         return true;
     }
+
+    public Point getCollectablePoint() {
+        Point p = new Point();
+        return p;
+    }
 }
