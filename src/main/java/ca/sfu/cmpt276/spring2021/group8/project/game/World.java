@@ -19,7 +19,7 @@ public class World {
     private WorldScreenAdapter adapter;
     private ArrayList<Reward> rewards = new ArrayList<Reward>();
     private ArrayList<Punishment> punishments = new ArrayList<Punishment>();
-    private BonusReward bonusReward = new BonusReward(new Point(0,0));
+    //private ArrayList<BonusReward> bonusReward = new ArrayList<BonusReward>();
     private long msSinceLastMove = 0;
 
     final static int REWARDS_POINTS = 2;
@@ -41,7 +41,9 @@ public class World {
             Point p = maze.getCollectablePoint();
             punishments.add(new Punishment(p));
         }
-        //maze.resetMaze();
+        maze.resetMaze();
+
+        //bonusReward.add(new BonusReward(new Point(0,0))); //update this (0,0) coordinate
 
 
         // TODO probably generate non-player entities here
@@ -91,17 +93,21 @@ public class World {
              */
             for (int i = 0; i < rewards.size(); i++) {
                 if (pos == rewards.get(i).getPosition()) {
-                    //return MovementEffect.createScoreEffect(REWARDS_POINTS);
+                    rewards.remove(i);
+                //return MovementEffect.createScoreEffect(REWARDS_POINTS);
                 }
             }
             for (int i = 0; i < punishments.size(); i++) {
                 if (pos == punishments.get(i).getPosition()) {
+                    punishments.remove(i);
                     //return MovementEffect.createScoreEffect(PUNISHMENT_POINTS);
                 }
             }
-            if (pos == bonusReward.getPosition()) {
+            /*
+            if (pos == bonusReward.get(0).getPosition()) {
+                    rewards.remove(0);
                     //return MovmeentEffect.createScoreEffect(BONUS_POINTS);
-            }
+            }*/
         }
         return null;
     }
@@ -146,14 +152,22 @@ public class World {
 
         g.clipRect(xoffset, yoffset, gridSize.x, gridSize.y);
 
+        maze.render(g,adapter);
         /**
          * render all the entities
          */
         for (Enemy enemy : enemies) {
             enemy.render(g, adapter);
         }
-
+        for (Reward i : rewards ) {
+            i.render(g, adapter);
+        }
+        for (Punishment i : punishments) {
+            i.render(g, adapter);
+        }
         // render the player last so it is on top
         player.render(g, adapter);
+
+
     }
 }

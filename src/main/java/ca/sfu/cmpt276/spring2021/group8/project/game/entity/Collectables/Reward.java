@@ -17,17 +17,12 @@ public class Reward extends Entity {
     }*/
 
     @Override
-    public void render(Graphics g, WorldScreenAdapter adapter) {
-        Rectangle offset = g.getClipBounds();
+    public void render(Graphics g, WorldScreenAdapter s) {
 
-      /* *//* for(int y=0 ; y<maze.getHEIGHT() ; y++) {
-            for (int x = 0; x < maze.getWIDTH(); x++) {
-                if (maze.getCoordValue(x, y) == 2) {*//*
-                    Point rewardScreenPosition = adapter.convert(x, y);
-                    g.setColor(Color.ORANGE);
-                    Draw.dot(g, offset.x + rewardScreenPosition.x + adapter.gridHorizontalSpacing()/2, offset.y + rewardScreenPosition.y + adapter.gridVerticalSpacing()/2, 16);
-                }
-            }
-        }*/
+        Rectangle offset = g.getClipBounds();
+        Point RewardScreenPosition = s.convert(this.getPosition());
+        g.setColor(Color.YELLOW);
+        Draw.dot(g, offset.x + RewardScreenPosition.x + s.gridHorizontalSpacing()/2, offset.y + RewardScreenPosition.y + s.gridVerticalSpacing()/2, 16);
+
     }
 }

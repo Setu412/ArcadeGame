@@ -25,8 +25,14 @@ public class Game implements KeyListener {
                 // TODO lose game here
                 System.out.println("lost the game :(");
             }
-
+            //update score
             this.score += effect.score;
+
+            //check if score is negative --> ends game
+            if(this.score < 0){
+                // TODO lose game here
+                System.out.println("lost the game :(");
+            }
         }
     }
 

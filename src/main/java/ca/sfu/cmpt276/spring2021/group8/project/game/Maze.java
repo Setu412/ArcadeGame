@@ -1,6 +1,8 @@
 package ca.sfu.cmpt276.spring2021.group8.project.game;
 
-import java.awt.Point;
+import ca.sfu.cmpt276.spring2021.group8.project.Draw;
+
+import java.awt.*;
 import java.util.Random;
 
 public class Maze {
@@ -151,12 +153,39 @@ public class Maze {
     public void resetMaze() {
         for (int i=0; i < this.HEIGHT; i++) {
             for (int j=0; j < this.WIDTH; j++) {
-                if (maze[i][j] != 4 || maze[i][j] != 0) {
+                if (maze[i][j] == 2) {
                     maze[i][j] = 0;
                 }
             }
         }
     }
 
- 
+    public void render(Graphics g, WorldScreenAdapter s) {
+        Rectangle offset = g.getClipBounds();
+        for (int i=0; i < this.HEIGHT; i++)
+        {
+            for (int j = 0; j < this.WIDTH; j++)
+            {
+                if (maze[i][j] == 4)
+                {
+                    Point wallScreenPosition = s.convert(j, i);
+                    g.setColor(Color.BLACK);
+                    Draw.dot(g, offset.x + wallScreenPosition.x + s.gridHorizontalSpacing() / 2, offset.y + wallScreenPosition.y + s.gridVerticalSpacing() / 2, 16);
+                }
+                if (maze[i][j] == 7)
+                {
+                    Point wallScreenPosition = s.convert(j, i);
+                    g.setColor(Color.CYAN);
+                    Draw.dot(g, offset.x + wallScreenPosition.x + s.gridHorizontalSpacing() / 2, offset.y + wallScreenPosition.y + s.gridVerticalSpacing() / 2, 16);
+                }
+                if (maze[i][j] == 8)
+                {
+                    Point wallScreenPosition = s.convert(j, i);
+                    g.setColor(Color.MAGENTA);
+                    Draw.dot(g, offset.x + wallScreenPosition.x + s.gridHorizontalSpacing() / 2, offset.y + wallScreenPosition.y + s.gridVerticalSpacing() / 2, 16);
+                }
+            }
+        }
+    }
+
 }
