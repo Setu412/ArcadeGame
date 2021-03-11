@@ -6,7 +6,6 @@ import java.awt.*;
 import java.util.Random;
 
 public class Maze {
-    private Point size;
 
      // Maze variables
     private int WIDTH = 20;
@@ -44,11 +43,13 @@ public class Maze {
                         
     // Constructors
     public Maze(Point size) {
-        this.size = new Point(size);
+        this(size.x, size.y);
     }
 
     public Maze(int width, int height) {
-        this(new Point(width, height));
+
+        this.WIDTH = width;
+        this.HEIGHT = height;
 
         int x1, x2;
          // Randomly generate entrance
@@ -99,7 +100,7 @@ public class Maze {
 
     // Get size of maze
     public Point getSize() {
-        return new Point(size);
+        return new Point(WIDTH , HEIGHT);
     }
 
     // Return whether a move is valid (not running into walls)
@@ -107,13 +108,13 @@ public class Maze {
         // Check if next position is out of bounds
         if (p.x < 1) {
             return false;
-        } else if (p.x >= size.x - 1) {
+        } else if (p.x >= WIDTH - 1) {
             return false;
         }
 
         if (p.y < 1) {
             return false;
-        } else if (p.y >= size.y - 1) {
+        } else if (p.y >= HEIGHT - 1) {
             return false;
         }
 
@@ -158,6 +159,10 @@ public class Maze {
                 }
             }
         }
+    }
+
+    public void complete(){
+        maze[exit.y][exit.x] = 9;
     }
 
     public void render(Graphics g, WorldScreenAdapter s) {

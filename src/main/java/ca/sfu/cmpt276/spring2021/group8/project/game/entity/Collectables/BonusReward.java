@@ -8,6 +8,7 @@ import java.awt.*;
 
 public class BonusReward extends Entity {
 
+    public boolean isVisible = false;
 
     public BonusReward(Point BonusRewardCoordinate) {
         super(BonusRewardCoordinate);
@@ -20,10 +21,11 @@ public class BonusReward extends Entity {
     @Override
     public void render(Graphics g, WorldScreenAdapter s) {
 
-        Rectangle offset = g.getClipBounds();
-        Point BRewardScreenPosition = s.convert(this.getPosition());
-        g.setColor(Color.GREEN);
-        Draw.dot(g, offset.x + BRewardScreenPosition.x + s.gridHorizontalSpacing()/2, offset.y + BRewardScreenPosition.y + s.gridVerticalSpacing()/2, 16);
-
+        if(isVisible) {
+            Rectangle offset = g.getClipBounds();
+            Point BRewardScreenPosition = s.convert(this.getPosition());
+            g.setColor(Color.GREEN);
+            Draw.dot(g, offset.x + BRewardScreenPosition.x + s.gridHorizontalSpacing() / 2, offset.y + BRewardScreenPosition.y + s.gridVerticalSpacing() / 2, 16);
+        }
     }
 }

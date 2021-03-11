@@ -6,7 +6,7 @@ import java.awt.event.*;
 public class Game implements KeyListener {
     private long startTime = System.currentTimeMillis();
     private long score = 0;
-    private World world = new World(20, 10);
+    private World world = new World(20, 12);
 
     public Game() {
         // TODO initialize resources here

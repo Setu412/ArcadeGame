@@ -21,19 +21,23 @@ public class World {
     private ArrayList<Punishment> punishments = new ArrayList<Punishment>();
     private BonusReward bonusReward;
     private long msSinceLastMove = 0;
+    private long msSinceLastBRVisible = 0;
     private GameEffect MovementEffect;
 
     final static int REWARDS_POINTS = 2;
     final static int PUNISHMENT_POINTS = -4;
     final static int BONUS_POINTS = 5;
 
+    private final static long MS_PER_BS_VISIBLE = 5000;
+
 
     public World(Maze maze) {
         this.maze = maze;
         this.player = new Player(maze.startPosition());
-        this.adapter = new WorldScreenAdapter(maze.getSize(), new Point(60, 60));
+        this.adapter = new WorldScreenAdapter(maze.getSize(), new Point(50, 50));
 
-        this.bonusReward = new BonusReward(new Point());
+        this.bonusReward = new BonusReward(maze.getCollectablePoint());
+
         for(int i=0;i<40;i++){
             Point p = maze.getCollectablePoint();
             rewards.add(new Reward(p));
@@ -77,18 +81,22 @@ public class World {
                 enemy.move(maze);
             }
         }
-        updateBRstatus();
+        else
+        updateBR(deltaTime);
     }
 
     //does not work correctly.. requires reimplementation
-    private void updateBRstatus() {
-        if(msSinceLastMove == 5){
-            if(bonusReward.getPosition().equals(new Point())) {
+    private void updateBR( long deltaTime) {
+        msSinceLastBRVisible += deltaTime;
+        if(msSinceLastBRVisible > MS_PER_BS_VISIBLE) {
+            if(!bonusReward.isVisible) {
                 Point p = maze.getCollectablePoint();
-                bonusReward.updateBRCoordinates(p);
+                bonusReward.setPosition(p);
+                bonusReward.isVisible = true;
+                msSinceLastBRVisible -= MS_PER_BS_VISIBLE;
             }
             else
-                bonusReward.updateBRCoordinates(new Point());
+                bonusReward.isVisible = false;
         }
     }
 
@@ -100,28 +108,29 @@ public class World {
          //    return MovementEffect.createLoseEffect();
         //}
 
-        if (true) {
-            // check if hit collectible
+        // check if hit collectible
 
-            /**
-             * Indentifies type of COllectable and called createScoreEffect to update score
-             */
-            for (int i = 0; i < rewards.size(); i++) {
-                if (rewards.get(i).getPosition().equals(pos)) {
-                    rewards.remove(i);
-                    return MovementEffect.createScoreEffect(REWARDS_POINTS);
+        /**
+         * Identifies type of COllectable and called createScoreEffect to update score
+         */
+        for (int i = 0; i < rewards.size(); i++) {
+            if (rewards.get(i).getPosition().equals(pos)) {
+                rewards.remove(i);
+                if(rewards.size() == 0){
+                    maze.complete();
                 }
+                return MovementEffect.createScoreEffect(REWARDS_POINTS);
             }
-            for (int i = 0; i < punishments.size(); i++) {
-                if (punishments.get(i).getPosition().equals(pos)) {
-                    punishments.remove(i);
-                    return MovementEffect.createScoreEffect(PUNISHMENT_POINTS);
-                }
+        }
+        for (int i = 0; i < punishments.size(); i++) {
+            if (punishments.get(i).getPosition().equals(pos)) {
+                punishments.remove(i);
+                return MovementEffect.createScoreEffect(PUNISHMENT_POINTS);
             }
-            if (bonusReward.getPosition().equals(pos)) {
-                bonusReward.updateBRCoordinates(new Point());
-                return MovementEffect.createScoreEffect(BONUS_POINTS);
-            }
+        }
+        if (bonusReward.getPosition().equals(pos)) {
+            bonusReward.updateBRCoordinates(new Point());
+            return MovementEffect.createScoreEffect(BONUS_POINTS);
         }
         return null;
     }
