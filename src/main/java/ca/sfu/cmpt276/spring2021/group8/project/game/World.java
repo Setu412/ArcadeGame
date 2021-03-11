@@ -21,6 +21,7 @@ public class World {
     private ArrayList<Punishment> punishments = new ArrayList<Punishment>();
     //private ArrayList<BonusReward> bonusReward = new ArrayList<BonusReward>();
     private long msSinceLastMove = 0;
+    private GameEffect MovementEffect;
 
     final static int REWARDS_POINTS = 2;
     final static int PUNISHMENT_POINTS = -4;
@@ -80,27 +81,29 @@ public class World {
     public GameEffect getGameEffect() {
         Point pos = player.getPosition();
 
-        // if (false) { // check if hit enemy
-        //
-        //     return MovementEffect.createLoseEffect();
-        // }
+        //if (false) { // cannot have false
 
-        if (false) { // check if hit collectible
+         //    return MovementEffect.createLoseEffect();
+        //}
 
-            //MovementEffect?
+        if (true) {
+            // check if hit collectible
+
             /**
              * Indentifies type of COllectable and called createScoreEffect to update score
              */
             for (int i = 0; i < rewards.size(); i++) {
-                if (pos == rewards.get(i).getPosition()) {
+                if (pos.x ==  rewards.get(i).getPosition().x && pos.y ==  rewards.get(i).getPosition().y) {
+                    System.out.println("Ran into reward");
                     rewards.remove(i);
-                //return MovementEffect.createScoreEffect(REWARDS_POINTS);
+                    return MovementEffect.createScoreEffect(REWARDS_POINTS);
                 }
             }
             for (int i = 0; i < punishments.size(); i++) {
-                if (pos == punishments.get(i).getPosition()) {
+                if (pos.x ==  punishments.get(i).getPosition().x && pos.y ==  punishments.get(i).getPosition().y) {
                     punishments.remove(i);
-                    //return MovementEffect.createScoreEffect(PUNISHMENT_POINTS);
+                    System.out.println("Ran into punishment");
+                    return MovementEffect.createScoreEffect(PUNISHMENT_POINTS);
                 }
             }
             /*
@@ -167,7 +170,5 @@ public class World {
         }
         // render the player last so it is on top
         player.render(g, adapter);
-
-
     }
 }
