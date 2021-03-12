@@ -36,18 +36,86 @@ public class World {
         this.player = new Player(maze.startPosition());
         this.adapter = new WorldScreenAdapter(maze.getSize(), new Point(50, 50));
 
-        this.bonusReward = new BonusReward(maze.getCollectablePoint());
+        this.bonusReward = new BonusReward(maze.getCollectiblePoint());
 
-        for(int i=0;i<40;i++){
-            Point p = maze.getCollectablePoint();
+        /*for (int i = 0; i < 40; i++) {
+            Point p = maze.getCollectiblePoint()();
             rewards.add(new Reward(p));
+        }*/
+
+        // Create rewards
+        int k = 0;
+        while (k< 40){
+            boolean status = true;
+            Point p = maze.getCollectiblePoint();
+            if (k == 0) {
+                rewards.add(new Reward(p));
+                k++;
+                continue;
+            }
+            for (Reward r : rewards) {
+                if (p.equals(r.getPosition())) {
+                    status = false;
+                    break;
+                }
+            }
+
+            if (status) {
+                rewards.add(new Reward(p));
+                k++;
+            }
         }
 
-        for(int i=0;i<15;i++){
-            Point p = maze.getCollectablePoint();
-            punishments.add(new Punishment(p));
+        // Create punishments
+        k = 0;
+        while (k< 20){
+            boolean status = true;
+            Point p = maze.getCollectiblePoint();
+            if (k == 0) {
+                for (Reward r : rewards) {
+                    if (p.equals(r.getPosition())) {
+                        status = false;
+                        break;
+                    }
+                }
+                if (status) {
+                    punishments.add(new Punishment(p));
+                    k++;
+                    continue;
+                }
+
+            }
+            for (Reward r : rewards) {
+                if (p.equals(r.getPosition())) {
+                    status = false;
+                    break;
+                }
+            }
+
+            for (Punishment b : punishments) {
+                if (p.equals(b.getPosition())) {
+                    status = false;
+                    break;
+                }
+            }
+
+            if (p.equals(maze.nextToStart) || p.equals(maze.nextToExit)) {
+                status = false;
+            }
+
+            if (status) {
+                punishments.add(new Punishment(p));
+                k++;
+            }
+
         }
-        maze.resetMaze();
+
+
+        /*for(int i=0;i<15;i++){
+            Point p = maze.getCollectiblePoint();
+            punishments.add(new Punishment(p));
+        }*/
+        //maze.resetMaze();
 
         //bonusReward.add(new BonusReward(new Point(0,0))); //update this (0,0) coordinate
 
@@ -90,7 +158,7 @@ public class World {
         msSinceLastBRVisible += deltaTime;
         if(msSinceLastBRVisible > MS_PER_BS_VISIBLE) {
             if(!bonusReward.isVisible) {
-                Point p = maze.getCollectablePoint();
+                Point p = maze.getCollectiblePoint();
                 bonusReward.setPosition(p);
                 bonusReward.isVisible = true;
                 msSinceLastBRVisible -= MS_PER_BS_VISIBLE;
@@ -111,7 +179,7 @@ public class World {
         // check if hit collectible
 
         /**
-         * Identifies type of COllectable and called createScoreEffect to update score
+         * Identifies type of Collectible and called createScoreEffect to update score
          */
         for (int i = 0; i < rewards.size(); i++) {
             if (rewards.get(i).getPosition().equals(pos)) {

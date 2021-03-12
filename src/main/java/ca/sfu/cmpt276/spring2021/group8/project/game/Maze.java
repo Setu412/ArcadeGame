@@ -7,12 +7,15 @@ import java.util.Random;
 
 public class Maze {
 
-     // Maze variables
+    // Maze variables
     private int WIDTH = 20;
     private int HEIGHT = 12;
 
     private Point start;
     private Point exit;
+
+    public Point nextToStart;
+    public Point nextToExit;
 
     // Maze element ID's:
     // -2 <- punishment
@@ -27,7 +30,7 @@ public class Maze {
     //  8 <- exit (9) if it is unlocked
     // X <- [][]
     // Y <- []
-    private int[][] maze ={ {4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4},
+    private int[][] maze={ {4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4},
                             {4, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 4},
                             {4, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 4},
                             {4, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 4},
@@ -48,49 +51,62 @@ public class Maze {
 
     public Maze(int width, int height) {
 
-        this.WIDTH = width;
-        this.HEIGHT = height;
+        /*int z = getRandomInt(0, matrix.size() - 1);
+        for (int i = 0; i < HEIGHT; i++) {
+            for (int j=0; j < WIDTH: j++) {
+                maze[i][j] = matrix.get(z)[i][j];
+            }
+        } */
+
+        WIDTH= width;
+        HEIGHT = height;
 
         int x1, x2;
          // Randomly generate entrance
-        x1 = getRandomInt(0, this.HEIGHT - 1);
+        x1 = getRandomInt(0, HEIGHT - 1);
         // If random height is first or last row
-        if (x1 == 0 || x1 == this.HEIGHT - 1) {
-            x2 = getRandomInt(1, this.WIDTH - 2);
+        if (x1 == 0 || x1 == HEIGHT - 1) {
+            x2 = getRandomInt(1, WIDTH- 2);
             maze[x1][x2] = 7;
         } else {
             x2 = getRandomInt(0, 1);
             if (x2 == 0) {
                 maze[x1][x2] = 7;
             } else {
-                x2 = this.WIDTH - 1;
+                x2 = WIDTH- 1;
                 maze[x1][x2] = 7;
             }
         }
-        this.start = new Point(x2, x1);
+        start = new Point(x2, x1);
 
          // Randomly generate exit
-        x1 = getRandomInt(0, this.HEIGHT - 1);
+        x1 = getRandomInt(0, HEIGHT - 1);
         // If random height is first or last row
-        if (x1 == 0 || x1 == this.HEIGHT - 1) {
-            x2 = getRandomInt(1, this.WIDTH - 2);
+        if (x1 == 0 || x1 == HEIGHT - 1) {
+            x2 = getRandomInt(1, WIDTH- 2);
             while (maze[x1][x2] == 7) {
-                x2 = getRandomInt(1, this.WIDTH - 2);
+                x2 = getRandomInt(1, WIDTH- 2);
             }
             maze[x1][x2] = 8;
         } else {
             x2 = getRandomInt(0, 1);
             while (maze[x1][x2] == 7) {
-                x2 = getRandomInt(1, this.WIDTH - 2);
+                x2 = getRandomInt(1, WIDTH- 2);
             }
             if (x2 == 0) {
                 maze[x1][x2] = 8;
             } else {
-                x2 = this.WIDTH - 1;
+                x2 = WIDTH- 1;
                 maze[x1][x2] = 8;
             }
         } 
-        this.exit = new Point(x2, x1); 
+        exit = new Point(x2, x1);
+
+        nextToStart = nextToDoors(start);
+        nextToExit = nextToDoors(exit);
+
+        // Generate barriers ** TO BE DETERMINED
+
     }
 
     // Initialize starting position
@@ -105,6 +121,11 @@ public class Maze {
 
     // Return whether a move is valid (not running into walls)
     public boolean isValidPosition(Point p) {
+
+        if (p.equals(exit) && maze[exit.y][exit.x] == 0) {
+            return true;
+        }
+
         // Check if next position is out of bounds
         if (p.x < 1) {
             return false;
@@ -126,33 +147,27 @@ public class Maze {
         return true;
     }
 
-    // Get value at coordinate
-    public int getCoordValue(int x, int y) {
-        return this.maze[y][x];
-    }
-
-       // Generate random integer within range
+    // Generate random integer within range
     static int getRandomInt(int min, int max) {
         Random r = new Random();
         return r.nextInt((max - min) + 1) + min;
     }
     
-    // Returns an unused Point in the maze for an collectible object to use
-    public Point getCollectablePoint() {
-            int x1 = getRandomInt(1, this.HEIGHT - 2);
-            int x2 = getRandomInt(1, this.WIDTH - 2);
+    // Returns a Point in the maze to use
+    public Point getCollectiblePoint() {
+            int x1 = getRandomInt(1, HEIGHT - 2);
+            int x2 = getRandomInt(1, WIDTH- 2);
             while (maze[x1][x2] != 0) {
-                x1 = getRandomInt(1, this.HEIGHT - 2);
-                x2 = getRandomInt(1, this.WIDTH - 2);
+                x1 = getRandomInt(1, HEIGHT - 2);
+                x2 = getRandomInt(1, WIDTH- 2);
             }
-            maze[x1][x2] = 2;
             return new Point(x2, x1);
     }
 
     // Resets the maze to the original design (call after creating all the collectible objects) 
-    // * Issue: doesn't have any interal walls right now
+    // * Issue: doesn't have any internal walls right now
     public void resetMaze() {
-        for (int i=0; i < this.HEIGHT; i++) {
+        for (int i=0; i < HEIGHT; i++) {
             for (int j=0; j < this.WIDTH; j++) {
                 if (maze[i][j] == 2) {
                     maze[i][j] = 0;
@@ -162,12 +177,30 @@ public class Maze {
     }
 
     public void complete(){
-        maze[exit.y][exit.x] = 9;
+        maze[exit.y][exit.x] = 0;
+    }
+
+    // Set the coordinates of the position next to the doors
+    public Point nextToDoors(Point door) {
+        // Check what row it is on
+        if (door.y == 0) {
+            return new Point(door.x,  door.y + 1);
+        }
+        if (door.y == HEIGHT - 1) {
+            return new Point(door.x, door.y - 1);
+        }
+        if (door.x == 0) {
+            return new Point(door.x + 1, door.y);
+        }
+        if (door.x == WIDTH - 1) {
+            return new Point(door.x - 1, door.y);
+        }
+        return null;
     }
 
     public void render(Graphics g, WorldScreenAdapter s) {
         Rectangle offset = g.getClipBounds();
-        for (int i=0; i < this.HEIGHT; i++)
+        for (int i=0; i < HEIGHT; i++)
         {
             for (int j = 0; j < this.WIDTH; j++)
             {
