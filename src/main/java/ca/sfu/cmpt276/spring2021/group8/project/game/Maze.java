@@ -48,6 +48,8 @@ public class Maze {
     public Maze(int width, int height) {
         this(new Point(width, height));
 
+        int x1, x2;
+
          // Randomly generate entrance
         x1 = getRandomInt(0, this.HEIGHT - 1);
         // If random height is first or last row
@@ -86,7 +88,19 @@ public class Maze {
                 maze[x1][x2] = 8;
             }
         } 
-        this.exit = new Point(x2, x1); 
+        this.exit = new Point(x2, x1);
+
+        // Randomly generate barriers
+        x1 = getRandomInt(1, this.HEIGHT - 2);
+        x2 = getRandomInt(1, this.WIDTH - 2);
+        for (int i=0; i < this.BARRIER_NUM; i++) {
+            while (maze[x1][x2] != 0) {
+                x1 = getRandomInt(1, this.HEIGHT - 2);
+                x2 = getRandomInt(1, this.WIDTH - 2);   
+            } 
+            maze[x1][x2] = 5;
+        }
+
     }
 
     // Initialize starting position
@@ -147,7 +161,7 @@ public class Maze {
 
     // Resets the maze to the original design (call after creating all the collectible objects) 
     // * Issue: doesn't have any interal walls right now
-    public Point resetMaze() {
+    public void resetMaze() {
         for (int i=0; i < this.HEIGHT; i++) {
             for (int j=0; j < this.WIDTH; j++) {
                 if (maze[i][j] != 4 || maze[i][j] != 0) {
@@ -155,15 +169,6 @@ public class Maze {
                 }
             }
         }
-    }
-
-
-
-    // Check if player has hit collectible
-    public Point hitCollectible(ArrayList<collectible> collectibles) {
-        // loop through arraylist of rewards, punishment, bonuns
-        // if player point and collectible point are the same
-            // return point of collectible to pop
     }
  
 }
