@@ -98,6 +98,7 @@ public class Maze {
     // Return whether a move is valid (not running into walls)
     public boolean isValidPosition(Point p) {
 
+        //check if moving towards unlocked exit tile
         if (p.equals(exit) && maze[exit.y][exit.x] == 0) {
             return true;
         }

@@ -6,18 +6,19 @@ import ca.sfu.cmpt276.spring2021.group8.project.game.entity.Entity;
 import java.awt.Point;
 
 public class TargetedMovementGenerator implements MovementGenerator {
-    private final Entity entity;
+    private final Entity target;
     private final Maze maze;
 
-    public TargetedMovementGenerator(Maze maze, Entity entity) {
+    public TargetedMovementGenerator(Maze maze, Entity target) {
         this.maze = maze;
-        this.entity = entity;
+        this.target = target;
     }
 
-    public Direction next() {
-        Point pos = entity.getPosition();
+    public Direction next(Point currentPosition) {
+        Point pos = target.getPosition();
         maze.isValidPosition(pos);
         // TODO figure out best direction to reach the entity
+
         return Direction.South;
     }
 }

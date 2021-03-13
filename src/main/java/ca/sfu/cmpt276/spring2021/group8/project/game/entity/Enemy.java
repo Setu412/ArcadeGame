@@ -15,7 +15,7 @@ public class Enemy extends Entity {
     }
 
     public void move(Maze maze) {
-        tryMove(maze, movementGenerator.next().getNewPosition(getPosition()));
+        tryMove(maze, movementGenerator.next(this.getPosition()).getNewPosition(getPosition()));
     }
 
     @Override
