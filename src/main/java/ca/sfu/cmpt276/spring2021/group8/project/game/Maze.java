@@ -144,7 +144,13 @@ public class Maze {
             return false;
         }
 
-        return true;
+        // Game is won
+        if (result == 9) {
+            //TODO winning screen
+            return 9;
+        }
+
+        return 1;
     }
 
     // Generate random integer within range
@@ -227,3 +233,19 @@ public class Maze {
     }
 
 }
+    /*
+
+    public boolean unlockedStatus() {
+        setCoordValue(nextX, nextY, 1);
+        setCoordValue(X, Y, 9);
+    }
+
+    public int getValueAtXYinMaze(int x, int y){
+        return maze[x][y];
+    }
+
+    public int getScore() {
+        return this.score;
+    }
+
+    */

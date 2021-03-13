@@ -18,6 +18,7 @@ public abstract class Entity {
     public Entity() {
     }
 
+
     public Point getPosition() {
         return new Point(position);
     }
@@ -35,8 +36,6 @@ public abstract class Entity {
             return;
         }
 
-        this.position = position;
-    }
 
     abstract public void render(Graphics g, WorldScreenAdapter s);
 }

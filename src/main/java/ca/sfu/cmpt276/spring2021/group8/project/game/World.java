@@ -31,6 +31,8 @@ public class World {
     private final static long MS_PER_BS_VISIBLE = 5000;
 
 
+    private int tickCount = 0;
+
     public World(Maze maze) {
         this.maze = maze;
         this.player = new Player(maze.startPosition());
@@ -234,6 +236,8 @@ public class World {
     }
 
     public void render(Graphics g, Point size) {
+
+        tickCount++;
         Point gridSize = adapter.gridSize();
 
         int xoffset = (size.x - gridSize.x) / 2;
@@ -260,5 +264,20 @@ public class World {
 
         // render the player last so it is on top
         player.render(g, adapter);
+
+        rewards.render(g,adapter);
+        punishments.render(g,adapter);
+
+        //logic to make bonus reward appear in few ticks
+        if(tickCount%10 == 0)
+        {
+            maze.TimedApprearance();
+            //0-10
+            //10-20 generate, bonus reward will be there on the maze
+            //20-30 removed
+            //should be removed or generated
+        }
+        bonusRewards.render(g,adapter);
+
     }
 }
