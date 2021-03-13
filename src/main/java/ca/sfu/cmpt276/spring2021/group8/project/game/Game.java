@@ -2,18 +2,23 @@ package ca.sfu.cmpt276.spring2021.group8.project.game;
 
 import java.awt.*;
 import java.awt.event.*;
-import java.text.SimpleDateFormat;
+import java.awt.image.*;
 
 public class Game implements KeyListener {
     private long startTime = System.currentTimeMillis();
     private long score = 0;
     private World world = new World();
+    private boolean quitNextUpdate = false;
 
     public Game() {
         // TODO initialize resources here
     }
 
-    public void update(long deltaTime) {
+    private GameResult update(long deltaTime) {
+        if (quitNextUpdate) {
+            return GameResult.QUIT;
+        }
+
         /**
          * all game logic calling here and returning here
          * change isRunning to false when player wants to stop
@@ -23,18 +28,20 @@ public class Game implements KeyListener {
         GameEffect effect = world.getGameEffect();
         if (effect != null) {
             if (effect.lose) {
-                // TODO lose game here
                 System.out.println("lost the game :(");
+                return GameResult.LOSE;
             }
             //update score
             this.score += effect.score;
 
             //check if score is negative --> ends game
             if(this.score < 0){
-                // TODO lose game here
                 System.out.println("lost the game :(");
+                return GameResult.LOSE;
             }
         }
+
+        return null;
     }
 
     private long msSinceGameStart() {
@@ -60,7 +67,7 @@ public class Game implements KeyListener {
 
     }
 
-    public void render(Graphics g, Point size) {
+    private void render(Graphics g, Point size) {
         world.render(g, size);
         g.setClip(null);
 
@@ -74,12 +81,53 @@ public class Game implements KeyListener {
 
         // TODO draw more ui elements
     }
+    
+    public GameResult loop(Canvas canvas) {
+        BufferStrategy buffer = canvas.getBufferStrategy();
+        if (buffer == null) {
+            canvas.createBufferStrategy(2);
+            buffer = canvas.getBufferStrategy();
+        }
+
+        long lastFrameTime = System.currentTimeMillis();
+        while (true) {
+            Rectangle rect = canvas.getBounds();
+            // subtract the offset to get the actual canvas size
+            Point size = new Point(rect.width, rect.height);
+
+            Graphics g = buffer.getDrawGraphics();
+            try {
+                g.clearRect(0, 0, rect.width, rect.height);
+                render(g, size);
+                buffer.show();
+                final long currentTime = System.currentTimeMillis();
+                final long deltaTime = currentTime - lastFrameTime;
+                lastFrameTime = currentTime;
+                GameResult result = update(deltaTime);
+                if (result != null) {
+                    return result;
+                }
+            } finally {
+                if (g != null) {
+                    g.dispose();
+                }
+            }
+        }
+    }
+
+    private void quit() {
+        quitNextUpdate = true;
+    }
 
     @Override
     public void keyPressed(KeyEvent e) {
         Direction direction;
         switch (e.getKeyCode()) {
             default:
+                return;
+
+            case KeyEvent.VK_Q:
+                quit();
                 return;
 
             case KeyEvent.VK_LEFT:

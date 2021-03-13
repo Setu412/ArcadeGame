@@ -4,23 +4,44 @@ package ca.sfu.cmpt276.spring2021.group8.project;
 import ca.sfu.cmpt276.spring2021.group8.project.game.*;
 import java.awt.*;
 import java.awt.event.*;
-import java.awt.image.*;
+
+import javax.swing.*;
 
 public class Main {
-    final static int width = 1280;
-    final static int height = 720;
+    private static final String SCREEN_GAME = "game";
+    private static final String SCREEN_MAINMENU = "mainmenu";
+
+    private final static int width = 1280;
+    private final static int height = 720;
+
+    private Canvas canvas;
+    
+    private CardLayout cardLayout = new CardLayout();
+    private JPanel panel = new JPanel();
 
     public static void main(String[] args) {
-        Game game = new Game();
-        Frame f = new Frame();
-        final Canvas canvas = new Canvas();
-        canvas.setSize(width, height);
-        f.add(canvas);
-        f.pack();
+        new Main().showMainMenu();
+    }
+
+    private Main() {
+        JFrame f = new JFrame();
+
+        panel.setLayout(cardLayout);
+
+        f.add(panel);
+
+        f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         f.setSize(width, height);
         f.setVisible(true);
-        canvas.createBufferStrategy(2);
-        canvas.addKeyListener(game);
+
+        panel.add(createMainMenu(), SCREEN_MAINMENU);
+        panel.add(createGameCanvas(width, height), SCREEN_GAME);
+    }
+
+    private Canvas createGameCanvas(int width, int height) {
+        canvas = new Canvas();
+
+        canvas.setSize(width, height);
         canvas.addComponentListener(new ComponentAdapter() {
             @Override
             public void componentResized(ComponentEvent e) {
@@ -32,54 +53,54 @@ public class Main {
             }
         });
 
-        f.addWindowListener(new WindowAdapter() {
+        return canvas;
+    }
+
+    private Component createMainMenu() {
+        JPanel panel = new JPanel();
+
+        JButton btn = new JButton("Start Game");
+
+        btn.addMouseListener(new MouseAdapter() {
             @Override
-            public void windowClosing(WindowEvent e) {
-                System.exit(0);
+            public void mouseClicked(MouseEvent e) {
+                startGame();
             }
         });
+        panel.add(btn);
+        panel.setBackground(Color.red);
 
-        loop(canvas, game);
+        return panel;
     }
 
-    private Main() {
-        // prof = ImageLoader.loadImage("/Images/Professor.jpg");
-        // student = ImageLoader.loadImage("/Images/Student.jpg");
-    }
+    private void startGame() {
+        cardLayout.show(panel, SCREEN_GAME);
+        canvas.requestFocusInWindow();
 
-    private static void loop(Canvas canvas, Game game) {
-        BufferStrategy buffer = canvas.getBufferStrategy();
-        long lastFrameTime = System.currentTimeMillis();
-        while (true) {
-            Rectangle rect = canvas.getBounds();
-            // subtract the offset to get the actual canvas size
-            Point size = new Point(rect.width, rect.height);
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                Game game = new Game();
+                try {
+                    canvas.addKeyListener(game);
 
-            Graphics g = buffer.getDrawGraphics();
-            try {
-                g.clearRect(0, 0, rect.width, rect.height);
-                game.render(g, size);
-                buffer.show();
-                final long currentTime = System.currentTimeMillis();
-                final long deltaTime = currentTime - lastFrameTime;
-                lastFrameTime = currentTime;
-                game.update(deltaTime);
-            } finally {
-                if (g != null) {
-                    g.dispose();
+                    GameResult result = game.loop(canvas);
+                    switch (result) {
+                    default:
+                        System.out.println("game result: " + result.toString());
+                        showMainMenu();
+                        break;
+
+                    // TODO handle other game results
+                    }
+                } finally {
+                    canvas.removeKeyListener(game);
                 }
             }
-        }
+        }).start();
     }
 
-    // @Override
-    // public void paint(Graphics g) {
-    //     super.paint(g);
-
-    //     Rectangle rect = this.getBounds();
-    //     // subtract the offset to get the actual canvas size
-    //     Point size = new Point(rect.width, rect.height);
-
-    //     game.paint(g, size);
-    // }
+    private void showMainMenu() {
+        cardLayout.show(panel, SCREEN_MAINMENU);
+    }
 }
