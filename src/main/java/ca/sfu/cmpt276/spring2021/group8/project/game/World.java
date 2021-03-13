@@ -30,7 +30,6 @@ public class World {
 
     private final static long MS_PER_BS_VISIBLE = 5000;
 
-
     public World(Maze maze) {
         this.maze = maze;
         this.player = new Player(maze.startPosition());
@@ -38,84 +37,20 @@ public class World {
 
         this.bonusReward = new BonusReward(maze.getCollectiblePoint());
 
-        /*for (int i = 0; i < 40; i++) {
-            Point p = maze.getCollectiblePoint()();
-            rewards.add(new Reward(p));
-        }*/
-
         // Create rewards
-        int k = 0;
-        while (k< 40){
-            boolean status = true;
-            Point p = maze.getCollectiblePoint();
-            if (k == 0) {
-                rewards.add(new Reward(p));
-                k++;
-                continue;
-            }
-            for (Reward r : rewards) {
-                if (p.equals(r.getPosition())) {
-                    status = false;
-                    break;
-                }
-            }
-
-            if (status) {
-                rewards.add(new Reward(p));
-                k++;
-            }
+        for (int i = 0; i < 40; i++) {
+            Point p;
+            do {
+                p = maze.getCollectiblePoint();
+            } while (!isEmptyPosition(p));
+            
+            rewards.add(new Reward(p));
         }
 
         // Create punishments
-        k = 0;
-        while (k< 20){
-            boolean status = true;
-            Point p = maze.getCollectiblePoint();
-            if (k == 0) {
-                for (Reward r : rewards) {
-                    if (p.equals(r.getPosition())) {
-                        status = false;
-                        break;
-                    }
-                }
-                if (status) {
-                    punishments.add(new Punishment(p));
-                    k++;
-                    continue;
-                }
-
-            }
-            for (Reward r : rewards) {
-                if (p.equals(r.getPosition())) {
-                    status = false;
-                    break;
-                }
-            }
-
-            for (Punishment b : punishments) {
-                if (p.equals(b.getPosition())) {
-                    status = false;
-                    break;
-                }
-            }
-
-            if (p.equals(maze.nextToStart) || p.equals(maze.nextToExit)) {
-                status = false;
-            }
-
-            if (status) {
-                punishments.add(new Punishment(p));
-                k++;
-            }
-
+        for (int i = 0; i < 20; i++) {
+            punishments.add(new Punishment(getEmptyCollectiblePoint()));
         }
-
-
-        /*for(int i=0;i<15;i++){
-            Point p = maze.getCollectiblePoint();
-            punishments.add(new Punishment(p));
-        }*/
-        //maze.resetMaze();
 
         //bonusReward.add(new BonusReward(new Point(0,0))); //update this (0,0) coordinate
 
@@ -124,12 +59,43 @@ public class World {
         // this.enemies.add(new Enemy(this.player.getTargetedMovementGenerator(maze), new Point(0, 0)));
     }
 
-    public World(Point size) {
-        this(new Maze(size));
+    public World() {
+        this(new Maze());
     }
 
-    public World(int width, int height) {
-        this(new Maze(width, height));
+    private boolean isRewardPoint(Point p) {
+        for (Reward e : rewards) {
+            if (p.equals(e.getPosition())) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    private boolean isPunishmentPoint(Point p) {
+        for (Punishment e : punishments) {
+            if (p.equals(e.getPosition())) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    private boolean isEmptyPosition(Point p) {
+        return !isRewardPoint(p) && !isPunishmentPoint(p);
+    }
+
+    private Point getEmptyCollectiblePoint() {
+        // TODO fix this function for the case when there are no empty positions
+
+        Point p;
+        do {
+            p = maze.getCollectiblePoint();
+        } while (!isEmptyPosition(p));
+
+        return p;
     }
 
     public Point getSize() {
