@@ -9,7 +9,7 @@ public class GameEffect {
     }
 
     public static GameEffect createLoseEffect() {
-        return new GameEffect(0, false);
+        return new GameEffect(0, true);
     }
 
     private GameEffect(int score, boolean lose) {

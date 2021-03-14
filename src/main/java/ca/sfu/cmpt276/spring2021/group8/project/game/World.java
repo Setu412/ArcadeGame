@@ -124,14 +124,18 @@ public class World {
         {
             if (collectables.get(i).getPosition().equals(pos))
             {
-                GameEffect scoreEffect=GameEffect.createScoreEffect(collectables.get(i).getPoints());
                 collectables.remove(i);
-                return scoreEffect;
+                return GameEffect.createScoreEffect(collectables.get(i).getPoints());
             }
         }
         if (bonusReward.getPosition().equals(pos)) {
             bonusReward.updateBRCoordinates(new Point());
             return GameEffect.createScoreEffect(bonusReward.getPoints());
+        }
+        for (Enemy enemy : enemies) {
+            if (enemy.getPosition().equals(pos)) {
+                return GameEffect.createLoseEffect();
+            }
         }
         return null;
     }
