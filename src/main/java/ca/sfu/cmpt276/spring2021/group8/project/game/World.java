@@ -2,9 +2,10 @@ package ca.sfu.cmpt276.spring2021.group8.project.game;
 
 import ca.sfu.cmpt276.spring2021.group8.project.Draw;
 import ca.sfu.cmpt276.spring2021.group8.project.game.entity.*;
-import ca.sfu.cmpt276.spring2021.group8.project.game.entity.Collectables.BonusReward;
-import ca.sfu.cmpt276.spring2021.group8.project.game.entity.Collectables.Punishment;
-import ca.sfu.cmpt276.spring2021.group8.project.game.entity.Collectables.Reward;
+import ca.sfu.cmpt276.spring2021.group8.project.game.entity.collectables.BonusReward;
+import ca.sfu.cmpt276.spring2021.group8.project.game.entity.collectables.Collectable;
+import ca.sfu.cmpt276.spring2021.group8.project.game.entity.collectables.Punishment;
+import ca.sfu.cmpt276.spring2021.group8.project.game.entity.collectables.Reward;
 
 import java.awt.*;
 import java.util.ArrayList;
@@ -17,8 +18,9 @@ public class World {
     private Player player;
     private LinkedList<Enemy> enemies = new LinkedList<>();
     private WorldScreenAdapter adapter;
-    private ArrayList<Reward> rewards = new ArrayList<Reward>();
-    private ArrayList<Punishment> punishments = new ArrayList<Punishment>();
+//    private ArrayList<Reward> rewards = new ArrayList<>();
+//    private ArrayList<Punishment> punishments = new ArrayList<>();
+    private ArrayList<Collectable> collectables= new ArrayList<>();
     private BonusReward bonusReward;
     private long msSinceLastMove = 0;
     private long msSinceLastBRVisible = 0;
@@ -39,12 +41,12 @@ public class World {
 
         // Create rewards
         for (int i = 0; i < 40; i++) {
-            rewards.add(new Reward(generateEmptyPosition()));
+            collectables.add(new Reward(generateEmptyPosition()));
         }
 
         // Create punishments
         for (int i = 0; i < 20; i++) {
-            punishments.add(new Punishment(generateEmptyPosition()));
+            collectables.add(new Punishment(generateEmptyPosition()));
         }
 
         //bonusReward.add(new BonusReward(new Point(0,0))); //update this (0,0) coordinate
@@ -58,28 +60,41 @@ public class World {
         this(new Maze());
     }
 
-    private boolean isRewardPoint(Point p) {
-        for (Reward e : rewards) {
-            if (p.equals(e.getPosition())) {
+//    private boolean isRewardPoint(Point p) {
+//        for (Reward e : rewards) {
+//            if (p.equals(e.getPosition())) {
+//                return true;
+//            }
+//        }
+//
+//        return false;
+//    }
+//
+//    private boolean isPunishmentPoint(Point p) {
+//        for (Punishment e : punishments) {
+//            if (p.equals(e.getPosition())) {
+//                return true;
+//            }
+//        }
+//
+//        return false;
+//    }
+
+    private boolean isCollectiblePoint(Point p)
+    {
+        for (Collectable e:collectables)
+        {
+            if (p.equals(e.getPosition()))
+            {
                 return true;
             }
         }
-
-        return false;
-    }
-
-    private boolean isPunishmentPoint(Point p) {
-        for (Punishment e : punishments) {
-            if (p.equals(e.getPosition())) {
-                return true;
-            }
-        }
-
         return false;
     }
 
     private boolean isEmptyPosition(Point p) {
-        return !isRewardPoint(p) && !isPunishmentPoint(p);
+        //return !isRewardPoint(p) && !isPunishmentPoint(p);
+        return !isCollectiblePoint(p);
     }
 
     private Point generateEmptyPosition() {
@@ -141,24 +156,33 @@ public class World {
         /**
          * Identifies type of Collectible and called createScoreEffect to update score
          */
-        for (int i = 0; i < rewards.size(); i++) {
-            if (rewards.get(i).getPosition().equals(pos)) {
-                rewards.remove(i);
-                if(rewards.size() == 0){
-                    maze.complete();
-                }
-                return MovementEffect.createScoreEffect(REWARDS_POINTS);
-            }
-        }
-        for (int i = 0; i < punishments.size(); i++) {
-            if (punishments.get(i).getPosition().equals(pos)) {
-                punishments.remove(i);
-                return MovementEffect.createScoreEffect(PUNISHMENT_POINTS);
+//        for (int i = 0; i < rewards.size(); i++) {
+//            if (rewards.get(i).getPosition().equals(pos)) {
+//                rewards.remove(i);
+//                if(rewards.size() == 0){
+//                    maze.complete();
+//                }
+//                return MovementEffect.createScoreEffect(REWARDS_POINTS);
+//            }
+//        }
+//        for (int i = 0; i < punishments.size(); i++) {
+//            if (punishments.get(i).getPosition().equals(pos)) {
+//                punishments.remove(i);
+//                return MovementEffect.createScoreEffect(PUNISHMENT_POINTS);
+//            }
+//        }
+        for (int i=0;i<collectables.size();i++)
+        {
+            if (collectables.get(i).getPosition().equals(pos))
+            {
+                GameEffect scoreEffect=GameEffect.createScoreEffect(collectables.get(i).getPoints());
+                collectables.remove(i);
+                return scoreEffect;
             }
         }
         if (bonusReward.getPosition().equals(pos)) {
             bonusReward.updateBRCoordinates(new Point());
-            return MovementEffect.createScoreEffect(BONUS_POINTS);
+            return GameEffect.createScoreEffect(BONUS_POINTS);
         }
         return null;
     }
@@ -179,16 +203,16 @@ public class World {
 
         for (int y = 0; y <= adapter.worldHeight(); y++) {
             Point left = adapter.convert(0, y);
-            Point rigth = adapter.convert(adapter.worldWidth(), y);
-            g.drawLine(xoffset + left.x, yoffset + left.y, xoffset + rigth.x, yoffset + rigth.y);
+            Point right = adapter.convert(adapter.worldWidth(), y);
+            g.drawLine(xoffset + left.x, yoffset + left.y, xoffset + right.x, yoffset + right.y);
         }
 
-        int xpadding = adapter.gridVerticalSpacing()/2;
-        int ypadding = adapter.gridHorizontalSpacing()/2;
+        int xPadding = adapter.gridVerticalSpacing()/2;
+        int yPadding = adapter.gridHorizontalSpacing()/2;
         for (int x = 0; x < adapter.worldWidth(); x++) {
             for (int y = 0; y < adapter.worldHeight(); y++) {
                 Point screenPoint = adapter.convert(x, y);
-                Draw.dot(g, xoffset + screenPoint.x + xpadding, yoffset + screenPoint.y + ypadding, 2);
+                Draw.dot(g, xoffset + screenPoint.x + xPadding, yoffset + screenPoint.y + yPadding, 2);
             }
         }
     }
@@ -196,12 +220,12 @@ public class World {
     public void render(Graphics g, Point size) {
         Point gridSize = adapter.gridSize();
 
-        int xoffset = (size.x - gridSize.x) / 2;
-        int yoffset = (size.y - gridSize.y) / 2;
+        int xOffset = (size.x - gridSize.x) / 2;
+        int yOffset = (size.y - gridSize.y) / 2;
 
-        drawGrid(g, xoffset, yoffset);
+        drawGrid(g, xOffset, yOffset);
 
-        g.clipRect(xoffset, yoffset, gridSize.x, gridSize.y);
+        g.clipRect(xOffset, yOffset, gridSize.x, gridSize.y);
 
         bonusReward.render(g,adapter);
         maze.render(g,adapter);
@@ -211,11 +235,15 @@ public class World {
         for (Enemy enemy : enemies) {
             enemy.render(g, adapter);
         }
-        for (Reward i : rewards ) {
-            i.render(g, adapter);
-        }
-        for (Punishment i : punishments) {
-            i.render(g, adapter);
+//        for (Reward i : rewards ) {
+//            i.render(g, adapter);
+//        }
+//        for (Punishment i : punishments) {
+//            i.render(g, adapter);
+//        }
+        for (Collectable e:collectables)
+        {
+            e.render(g,adapter);
         }
 
         // render the player last so it is on top

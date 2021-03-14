@@ -1,14 +1,20 @@
-package ca.sfu.cmpt276.spring2021.group8.project.game.entity.Collectables;
+package ca.sfu.cmpt276.spring2021.group8.project.game.entity.collectables;
 import ca.sfu.cmpt276.spring2021.group8.project.Draw;
-import ca.sfu.cmpt276.spring2021.group8.project.game.Maze;
 import ca.sfu.cmpt276.spring2021.group8.project.game.WorldScreenAdapter;
 import ca.sfu.cmpt276.spring2021.group8.project.game.entity.Entity;
 import java.awt.*;
 
-public class Reward extends Entity {
+public class Reward extends Collectable {
+
+    final static int REWARDS_POINTS = 2;
 
     public Reward(Point rewardCoordinate) {
         super(rewardCoordinate);
+    }
+
+    @Override
+    public int getPoints() {
+        return REWARDS_POINTS;
     }
 
    /*public int updateScore(int score){

@@ -117,11 +117,7 @@ public class Maze {
         }
 
         // Check if next position is an empty space
-        if (maze[p.y][p.x] != 0) {
-            return false;
-        }
-
-        return true;
+        return maze[p.y][p.x] == 0;
     }
 
     // Generate random integer within range
@@ -132,12 +128,12 @@ public class Maze {
     
     // Returns a Point in the maze to use
     public Point generatePosition() {
-            int x1 = getRandomInt(1, height - 2);
-            int x2 = getRandomInt(1, width- 2);
-            while (maze[x1][x2] != 0) {
+            int x1;
+            int x2;
+             do {
                 x1 = getRandomInt(1, height - 2);
                 x2 = getRandomInt(1, width- 2);
-            }
+            }while (maze[x1][x2] != 0);
             return new Point(x2, x1);
     }
 
