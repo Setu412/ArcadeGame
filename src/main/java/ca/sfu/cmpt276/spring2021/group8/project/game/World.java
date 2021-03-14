@@ -18,17 +18,10 @@ public class World {
     private Player player;
     private LinkedList<Enemy> enemies = new LinkedList<>();
     private WorldScreenAdapter adapter;
-//    private ArrayList<Reward> rewards = new ArrayList<>();
-//    private ArrayList<Punishment> punishments = new ArrayList<>();
     private ArrayList<Collectable> collectables= new ArrayList<>();
     private BonusReward bonusReward;
     private long msSinceLastMove = 0;
     private long msSinceLastBRVisible = 0;
-    private GameEffect MovementEffect;
-
-    final static int REWARDS_POINTS = 2;
-    final static int PUNISHMENT_POINTS = -4;
-    final static int BONUS_POINTS = 5;
 
     private final static long MS_PER_BS_VISIBLE = 5000;
 
@@ -60,26 +53,6 @@ public class World {
         this(new Maze());
     }
 
-//    private boolean isRewardPoint(Point p) {
-//        for (Reward e : rewards) {
-//            if (p.equals(e.getPosition())) {
-//                return true;
-//            }
-//        }
-//
-//        return false;
-//    }
-//
-//    private boolean isPunishmentPoint(Point p) {
-//        for (Punishment e : punishments) {
-//            if (p.equals(e.getPosition())) {
-//                return true;
-//            }
-//        }
-//
-//        return false;
-//    }
-
     private boolean isCollectiblePoint(Point p)
     {
         for (Collectable e:collectables)
@@ -93,7 +66,6 @@ public class World {
     }
 
     private boolean isEmptyPosition(Point p) {
-        //return !isRewardPoint(p) && !isPunishmentPoint(p);
         return !isCollectiblePoint(p);
     }
 
@@ -128,7 +100,6 @@ public class World {
         updateBR(deltaTime);
     }
 
-    //does not work correctly.. requires reimplementation
     private void updateBR( long deltaTime) {
         msSinceLastBRVisible += deltaTime;
         if(msSinceLastBRVisible > MS_PER_BS_VISIBLE) {
@@ -146,31 +117,9 @@ public class World {
     public GameEffect getGameEffect() {
         Point pos = player.getPosition();
 
-        //if (false) { // cannot have false
-
-         //    return MovementEffect.createLoseEffect();
-        //}
-
-        // check if hit collectible
-
         /**
          * Identifies type of Collectible and called createScoreEffect to update score
          */
-//        for (int i = 0; i < rewards.size(); i++) {
-//            if (rewards.get(i).getPosition().equals(pos)) {
-//                rewards.remove(i);
-//                if(rewards.size() == 0){
-//                    maze.complete();
-//                }
-//                return MovementEffect.createScoreEffect(REWARDS_POINTS);
-//            }
-//        }
-//        for (int i = 0; i < punishments.size(); i++) {
-//            if (punishments.get(i).getPosition().equals(pos)) {
-//                punishments.remove(i);
-//                return MovementEffect.createScoreEffect(PUNISHMENT_POINTS);
-//            }
-//        }
         for (int i=0;i<collectables.size();i++)
         {
             if (collectables.get(i).getPosition().equals(pos))
@@ -182,7 +131,7 @@ public class World {
         }
         if (bonusReward.getPosition().equals(pos)) {
             bonusReward.updateBRCoordinates(new Point());
-            return GameEffect.createScoreEffect(BONUS_POINTS);
+            return GameEffect.createScoreEffect(bonusReward.getPoints());
         }
         return null;
     }
@@ -235,12 +184,6 @@ public class World {
         for (Enemy enemy : enemies) {
             enemy.render(g, adapter);
         }
-//        for (Reward i : rewards ) {
-//            i.render(g, adapter);
-//        }
-//        for (Punishment i : punishments) {
-//            i.render(g, adapter);
-//        }
         for (Collectable e:collectables)
         {
             e.render(g,adapter);
