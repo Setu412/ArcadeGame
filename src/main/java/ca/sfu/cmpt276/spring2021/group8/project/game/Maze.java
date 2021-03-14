@@ -131,7 +131,7 @@ public class Maze {
     }
     
     // Returns a Point in the maze to use
-    public Point getCollectiblePoint() {
+    public Point generatePosition() {
             int x1 = getRandomInt(1, height - 2);
             int x2 = getRandomInt(1, width- 2);
             while (maze[x1][x2] != 0) {

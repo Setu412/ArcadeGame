@@ -35,16 +35,16 @@ public class World {
         this.player = new Player(maze.startPosition());
         this.adapter = new WorldScreenAdapter(maze.getSize(), new Point(50, 50));
 
-        this.bonusReward = new BonusReward(maze.getCollectiblePoint());
+        this.bonusReward = new BonusReward(maze.generatePosition());
 
         // Create rewards
         for (int i = 0; i < 40; i++) {
-            rewards.add(new Reward(getEmptyCollectiblePoint()));
+            rewards.add(new Reward(generateEmptyPosition()));
         }
 
         // Create punishments
         for (int i = 0; i < 20; i++) {
-            punishments.add(new Punishment(getEmptyCollectiblePoint()));
+            punishments.add(new Punishment(generateEmptyPosition()));
         }
 
         //bonusReward.add(new BonusReward(new Point(0,0))); //update this (0,0) coordinate
@@ -82,12 +82,12 @@ public class World {
         return !isRewardPoint(p) && !isPunishmentPoint(p);
     }
 
-    private Point getEmptyCollectiblePoint() {
+    private Point generateEmptyPosition() {
         // TODO fix this function for the case when there are no empty positions
 
         Point p;
         do {
-            p = maze.getCollectiblePoint();
+            p = maze.generatePosition();
         } while (!isEmptyPosition(p));
 
         return p;
@@ -110,7 +110,6 @@ public class World {
                 enemy.move(maze);
             }
         }
-        else
         updateBR(deltaTime);
     }
 
@@ -119,7 +118,7 @@ public class World {
         msSinceLastBRVisible += deltaTime;
         if(msSinceLastBRVisible > MS_PER_BS_VISIBLE) {
             if(!bonusReward.isVisible) {
-                Point p = maze.getCollectiblePoint();
+                Point p = maze.generatePosition();
                 bonusReward.setPosition(p);
                 bonusReward.isVisible = true;
                 msSinceLastBRVisible -= MS_PER_BS_VISIBLE;
