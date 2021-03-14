@@ -8,23 +8,22 @@ import java.util.ArrayList;
 import java.util.Random;
 
 public class TargetedMovementGenerator implements MovementGenerator {
-    private final Point target;
+    private final Entity target;
     private final Maze maze;
 
     public TargetedMovementGenerator(Maze maze, Entity target) {
         this.maze = maze;
-        this.target = target.getPosition();
+        this.target = target;
     }
 
     //TODO: change currentPosition into a field
     public Direction next(Point currentPosition) {
         //get an arraylist of movements to test, ordered from the most optimal direct move to the worst
         ArrayList<Direction> movOrder=this.generateMovementOrder(this.getRelativeVerticalPos(currentPosition),this.getRelativeHorizontalPos(currentPosition));
-        for (int i=0;i< movOrder.size();i++)
-        {
-            if (maze.isValidPosition(movOrder.get(i).getNewPosition(currentPosition))) //check if movement is valid
+        for (Direction direction : movOrder) {
+            if (maze.isValidPosition(direction.getNewPosition(currentPosition))) //check if movement is valid
             {
-                return movOrder.get(i);
+                return direction;
             }
         }
         return Direction.South; //default direction, could be changed to null
@@ -40,12 +39,12 @@ public class TargetedMovementGenerator implements MovementGenerator {
     private Direction getRelativeVerticalPos(Point currentPosition)
     {
         // if target is south of the current position
-        if (this.target.getY() > currentPosition.getY())
+        if (this.target.getPosition().getY() > currentPosition.getY())
         {
             return Direction.South;
         }
         // if target is north of the current position
-        else if (this.target.getY() < currentPosition.getY())
+        else if (this.target.getPosition().getY() < currentPosition.getY())
         {
             return Direction.North;
         }
@@ -66,12 +65,12 @@ public class TargetedMovementGenerator implements MovementGenerator {
     private Direction getRelativeHorizontalPos(Point currentPosition)
     {
         //if target is east of currentPosition
-        if (this.target.getX() > currentPosition.getX())
+        if (this.target.getPosition().getX() > currentPosition.getX())
         {
             return Direction.East;
         }
         //if target is west of currentPosition
-        else if (this.target.getX() < currentPosition.getX())
+        else if (this.target.getPosition().getX() < currentPosition.getX())
         {
             return Direction.West;
         }
@@ -92,9 +91,9 @@ public class TargetedMovementGenerator implements MovementGenerator {
     private ArrayList<Direction> generateMovementOrder (Direction relVerticalPos, Direction relHorizontalPos)
     {
         ArrayList<Direction> movOrder= new ArrayList<>();
-        if(relHorizontalPos==null && relHorizontalPos==null)
+        if(relHorizontalPos==null && relVerticalPos==null)
         {
-            return null;
+            return movOrder;
         }
         if(relHorizontalPos==null) //if target and current position has the same horizontal axis
         {

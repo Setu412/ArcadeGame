@@ -30,7 +30,7 @@ public class World {
         this.player = new Player(maze.startPosition());
         this.adapter = new WorldScreenAdapter(maze.getSize(), new Point(50, 50));
 
-        this.bonusReward = new BonusReward(maze.generatePosition());
+        this.bonusReward = new BonusReward(generateEmptyPosition());
 
         // Create rewards
         for (int i = 0; i < 40; i++) {
@@ -42,11 +42,11 @@ public class World {
             collectables.add(new Punishment(generateEmptyPosition()));
         }
 
-        //bonusReward.add(new BonusReward(new Point(0,0))); //update this (0,0) coordinate
-
 
         // TODO probably generate non-player entities here
-        // this.enemies.add(new Enemy(this.player.getTargetedMovementGenerator(maze), new Point(0, 0)));
+        for (int i=0;i<5;i++) {
+            this.enemies.add(new Enemy(this.player.getTargetedMovementGenerator(maze), generateEmptyPosition()));
+        }
     }
 
     public World() {
@@ -124,8 +124,9 @@ public class World {
         {
             if (collectables.get(i).getPosition().equals(pos))
             {
+                GameEffect scoreEffect=GameEffect.createScoreEffect(collectables.get(i).getPoints());
                 collectables.remove(i);
-                return GameEffect.createScoreEffect(collectables.get(i).getPoints());
+                return scoreEffect;
             }
         }
         if (bonusReward.getPosition().equals(pos)) {
@@ -185,12 +186,13 @@ public class World {
         /**
          * render all the entities
          */
-        for (Enemy enemy : enemies) {
-            enemy.render(g, adapter);
-        }
+
         for (Collectable e:collectables)
         {
             e.render(g,adapter);
+        }
+        for (Enemy enemy : enemies) {
+            enemy.render(g, adapter);
         }
 
         // render the player last so it is on top
