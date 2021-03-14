@@ -6,7 +6,9 @@ import ca.sfu.cmpt276.spring2021.group8.project.game.entity.Collectables.BonusRe
 import ca.sfu.cmpt276.spring2021.group8.project.game.entity.Collectables.Punishment;
 import ca.sfu.cmpt276.spring2021.group8.project.game.entity.Collectables.Reward;
 
+import javax.sound.sampled.*;
 import java.awt.*;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.LinkedList;
 
@@ -145,6 +147,15 @@ public class World {
         for (int i = 0; i < rewards.size(); i++) {
             if (rewards.get(i).getPosition().equals(pos)) {
                 rewards.remove(i);
+                try {
+                    playMusic("src/resources/Audio/pokemonReward.wav");
+                } catch (UnsupportedAudioFileException e) {
+                    e.printStackTrace();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                } catch (LineUnavailableException e) {
+                    e.printStackTrace();
+                }
                 if(rewards.size() == 0){
                     maze.complete();
                 }
@@ -162,6 +173,22 @@ public class World {
             return MovementEffect.createScoreEffect(BONUS_POINTS);
         }
         return null;
+    }
+
+    private void playMusic(String path) throws UnsupportedAudioFileException, IOException, LineUnavailableException
+    {
+        Clip clip;
+        // create AudioInputStream object
+        AudioInputStream audioInputStream =
+                AudioSystem.getAudioInputStream(new File(path).getAbsoluteFile());
+
+        // create clip reference
+        clip = AudioSystem.getClip();
+
+        // open audioInputStream to the clip
+        clip.open(audioInputStream);
+
+        clip.start();
     }
 
     public void movePlayer(Direction direction) {
