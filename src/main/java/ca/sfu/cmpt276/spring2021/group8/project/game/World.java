@@ -39,12 +39,7 @@ public class World {
 
         // Create rewards
         for (int i = 0; i < 40; i++) {
-            Point p;
-            do {
-                p = maze.getCollectiblePoint();
-            } while (!isEmptyPosition(p));
-            
-            rewards.add(new Reward(p));
+            rewards.add(new Reward(getEmptyCollectiblePoint()));
         }
 
         // Create punishments
