@@ -1,11 +1,12 @@
-package ca.sfu.cmpt276.spring2021.group8.project.game.entity;
+package ca.sfu.cmpt276.spring2021.group8.project.game.entity.movingentities;
 
 import java.awt.*;
 
 import ca.sfu.cmpt276.spring2021.group8.project.Draw;
 import ca.sfu.cmpt276.spring2021.group8.project.game.*;
+import ca.sfu.cmpt276.spring2021.group8.project.game.entity.movingentities.MovingEntities;
 
-public class Player extends Entity {
+public class Player extends MovingEntities {
     public Player(Point startPosition) {
         super(startPosition);
     }

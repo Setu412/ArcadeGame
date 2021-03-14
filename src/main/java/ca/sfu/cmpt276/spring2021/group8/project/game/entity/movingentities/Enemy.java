@@ -1,11 +1,13 @@
-package ca.sfu.cmpt276.spring2021.group8.project.game.entity;
+package ca.sfu.cmpt276.spring2021.group8.project.game.entity.movingentities;
 
 import ca.sfu.cmpt276.spring2021.group8.project.game.*;
 import ca.sfu.cmpt276.spring2021.group8.project.game.entity.movement.MovementGenerator;
 import ca.sfu.cmpt276.spring2021.group8.project.Draw;
+import ca.sfu.cmpt276.spring2021.group8.project.game.entity.movingentities.MovingEntities;
+
 import java.awt.*;
 
-public class Enemy extends Entity {
+public class Enemy extends MovingEntities {
     private MovementGenerator movementGenerator;
 
     public Enemy(MovementGenerator movementGenerator, Point startPosition) {

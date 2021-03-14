@@ -1,22 +1,22 @@
 package ca.sfu.cmpt276.spring2021.group8.project.game;
 
 import ca.sfu.cmpt276.spring2021.group8.project.Draw;
-import ca.sfu.cmpt276.spring2021.group8.project.game.entity.*;
 import ca.sfu.cmpt276.spring2021.group8.project.game.entity.collectables.BonusReward;
 import ca.sfu.cmpt276.spring2021.group8.project.game.entity.collectables.Collectable;
 import ca.sfu.cmpt276.spring2021.group8.project.game.entity.collectables.Punishment;
 import ca.sfu.cmpt276.spring2021.group8.project.game.entity.collectables.Reward;
+import ca.sfu.cmpt276.spring2021.group8.project.game.entity.movingentities.Enemy;
+import ca.sfu.cmpt276.spring2021.group8.project.game.entity.movingentities.Player;
 
 import java.awt.*;
 import java.util.ArrayList;
-import java.util.LinkedList;
 
 public class World {
     private final static long MS_PER_ENEMY_MOVE = 1000;
 
     private Maze maze;
     private Player player;
-    private LinkedList<Enemy> enemies = new LinkedList<>();
+    private ArrayList<Enemy> enemies = new ArrayList<>();
     private WorldScreenAdapter adapter;
     private ArrayList<Collectable> collectables= new ArrayList<>();
     private BonusReward bonusReward;
