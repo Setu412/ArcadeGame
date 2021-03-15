@@ -160,8 +160,11 @@ public class World {
                 bonusReward.isVisible = true;
                 msSinceLastBRVisible -= MS_PER_BS_VISIBLE;
             }
-            else
+            else{
                 bonusReward.isVisible = false;
+                msSinceLastBRVisible -= MS_PER_BS_VISIBLE;
+            }
+
         }
     }
 
@@ -202,9 +205,12 @@ public class World {
                 return MovementEffect.createScoreEffect(PUNISHMENT_POINTS);
             }
         }
-        if (bonusReward.getPosition().equals(pos)) {
-            bonusReward.updateBRCoordinates(new Point());
-            return MovementEffect.createScoreEffect(BONUS_POINTS);
+        if(bonusReward.isVisible) {
+            if (bonusReward.getPosition().equals(pos)) {
+                bonusReward.isVisible  = false;
+                msSinceLastBRVisible = 0;
+                return MovementEffect.createScoreEffect(BONUS_POINTS);
+            }
         }
         return null;
     }
@@ -269,8 +275,9 @@ public class World {
 
         g.clipRect(xoffset, yoffset, gridSize.x, gridSize.y);
 
-        bonusReward.render(g,adapter);
+
         maze.render(g,adapter);
+        bonusReward.render(g,adapter);
         /**
          * render all the entities
          */
