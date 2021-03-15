@@ -16,6 +16,14 @@ public class World {
     private final static long MS_PER_ENEMY_MOVE = 1000;
     private final static long MS_PER_BARRIER_CHANGE_POS = 13000;
 
+    final static int REWARDS_POINTS = 2;
+    final static int PUNISHMENT_POINTS = -4;
+    final static int BONUS_POINTS = 5;
+
+    final static int NUM_REWARDS = 40;
+    final static int NUM_PUNISHMENTS = 20;
+    final static int NUM_BARRIERS = 10;
+
     private Maze maze;
     private Player player;
     private LinkedList<Enemy> enemies = new LinkedList<>();
@@ -29,9 +37,7 @@ public class World {
     private long msSinceLastMoveBarrier = 0;
     private GameEffect MovementEffect;
 
-    final static int REWARDS_POINTS = 2;
-    final static int PUNISHMENT_POINTS = -4;
-    final static int BONUS_POINTS = 5;
+
 
     private final static long MS_PER_BS_VISIBLE = 5000;
 
@@ -43,16 +49,16 @@ public class World {
         this.bonusReward = new BonusReward(maze.getCollectiblePoint());
 
         // Create rewards
-        for (int i = 0; i < 40; i++) {
+        for (int i = 0; i < NUM_REWARDS; i++) {
             rewards.add(new Reward(getEmptyCollectiblePoint()));
         }
 
         // Create punishments
-        for (int i = 0; i < 20; i++) {
+        for (int i = 0; i < NUM_PUNISHMENTS; i++) {
             punishments.add(new Punishment(getEmptyCollectiblePoint()));
         }
 
-        for(int i = 0; i<10;i++){
+        for(int i = 0; i< NUM_BARRIERS;i++){
             barriers.add(new Barrier(getEmptyCollectiblePoint()));
         }
 
