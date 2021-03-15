@@ -22,6 +22,7 @@ public class World {
     private ArrayList<Reward> rewards = new ArrayList<Reward>();
     private ArrayList<Punishment> punishments = new ArrayList<Punishment>();
     private BonusReward bonusReward;
+    private ArrayList<Barrier> barriers = new ArrayList<Barrier>();
     private long msSinceLastMove = 0;
     private long msSinceLastBRVisible = 0;
     private GameEffect MovementEffect;
@@ -47,6 +48,10 @@ public class World {
         // Create punishments
         for (int i = 0; i < 20; i++) {
             punishments.add(new Punishment(getEmptyCollectiblePoint()));
+        }
+
+        for(int i = 0; i<10;i++){
+            barriers.add(new Barrier(getEmptyCollectiblePoint()));
         }
 
         //bonusReward.add(new BonusReward(new Point(0,0))); //update this (0,0) coordinate
@@ -80,8 +85,18 @@ public class World {
         return false;
     }
 
+    private boolean isBarrierPoint(Point p){
+        for (Barrier e : barriers) {
+            if (p.equals(e.getPosition())) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
     private boolean isEmptyPosition(Point p) {
-        return !isRewardPoint(p) && !isPunishmentPoint(p);
+        return !isRewardPoint(p) && !isPunishmentPoint(p) &&  !isBarrierPoint(p);
     }
 
     private Point getEmptyCollectiblePoint() {
@@ -192,6 +207,10 @@ public class World {
     }
 
     public void movePlayer(Direction direction) {
+        Point newPositionOfPlayer = direction.getNewPosition(player.getPosition());
+        if(isBarrierPoint(newPositionOfPlayer)){
+            return;
+        }
         player.move(maze, direction);
     }
 
@@ -243,6 +262,9 @@ public class World {
             i.render(g, adapter);
         }
         for (Punishment i : punishments) {
+            i.render(g, adapter);
+        }
+        for (Barrier i : barriers) {
             i.render(g, adapter);
         }
 
