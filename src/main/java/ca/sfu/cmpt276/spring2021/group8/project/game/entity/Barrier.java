@@ -13,6 +13,10 @@ public class Barrier extends Entity {
         super(startPosition);
     }
 
+    public void updatePosition(Point newPosition){
+        this.setPosition(newPosition);
+    }
+
     @Override
     public void render(Graphics g, WorldScreenAdapter s) {
 

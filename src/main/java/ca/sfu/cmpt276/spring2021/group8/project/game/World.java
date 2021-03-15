@@ -14,6 +14,7 @@ import java.util.LinkedList;
 
 public class World {
     private final static long MS_PER_ENEMY_MOVE = 1000;
+    private final static long MS_PER_BARRIER_CHANGE_POS = 13000;
 
     private Maze maze;
     private Player player;
@@ -25,6 +26,7 @@ public class World {
     private ArrayList<Barrier> barriers = new ArrayList<Barrier>();
     private long msSinceLastMove = 0;
     private long msSinceLastBRVisible = 0;
+    private long msSinceLastMoveBarrier = 0;
     private GameEffect MovementEffect;
 
     final static int REWARDS_POINTS = 2;
@@ -95,8 +97,14 @@ public class World {
         return false;
     }
 
+    private boolean isBRPoint(Point p){
+        if(p.equals(bonusReward.getPosition()))
+            return true;
+        return false;
+    }
+
     private boolean isEmptyPosition(Point p) {
-        return !isRewardPoint(p) && !isPunishmentPoint(p) &&  !isBarrierPoint(p);
+        return !isRewardPoint(p) && !isPunishmentPoint(p) &&  !isBarrierPoint(p) && !isBRPoint(p);
     }
 
     private Point getEmptyCollectiblePoint() {
@@ -119,6 +127,11 @@ public class World {
     }
 
     public void update(long deltaTime) {
+        updateEnemy(deltaTime);
+        updateBarriers(deltaTime);
+        updateBR(deltaTime);
+    }
+    public void updateEnemy(long deltaTime){
         msSinceLastMove += deltaTime;
         if (msSinceLastMove > MS_PER_ENEMY_MOVE) {
             msSinceLastMove -= MS_PER_ENEMY_MOVE;
@@ -127,16 +140,22 @@ public class World {
                 enemy.move(maze);
             }
         }
-        else
-        updateBR(deltaTime);
     }
-
-    //does not work correctly.. requires reimplementation
+    public void updateBarriers(long deltaTime){
+        msSinceLastMoveBarrier+= deltaTime;
+        if (msSinceLastMoveBarrier > MS_PER_BARRIER_CHANGE_POS) {
+            msSinceLastMoveBarrier -= MS_PER_BARRIER_CHANGE_POS;
+            for (Barrier b : barriers) {
+                Point newPosition = getEmptyCollectiblePoint();
+                b.updatePosition(newPosition);
+            }
+        }
+    }
     private void updateBR( long deltaTime) {
         msSinceLastBRVisible += deltaTime;
         if(msSinceLastBRVisible > MS_PER_BS_VISIBLE) {
             if(!bonusReward.isVisible) {
-                Point p = maze.getCollectiblePoint();
+                Point p = getEmptyCollectiblePoint();
                 bonusReward.setPosition(p);
                 bonusReward.isVisible = true;
                 msSinceLastBRVisible -= MS_PER_BS_VISIBLE;
