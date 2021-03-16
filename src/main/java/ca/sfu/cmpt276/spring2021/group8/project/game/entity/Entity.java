@@ -4,7 +4,6 @@ import ca.sfu.cmpt276.spring2021.group8.project.game.*;
 import ca.sfu.cmpt276.spring2021.group8.project.game.entity.movement.TargetedMovementGenerator;
 import ca.sfu.cmpt276.spring2021.group8.project.game.entity.movement.MovementGenerator;
 
-import javax.swing.text.Position;
 import java.awt.*;
 
 public abstract class Entity {
@@ -22,8 +21,8 @@ public abstract class Entity {
         return new Point(position);
     }
 
-    public void setPosition(Point Position){
-        this.position = Position;
+    protected void setPosition(Point position) {
+        this.position = position;
     }
 
     public MovementGenerator getTargetedMovementGenerator(Maze maze) {
