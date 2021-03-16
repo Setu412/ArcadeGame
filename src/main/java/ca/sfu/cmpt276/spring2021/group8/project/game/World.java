@@ -1,18 +1,20 @@
 package ca.sfu.cmpt276.spring2021.group8.project.game;
 
 import ca.sfu.cmpt276.spring2021.group8.project.Draw;
+import ca.sfu.cmpt276.spring2021.group8.project.game.containers.EntityList;
 import ca.sfu.cmpt276.spring2021.group8.project.game.entity.*;
 import ca.sfu.cmpt276.spring2021.group8.project.game.entity.collectables.*;
 import ca.sfu.cmpt276.spring2021.group8.project.game.entity.movable.*;
+import ca.sfu.cmpt276.spring2021.group8.project.game.positioning.CompositePositionValidator;
 
 import javax.sound.sampled.*;
 import java.awt.*;
 import java.io.*;
-import java.util.ArrayList;
 
 public class World {
     private final static long MS_PER_ENEMY_MOVE = 1000;
     private final static long MS_PER_BARRIER_CHANGE_POS = 13000;
+    private final static long MS_PER_BS_VISIBLE = 5000;
 
     final static int NUM_REWARDS = 40;
     final static int NUM_PUNISHMENTS = 20;
@@ -20,16 +22,16 @@ public class World {
 
     private Maze maze;
     private Player player;
-    private ArrayList<Enemy> enemies = new ArrayList<>();
     private WorldScreenAdapter adapter;
-    private ArrayList<Collectable> collectables= new ArrayList<>();
     private BonusReward bonusReward;
-    private ArrayList<Barrier> barriers = new ArrayList<Barrier>();
     private long msSinceLastMove = 0;
     private long msSinceLastBRVisible = 0;
     private long msSinceLastMoveBarrier = 0;
 
-    private final static long MS_PER_BS_VISIBLE = 5000;
+    private EntityList<Barrier> barriers = new EntityList<>();
+    private EntityList<Enemy> enemies = new EntityList<>();
+    private EntityList<Collectable> collectables = new EntityList<>();
+
 
     public World(Maze maze) {
         this.maze = maze;
@@ -65,26 +67,12 @@ public class World {
         this(new Maze());
     }
 
-    private boolean isCollectiblePoint(Point p)
-    {
-        for (Collectable e:collectables)
-        {
-            if (p.equals(e.getPosition()))
-            {
-                return true;
-            }
-        }
-        return false;
+    private boolean isCollectiblePoint(Point p) {
+        return !collectables.isValidPosition(p);
     }
 
-    private boolean isBarrierPoint(Point p){
-        for (Barrier e : barriers) {
-            if (p.equals(e.getPosition())) {
-                return true;
-            }
-        }
-
-        return false;
+    private boolean isBarrierPoint(Point p) {
+        return !barriers.isValidPosition(p);
     }
 
     private boolean isBRPoint(Point p) {
@@ -115,8 +103,8 @@ public class World {
     }
 
     public void update(long deltaTime) {
-        updateEnemy(deltaTime);
         updateBarriers(deltaTime);
+        updateEnemy(deltaTime);
         updateBR(deltaTime);
     }
 
@@ -126,7 +114,7 @@ public class World {
             msSinceLastMove -= MS_PER_ENEMY_MOVE;
 
             for (Enemy enemy : enemies) {
-                enemy.move(maze);
+                enemy.move(new CompositePositionValidator(maze, barriers, enemies));
             }
         }
     }
@@ -136,25 +124,20 @@ public class World {
         if (msSinceLastMoveBarrier > MS_PER_BARRIER_CHANGE_POS) {
             msSinceLastMoveBarrier -= MS_PER_BARRIER_CHANGE_POS;
             for (Barrier b : barriers) {
-                Point newPosition = generateEmptyPosition();
-                b.updatePosition(newPosition);
+                b.updatePosition(generateEmptyPosition());
             }
         }
     }
-    private void updateBR( long deltaTime) {
+
+    private void updateBR(long deltaTime) {
         msSinceLastBRVisible += deltaTime;
-        if(msSinceLastBRVisible > MS_PER_BS_VISIBLE) {
-            if(!bonusReward.isVisible) {
-                Point p = generateEmptyPosition();
-                bonusReward.setPosition(p);
-                bonusReward.isVisible = true;
-                msSinceLastBRVisible -= MS_PER_BS_VISIBLE;
-            }
-            else{
-                bonusReward.isVisible = false;
-                msSinceLastBRVisible -= MS_PER_BS_VISIBLE;
+        if (msSinceLastBRVisible > MS_PER_BS_VISIBLE) {
+            if (!bonusReward.isVisible) {
+                bonusReward.setPosition(generateEmptyPosition());
             }
 
+            bonusReward.isVisible = !bonusReward.isVisible;
+            msSinceLastBRVisible -= MS_PER_BS_VISIBLE;
         }
     }
 
@@ -216,11 +199,7 @@ public class World {
     }
 
     public void movePlayer(Direction direction) {
-        Point newPositionOfPlayer = direction.getNewPosition(player.getPosition());
-        if(isBarrierPoint(newPositionOfPlayer)){
-            return;
-        }
-        player.move(maze, direction);
+        player.move(new CompositePositionValidator(maze, barriers), direction);
     }
 
     private void drawGrid(Graphics g, int xoffset, int yoffset) {
