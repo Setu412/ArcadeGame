@@ -29,13 +29,5 @@ public abstract class Entity {
         return new TargetedMovementGenerator(maze, this);
     }
 
-    protected void tryMove(Maze maze, Point position) {
-        if (!maze.isValidPosition(position)) {
-            return;
-        }
-
-        this.position = position;
-    }
-
     abstract public void render(Graphics g, WorldScreenAdapter s);
 }

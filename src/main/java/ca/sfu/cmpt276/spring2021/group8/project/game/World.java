@@ -2,23 +2,17 @@ package ca.sfu.cmpt276.spring2021.group8.project.game;
 
 import ca.sfu.cmpt276.spring2021.group8.project.Draw;
 import ca.sfu.cmpt276.spring2021.group8.project.game.entity.*;
-import ca.sfu.cmpt276.spring2021.group8.project.game.entity.Collectables.BonusReward;
-import ca.sfu.cmpt276.spring2021.group8.project.game.entity.Collectables.Punishment;
-import ca.sfu.cmpt276.spring2021.group8.project.game.entity.Collectables.Reward;
+import ca.sfu.cmpt276.spring2021.group8.project.game.entity.collectables.*;
+import ca.sfu.cmpt276.spring2021.group8.project.game.entity.movable.*;
 
 import javax.sound.sampled.*;
 import java.awt.*;
 import java.io.*;
 import java.util.ArrayList;
-import java.util.LinkedList;
 
 public class World {
     private final static long MS_PER_ENEMY_MOVE = 1000;
     private final static long MS_PER_BARRIER_CHANGE_POS = 13000;
-
-    final static int REWARDS_POINTS = 2;
-    final static int PUNISHMENT_POINTS = -4;
-    final static int BONUS_POINTS = 5;
 
     final static int NUM_REWARDS = 40;
     final static int NUM_PUNISHMENTS = 20;
@@ -26,10 +20,9 @@ public class World {
 
     private Maze maze;
     private Player player;
-    private LinkedList<Enemy> enemies = new LinkedList<>();
+    private ArrayList<Enemy> enemies = new ArrayList<>();
     private WorldScreenAdapter adapter;
-    private ArrayList<Reward> rewards = new ArrayList<Reward>();
-    private ArrayList<Punishment> punishments = new ArrayList<Punishment>();
+    private ArrayList<Collectable> collectables= new ArrayList<>();
     private BonusReward bonusReward;
     private ArrayList<Barrier> barriers = new ArrayList<Barrier>();
     private long msSinceLastMove = 0;
@@ -43,50 +36,44 @@ public class World {
         this.player = new Player(maze.startPosition());
         this.adapter = new WorldScreenAdapter(maze.getSize(), new Point(50, 50));
 
-        this.bonusReward = new BonusReward(maze.getCollectiblePoint());
+        this.bonusReward = new BonusReward(generateEmptyPosition());
 
         // Create rewards
         for (int i = 0; i < NUM_REWARDS; i++) {
-            rewards.add(new Reward(getEmptyCollectiblePoint()));
+            collectables.add(new Reward(generateEmptyPosition()));
         }
 
         // Create punishments
         for (int i = 0; i < NUM_PUNISHMENTS; i++) {
-            punishments.add(new Punishment(getEmptyCollectiblePoint()));
+            collectables.add(new Punishment(generateEmptyPosition()));
         }
 
-        for(int i = 0; i< NUM_BARRIERS;i++){
-            barriers.add(new Barrier(getEmptyCollectiblePoint()));
+        for(int i = 0; i< NUM_BARRIERS;i++) {
+            barriers.add(new Barrier(generateEmptyPosition()));
         }
 
         //bonusReward.add(new BonusReward(new Point(0,0))); //update this (0,0) coordinate
 
 
         // TODO probably generate non-player entities here
-        // this.enemies.add(new Enemy(this.player.getTargetedMovementGenerator(maze), new Point(0, 0)));
+        for (int i=0;i<5;i++) {
+            this.enemies.add(new Enemy(this.player.getTargetedMovementGenerator(maze), generateEmptyPosition()));
+        }
     }
 
     public World() {
         this(new Maze());
     }
 
-    private boolean isRewardPoint(Point p) {
-        for (Reward e : rewards) {
-            if (p.equals(e.getPosition())) {
+    private boolean isCollectiblePoint(Point p)
+    {
+        for (Collectable e:collectables)
+        {
+            if (p.equals(e.getPosition()))
+            {
                 return true;
             }
         }
-
-        return false;
-    }
-
-    private boolean isPunishmentPoint(Point p) {
-        for (Punishment e : punishments) {
-            if (p.equals(e.getPosition())) {
-                return true;
-            }
-        }
-
         return false;
     }
 
@@ -100,22 +87,20 @@ public class World {
         return false;
     }
 
-    private boolean isBRPoint(Point p){
-        if(p.equals(bonusReward.getPosition()))
-            return true;
-        return false;
+    private boolean isBRPoint(Point p) {
+        return bonusReward != null && bonusReward.getPosition().equals(p);
     }
 
     private boolean isEmptyPosition(Point p) {
-        return !isRewardPoint(p) && !isPunishmentPoint(p) &&  !isBarrierPoint(p) && !isBRPoint(p);
+        return !isCollectiblePoint(p) &&  !isBarrierPoint(p) && !isBRPoint(p);
     }
 
-    private Point getEmptyCollectiblePoint() {
+    private Point generateEmptyPosition() {
         // TODO fix this function for the case when there are no empty positions
 
         Point p;
         do {
-            p = maze.getCollectiblePoint();
+            p = maze.generatePosition();
         } while (!isEmptyPosition(p));
 
         return p;
@@ -134,6 +119,7 @@ public class World {
         updateBarriers(deltaTime);
         updateBR(deltaTime);
     }
+
     public void updateEnemy(long deltaTime){
         msSinceLastMove += deltaTime;
         if (msSinceLastMove > MS_PER_ENEMY_MOVE) {
@@ -144,12 +130,13 @@ public class World {
             }
         }
     }
+
     public void updateBarriers(long deltaTime){
         msSinceLastMoveBarrier+= deltaTime;
         if (msSinceLastMoveBarrier > MS_PER_BARRIER_CHANGE_POS) {
             msSinceLastMoveBarrier -= MS_PER_BARRIER_CHANGE_POS;
             for (Barrier b : barriers) {
-                Point newPosition = getEmptyCollectiblePoint();
+                Point newPosition = generateEmptyPosition();
                 b.updatePosition(newPosition);
             }
         }
@@ -158,7 +145,7 @@ public class World {
         msSinceLastBRVisible += deltaTime;
         if(msSinceLastBRVisible > MS_PER_BS_VISIBLE) {
             if(!bonusReward.isVisible) {
-                Point p = getEmptyCollectiblePoint();
+                Point p = generateEmptyPosition();
                 bonusReward.setPosition(p);
                 bonusReward.isVisible = true;
                 msSinceLastBRVisible -= MS_PER_BS_VISIBLE;
@@ -174,47 +161,41 @@ public class World {
     public GameEffect getGameEffect() {
         Point pos = player.getPosition();
 
-        //if (false) { // cannot have false
-
-         //    return MovementEffect.createLoseEffect();
-        //}
-
-        // check if hit collectible
-
         /**
          * Identifies type of Collectible and called createScoreEffect to update score
          */
-        for (int i = 0; i < rewards.size(); i++) {
-            if (rewards.get(i).getPosition().equals(pos)) {
-                rewards.remove(i);
+        for (Collectable collectable : collectables) {
+            if (!collectable.getPosition().equals(pos)) {
+                continue;
+            }
+
+            if (collectable instanceof Reward) {
                 try {
                     playMusic("src/resources/Audio/pokemonReward.wav");
-                } catch (UnsupportedAudioFileException e) {
-                    e.printStackTrace();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                } catch (LineUnavailableException e) {
+                } catch (Exception e) {
                     e.printStackTrace();
                 }
-                if(rewards.size() == 0){
-                    maze.complete();
-                }
-                return GameEffect.createScoreEffect(REWARDS_POINTS);
             }
+
+            collectables.remove(collectable);
+            return GameEffect.createScoreEffect(collectable.getPoints());
         }
-        for (int i = 0; i < punishments.size(); i++) {
-            if (punishments.get(i).getPosition().equals(pos)) {
-                punishments.remove(i);
-                return GameEffect.createScoreEffect(PUNISHMENT_POINTS);
-            }
-        }
-        if(bonusReward.isVisible) {
+
+
+        if (bonusReward.isVisible) {
             if (bonusReward.getPosition().equals(pos)) {
                 bonusReward.isVisible  = false;
                 msSinceLastBRVisible = 0;
-                return GameEffect.createScoreEffect(BONUS_POINTS);
+                return GameEffect.createScoreEffect(bonusReward.getPoints());
             }
         }
+
+        for (Enemy enemy : enemies) {
+            if (enemy.getPosition().equals(pos)) {
+                return GameEffect.createLoseEffect();
+            }
+        }
+
         return null;
     }
 
@@ -254,16 +235,16 @@ public class World {
 
         for (int y = 0; y <= adapter.worldHeight(); y++) {
             Point left = adapter.convert(0, y);
-            Point rigth = adapter.convert(adapter.worldWidth(), y);
-            g.drawLine(xoffset + left.x, yoffset + left.y, xoffset + rigth.x, yoffset + rigth.y);
+            Point right = adapter.convert(adapter.worldWidth(), y);
+            g.drawLine(xoffset + left.x, yoffset + left.y, xoffset + right.x, yoffset + right.y);
         }
 
-        int xpadding = adapter.gridVerticalSpacing()/2;
-        int ypadding = adapter.gridHorizontalSpacing()/2;
+        int xPadding = adapter.gridVerticalSpacing()/2;
+        int yPadding = adapter.gridHorizontalSpacing()/2;
         for (int x = 0; x < adapter.worldWidth(); x++) {
             for (int y = 0; y < adapter.worldHeight(); y++) {
                 Point screenPoint = adapter.convert(x, y);
-                Draw.dot(g, xoffset + screenPoint.x + xpadding, yoffset + screenPoint.y + ypadding, 2);
+                Draw.dot(g, xoffset + screenPoint.x + xPadding, yoffset + screenPoint.y + yPadding, 2);
             }
         }
     }
@@ -271,28 +252,28 @@ public class World {
     public void render(Graphics g, Point size) {
         Point gridSize = adapter.gridSize();
 
-        int xoffset = (size.x - gridSize.x) / 2;
-        int yoffset = (size.y - gridSize.y) / 2;
+        int xOffset = (size.x - gridSize.x) / 2;
+        int yOffset = (size.y - gridSize.y) / 2;
 
-        drawGrid(g, xoffset, yoffset);
+        drawGrid(g, xOffset, yOffset);
 
-        g.clipRect(xoffset, yoffset, gridSize.x, gridSize.y);
+        g.clipRect(xOffset, yOffset, gridSize.x, gridSize.y);
 
 
-        maze.render(g,adapter);
-        bonusReward.render(g,adapter);
+        maze.render(g, adapter);
+        bonusReward.render(g, adapter);
         /**
          * render all the entities
          */
+
+        for (Collectable e:collectables) {
+            e.render(g, adapter);
+        }
+
         for (Enemy enemy : enemies) {
             enemy.render(g, adapter);
         }
-        for (Reward i : rewards ) {
-            i.render(g, adapter);
-        }
-        for (Punishment i : punishments) {
-            i.render(g, adapter);
-        }
+
         for (Barrier i : barriers) {
             i.render(g, adapter);
         }

@@ -1,15 +1,14 @@
-package ca.sfu.cmpt276.spring2021.group8.project.game.entity;
+package ca.sfu.cmpt276.spring2021.group8.project.game.entity.movable;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
 
 import ca.sfu.cmpt276.spring2021.group8.project.Draw;
-import ca.sfu.cmpt276.spring2021.group8.project.ImageLoader;
 import ca.sfu.cmpt276.spring2021.group8.project.game.*;
 
-public class Player extends Entity {
-
+public class Player extends MovableEntity {
     private BufferedImage player;
+
     public Player(Point startPosition) {
         super(startPosition);
     }
