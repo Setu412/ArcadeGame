@@ -1,18 +1,19 @@
 package ca.sfu.cmpt276.spring2021.group8.project.game.entity.movement;
 
 import ca.sfu.cmpt276.spring2021.group8.project.game.Direction;
-import ca.sfu.cmpt276.spring2021.group8.project.game.Maze;
 import ca.sfu.cmpt276.spring2021.group8.project.game.entity.Entity;
+import ca.sfu.cmpt276.spring2021.group8.project.game.positioning.PositionValidator;
+
 import java.awt.Point;
 import java.util.ArrayList;
 import java.util.Random;
 
 public class TargetedMovementGenerator implements MovementGenerator {
     private final Entity target;
-    private final Maze maze;
+    private final PositionValidator validator;
 
-    public TargetedMovementGenerator(Maze maze, Entity target) {
-        this.maze = maze;
+    public TargetedMovementGenerator(PositionValidator validator, Entity target) {
+        this.validator = validator;
         this.target = target;
     }
 
@@ -21,7 +22,7 @@ public class TargetedMovementGenerator implements MovementGenerator {
         //get an arraylist of movements to test, ordered from the most optimal direct move to the worst
         ArrayList<Direction> movOrder=this.generateMovementOrder(this.getRelativeVerticalPos(currentPosition),this.getRelativeHorizontalPos(currentPosition));
         for (Direction direction : movOrder) {
-            if (maze.isValidPosition(direction.getNewPosition(currentPosition))) //check if movement is valid
+            if (validator.isValidPosition(direction.getNewPosition(currentPosition))) //check if movement is valid
             {
                 return direction;
             }

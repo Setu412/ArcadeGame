@@ -5,6 +5,7 @@ import java.awt.image.BufferedImage;
 
 import ca.sfu.cmpt276.spring2021.group8.project.Draw;
 import ca.sfu.cmpt276.spring2021.group8.project.game.*;
+import ca.sfu.cmpt276.spring2021.group8.project.game.positioning.PositionValidator;
 
 public class Player extends MovableEntity {
     private BufferedImage player;
@@ -13,8 +14,8 @@ public class Player extends MovableEntity {
         super(startPosition);
     }
 
-    public void move(Maze maze, Direction direction) {
-        tryMove(maze, direction.getNewPosition(getPosition()));
+    public void move(PositionValidator validator, Direction direction) {
+        tryMove(validator, direction.getNewPosition(getPosition()));
     }
 
     @Override

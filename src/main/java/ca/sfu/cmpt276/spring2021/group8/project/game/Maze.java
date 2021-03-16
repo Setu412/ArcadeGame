@@ -1,11 +1,12 @@
 package ca.sfu.cmpt276.spring2021.group8.project.game;
 
 import ca.sfu.cmpt276.spring2021.group8.project.Draw;
+import ca.sfu.cmpt276.spring2021.group8.project.game.positioning.PositionValidator;
 
 import java.awt.*;
 import java.util.Random;
 
-public class Maze {
+public class Maze implements PositionValidator {
 
     public static final int WALL = 4;
     public static final int ENTRANCE = 7;
