@@ -35,9 +35,6 @@ public class World {
     private long msSinceLastMove = 0;
     private long msSinceLastBRVisible = 0;
     private long msSinceLastMoveBarrier = 0;
-    private GameEffect MovementEffect;
-
-
 
     private final static long MS_PER_BS_VISIBLE = 5000;
 
@@ -202,20 +199,20 @@ public class World {
                 if(rewards.size() == 0){
                     maze.complete();
                 }
-                return MovementEffect.createScoreEffect(REWARDS_POINTS);
+                return GameEffect.createScoreEffect(REWARDS_POINTS);
             }
         }
         for (int i = 0; i < punishments.size(); i++) {
             if (punishments.get(i).getPosition().equals(pos)) {
                 punishments.remove(i);
-                return MovementEffect.createScoreEffect(PUNISHMENT_POINTS);
+                return GameEffect.createScoreEffect(PUNISHMENT_POINTS);
             }
         }
         if(bonusReward.isVisible) {
             if (bonusReward.getPosition().equals(pos)) {
                 bonusReward.isVisible  = false;
                 msSinceLastBRVisible = 0;
-                return MovementEffect.createScoreEffect(BONUS_POINTS);
+                return GameEffect.createScoreEffect(BONUS_POINTS);
             }
         }
         return null;
