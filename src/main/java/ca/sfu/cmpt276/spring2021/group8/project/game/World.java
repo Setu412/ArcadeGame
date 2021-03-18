@@ -114,7 +114,9 @@ public class World {
             msSinceLastMove -= MS_PER_ENEMY_MOVE;
 
             for (Enemy enemy : enemies) {
-                enemy.move(new CompositePositionValidator(maze, barriers, enemies));
+                if (player.getHasMoved()) {
+                    enemy.move(new CompositePositionValidator(maze, barriers, enemies));
+                }
             }
         }
     }

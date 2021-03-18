@@ -9,6 +9,7 @@ import ca.sfu.cmpt276.spring2021.group8.project.game.positioning.PositionValidat
 
 public class Player extends MovableEntity {
     private BufferedImage player;
+    private boolean hasMoved=false;
 
     public Player(Point startPosition) {
         super(startPosition);
@@ -16,6 +17,12 @@ public class Player extends MovableEntity {
 
     public void move(PositionValidator validator, Direction direction) {
         tryMove(validator, direction.getNewPosition(getPosition()));
+        hasMoved=true;
+    }
+
+    public boolean getHasMoved()
+    {
+        return hasMoved;
     }
 
     @Override
