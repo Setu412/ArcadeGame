@@ -4,7 +4,10 @@ package ca.sfu.cmpt276.spring2021.group8.project;
 import ca.sfu.cmpt276.spring2021.group8.project.game.*;
 import java.awt.*;
 import java.awt.event.*;
+import java.io.IOException;
 
+import javax.sound.sampled.LineUnavailableException;
+import javax.sound.sampled.UnsupportedAudioFileException;
 import javax.swing.*;
 
 public class Main {
@@ -32,10 +35,16 @@ public class Main {
 
         f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         f.setSize(width, height);
-        f.setVisible(true);
 
         panel.add(createMainMenu(), SCREEN_MAINMENU);
         panel.add(createGameCanvas(width, height), SCREEN_GAME);
+        f.setVisible(true);
+
+        try {
+            GameEffect.BRplayMusic("src/resources/Audio/Background.wav");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     private Canvas createGameCanvas(int width, int height) {

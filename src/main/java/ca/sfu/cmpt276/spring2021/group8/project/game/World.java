@@ -54,13 +54,13 @@ public class World {
             barriers.add(new Barrier(generateEmptyPosition()));
         }
 
-        //bonusReward.add(new BonusReward(new Point(0,0))); //update this (0,0) coordinate
-
 
         // TODO probably generate non-player entities here
         for (int i=0;i<5;i++) {
             this.enemies.add(new Enemy(this.player.getTargetedMovementGenerator(maze), generateEmptyPosition()));
         }
+
+
     }
 
     public World() {
@@ -154,7 +154,15 @@ public class World {
 
             if (collectable instanceof Reward) {
                 try {
-                    playMusic("src/resources/Audio/pokemonReward.wav");
+                    GameEffect.playMusic("src/resources/Audio/RewardCollection.wav");
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+
+            if (collectable instanceof Punishment) {
+                try {
+                    GameEffect.playMusic("src/resources/Audio/Punishment.wav");
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
@@ -169,6 +177,13 @@ public class World {
             if (bonusReward.getPosition().equals(pos)) {
                 bonusReward.isVisible  = false;
                 msSinceLastBRVisible = 0;
+
+                    try {
+                        GameEffect.playMusic("src/resources/Audio/BRCollection.wav");
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+
                 return GameEffect.createScoreEffect(bonusReward.getPoints());
             }
         }
@@ -180,22 +195,6 @@ public class World {
         }
 
         return null;
-    }
-
-    private void playMusic(String path) throws UnsupportedAudioFileException, IOException, LineUnavailableException
-    {
-        Clip clip;
-        // create AudioInputStream object
-        AudioInputStream audioInputStream =
-                AudioSystem.getAudioInputStream(new File(path).getAbsoluteFile());
-
-        // create clip reference
-        clip = AudioSystem.getClip();
-
-        // open audioInputStream to the clip
-        clip.open(audioInputStream);
-
-        clip.start();
     }
 
     public void movePlayer(Direction direction) {
