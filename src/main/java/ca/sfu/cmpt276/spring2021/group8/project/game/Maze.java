@@ -83,7 +83,6 @@ public class Maze implements PositionValidator {
         nextToExit = nextToDoors(exit);
 
         // Generate barriers ** TO BE DETERMINED
-
     }
 
     // Initialize starting position
@@ -129,14 +128,16 @@ public class Maze implements PositionValidator {
     
     // Returns a Point in the maze to use
     public Point generatePosition() {
-            int x1;
-            int x2;
-             do {
-                x1 = getRandomInt(1, height - 2);
-                x2 = getRandomInt(1, width- 2);
-            }while (maze[x1][x2] != 0 && !nextToStart.equals(new Point(x1,x2)) && !nextToExit.equals(new Point(x1,x2)));
-            return new Point(x2, x1);
+        int x1;
+        int x2;
+         do {
+            x1 = getRandomInt(1, height - 2);
+            x2 = getRandomInt(1, width- 2);
+        }while (maze[x1][x2] != 0 && !nextToStart.equals(new Point(x2,x1)));
+
+        return new Point(x2, x1);
     }
+
 
     // Resets the maze to the original design (call after creating all the collectible objects) 
     // * Issue: doesn't have any internal walls right now
