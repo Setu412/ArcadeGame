@@ -27,6 +27,8 @@ public class World {
     private long msSinceLastMove = 0;
     private long msSinceLastBRVisible = 0;
     private long msSinceLastMoveBarrier = 0;
+    private int rewardCollected = 0;
+
 
     private EntityList<Barrier> barriers = new EntityList<>();
     private EntityList<Enemy> enemies = new EntityList<>();
@@ -157,6 +159,10 @@ public class World {
                     GameEffect.playMusic("src/resources/Audio/RewardCollection.wav");
                 } catch (Exception e) {
                     e.printStackTrace();
+                }
+                rewardCollected++;
+                if(rewardCollected == 40){
+                    maze.complete();
                 }
             }
 
