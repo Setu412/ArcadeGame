@@ -17,7 +17,7 @@ public class Enemy extends MovableEntity {
     }
 
     public void move(PositionValidator validator) {
-        tryMove(validator, movementGenerator.next(getPosition()).getNewPosition(getPosition()));
+        tryMove(validator, movementGenerator.next(getPosition()).getNewPosition(getPosition()), movementGenerator.next(getPosition()));
     }
 
     @Override
