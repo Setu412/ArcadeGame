@@ -41,7 +41,7 @@ public class Main {
         f.setVisible(true);
 
         try {
-            GameEffect.BRplayMusic("src/resources/Audio/Background.wav");
+            SoundEffects.BRplayMusic("src/resources/Audio/Background.wav");
         } catch (Exception e) {
             e.printStackTrace();
         }

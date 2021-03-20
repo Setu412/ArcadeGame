@@ -156,7 +156,7 @@ public class World {
 
             if (collectable instanceof Reward) {
                 try {
-                    GameEffect.playMusic("src/resources/Audio/RewardCollection.wav");
+                    SoundEffects.playMusic("src/resources/Audio/RewardCollection.wav");
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
@@ -168,7 +168,7 @@ public class World {
 
             if (collectable instanceof Punishment) {
                 try {
-                    GameEffect.playMusic("src/resources/Audio/Punishment.wav");
+                    SoundEffects.playMusic("src/resources/Audio/Punishment.wav");
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
@@ -185,7 +185,7 @@ public class World {
                 msSinceLastBRVisible = 0;
 
                     try {
-                        GameEffect.playMusic("src/resources/Audio/BRCollection.wav");
+                        SoundEffects.playMusic("src/resources/Audio/BRCollection.wav");
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
