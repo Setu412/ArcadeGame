@@ -8,8 +8,7 @@ import java.awt.*;
 import java.awt.image.BufferedImage;
 
 public class BonusReward extends Collectable {
-    private BufferedImage bonusImg = ImageLoader.loadImage("src/resources/Images/bonus.png");
-    private Image result = bonusImg.getScaledInstance(47, 47, Image.SCALE_DEFAULT);
+
 
     public boolean isVisible = false;
     final static int BONUS_POINTS = 5;
@@ -40,7 +39,7 @@ public class BonusReward extends Collectable {
             //g.setColor(Color.GREEN);
             //Draw.dot(g, offset.x + BRewardScreenPosition.x + s.gridHorizontalSpacing() / 2, offset.y + BRewardScreenPosition.y + s.gridVerticalSpacing() / 2, 16);
 
-            g.drawImage(result,offset.x + BRewardScreenPosition.x - 23 + s.gridHorizontalSpacing() / 2, offset.y + BRewardScreenPosition.y - 23 + s.gridVerticalSpacing() / 2, null);
+            g.drawImage(ImageLoader.bon,offset.x + BRewardScreenPosition.x - 23 + s.gridHorizontalSpacing() / 2, offset.y + BRewardScreenPosition.y - 23 + s.gridVerticalSpacing() / 2, null);
         }
     }
 

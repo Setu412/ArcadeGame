@@ -10,15 +10,6 @@ import java.awt.*;
 import java.awt.image.BufferedImage;
 
 public class Enemy extends MovableEntity {
-    private BufferedImage enemyup = ImageLoader.loadImage("src/resources/Images/enemyup.png");
-    private BufferedImage enemydown = ImageLoader.loadImage("src/resources/Images/enemydown.png");
-    private BufferedImage enemyleft = ImageLoader.loadImage("src/resources/Images/enemyleft.png");
-    private BufferedImage enemyright = ImageLoader.loadImage("src/resources/Images/enemyright.png");
-
-    private Image result1 = enemyup.getScaledInstance(49, 49, Image.SCALE_DEFAULT);
-    private Image result2 = enemydown.getScaledInstance(49, 49, Image.SCALE_DEFAULT);
-    private Image result3 = enemyright.getScaledInstance(49, 49, Image.SCALE_DEFAULT);
-    private Image result4 = enemyleft.getScaledInstance(49, 49, Image.SCALE_DEFAULT);
 
     private MovementGenerator movementGenerator;
 
@@ -46,19 +37,13 @@ public class Enemy extends MovableEntity {
 
 
         if (facing == Direction.North) {
-            assert enemyup != null;
-            g.drawImage(result1, offset.x + playerScreenPosition.x + 1, offset.y + playerScreenPosition.y + 1, null);
+            g.drawImage(ImageLoader.e1, offset.x + playerScreenPosition.x + 1, offset.y + playerScreenPosition.y + 1, null);
         } else if (facing == Direction.South) {
-            assert enemydown != null;
-            g.drawImage(result2, offset.x + playerScreenPosition.x + 1, offset.y + playerScreenPosition.y + 1, null);
-
+            g.drawImage(ImageLoader.e1, offset.x + playerScreenPosition.x + 1, offset.y + playerScreenPosition.y + 1, null);
         } else if (facing == Direction.East) {
-            assert enemyright != null;
-            g.drawImage(result3, offset.x + playerScreenPosition.x + 1, offset.y + playerScreenPosition.y + 1, null);
-
+            g.drawImage(ImageLoader.e3, offset.x + playerScreenPosition.x + 1, offset.y + playerScreenPosition.y + 1, null);
         } else {
-            assert enemyleft != null;
-            g.drawImage(result4, offset.x + playerScreenPosition.x + 1, offset.y + playerScreenPosition.y + 1, null);
+            g.drawImage(ImageLoader.e4, offset.x + playerScreenPosition.x + 1, offset.y + playerScreenPosition.y + 1, null);
         }
     }
 }

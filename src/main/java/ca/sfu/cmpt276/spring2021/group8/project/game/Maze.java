@@ -10,16 +10,6 @@ import java.util.Random;
 
 public class Maze implements PositionValidator {
 
-    private BufferedImage wallImg = ImageLoader.loadImage("src/resources/Images/wall.jpg");
-    private BufferedImage entranceImg = ImageLoader.loadImage("src/resources/Images/entrance.jpg");
-    private BufferedImage exitClosedImg = ImageLoader.loadImage("src/resources/Images/exitclosed.png");
-    private BufferedImage exitOpenImg = ImageLoader.loadImage("src/resources/Images/exitopen.png");
-
-    private Image result1 = wallImg.getScaledInstance(49, 49, Image.SCALE_DEFAULT);
-    private Image result2 = entranceImg.getScaledInstance(49, 49, Image.SCALE_DEFAULT);
-    private Image result3 = exitClosedImg.getScaledInstance(49, 49, Image.SCALE_DEFAULT);
-    private Image result4 = exitClosedImg.getScaledInstance(49, 49, Image.SCALE_DEFAULT);
-
 
     public static final int WALL = 4;
     public static final int ENTRANCE = 7;
@@ -199,31 +189,27 @@ public class Maze implements PositionValidator {
                     Point wallScreenPosition = s.convert(j, i);
                     //g.setColor(Color.BLACK);
                     //Draw.dot(g, offset.x + wallScreenPosition.x + s.gridHorizontalSpacing() / 2, offset.y + wallScreenPosition.y + s.gridVerticalSpacing() / 2, 16);
-                    assert(wallImg != null);
-                    g.drawImage(result1, offset.x + wallScreenPosition.x - 24 + s.gridHorizontalSpacing() / 2, offset.y + wallScreenPosition.y - 24 + s.gridVerticalSpacing() / 2, null);
+                    g.drawImage(ImageLoader.w, offset.x + wallScreenPosition.x - 24 + s.gridHorizontalSpacing() / 2, offset.y + wallScreenPosition.y - 24 + s.gridVerticalSpacing() / 2, null);
                 }
                 if (maze[i][j] == ENTRANCE)
                 {
                     Point wallScreenPosition = s.convert(j, i);
                     //g.setColor(Color.CYAN);
                     //Draw.dot(g, offset.x + wallScreenPosition.x + s.gridHorizontalSpacing() / 2, offset.y + wallScreenPosition.y + s.gridVerticalSpacing() / 2, 16);
-                    assert(entranceImg != null);
-                    g.drawImage(result2, offset.x + wallScreenPosition.x - 24 + s.gridHorizontalSpacing() / 2, offset.y + wallScreenPosition.y - 24 + s.gridVerticalSpacing() / 2, null );
+                    g.drawImage(ImageLoader.entr, offset.x + wallScreenPosition.x - 24 + s.gridHorizontalSpacing() / 2, offset.y + wallScreenPosition.y - 24 + s.gridVerticalSpacing() / 2, null );
                 }
                 if (maze[i][j] == EXIT)
                 {
                     Point wallScreenPosition = s.convert(j, i);
                     //g.setColor(Color.MAGENTA);
                     //Draw.dot(g, offset.x + wallScreenPosition.x + s.gridHorizontalSpacing() / 2, offset.y + wallScreenPosition.y + s.gridVerticalSpacing() / 2, 16);
-                    assert(exitClosedImg != null);
-                    g.drawImage(result3, offset.x + wallScreenPosition.x - 24 + s.gridHorizontalSpacing() / 2, offset.y + wallScreenPosition.y - 24 + s.gridVerticalSpacing() / 2, null);
+                    g.drawImage(ImageLoader.exitC, offset.x + wallScreenPosition.x - 24 + s.gridHorizontalSpacing() / 2, offset.y + wallScreenPosition.y - 24 + s.gridVerticalSpacing() / 2, null);
                 }
 
                 if (maze[i][j] == EXITOPEN)
                 {
                     Point wallScreenPosition = s.convert(j, i);
-                    assert(exitOpenImg != null);
-                    g.drawImage(result4, offset.x + wallScreenPosition.x - 24 + s.gridHorizontalSpacing() / 2, offset.y + wallScreenPosition.y - 24 + s.gridVerticalSpacing() / 2, null);
+                    g.drawImage(ImageLoader.exitO, offset.x + wallScreenPosition.x - 24 + s.gridHorizontalSpacing() / 2, offset.y + wallScreenPosition.y - 24 + s.gridVerticalSpacing() / 2, null);
                 }
             }
         }
