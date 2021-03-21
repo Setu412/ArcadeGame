@@ -8,6 +8,7 @@ import java.awt.image.BufferedImage;
 
 public class Reward extends Collectable {
     private BufferedImage rewardImg = ImageLoader.loadImage("src/resources/Images/p.png");
+    private Image result = rewardImg.getScaledInstance(47, 47, Image.SCALE_DEFAULT);
     final static int REWARDS_POINTS = 2;
 
     public Reward(Point rewardCoordinate) {
@@ -32,7 +33,7 @@ public class Reward extends Collectable {
         Point RewardScreenPosition = s.convert(this.getPosition());
         //g.setColor(Color.YELLOW);
         //Draw.dot(g, offset.x + RewardScreenPosition.x + s.gridHorizontalSpacing()/2, offset.y + RewardScreenPosition.y + s.gridVerticalSpacing()/2, 16);
-        Image result = rewardImg.getScaledInstance(47, 47, Image.SCALE_DEFAULT);
+
         g.drawImage(result, offset.x + RewardScreenPosition.x - 23 + s.gridHorizontalSpacing()/2, offset.y + RewardScreenPosition.y - 23 + s.gridVerticalSpacing()/2, null);
 
     }
