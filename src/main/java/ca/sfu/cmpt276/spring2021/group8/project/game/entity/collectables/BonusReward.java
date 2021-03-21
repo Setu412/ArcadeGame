@@ -6,7 +6,6 @@ import ca.sfu.cmpt276.spring2021.group8.project.game.WorldScreenAdapter;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
-import java.nio.Buffer;
 
 public class BonusReward extends Collectable {
     private BufferedImage bonusImg;
