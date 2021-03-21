@@ -13,10 +13,15 @@ import javax.sound.sampled.LineUnavailableException;
 import javax.sound.sampled.UnsupportedAudioFileException;
 
 public class Player extends MovableEntity {
-    private BufferedImage playerup;
-    private BufferedImage playerdown;
-    private BufferedImage playerright;
-    private BufferedImage playerleft;
+    private BufferedImage playerup = ImageLoader.loadImage("src/resources/Images/playerup.png");
+    private BufferedImage playerdown = ImageLoader.loadImage("src/resources/Images/playerdown.png");
+    private BufferedImage playerleft = ImageLoader.loadImage("src/resources/Images/playerright.png");
+    private BufferedImage playerright = ImageLoader.loadImage("src/resources/Images/playerleft.png");
+
+    private Image result1 = playerup.getScaledInstance(49, 49, Image.SCALE_DEFAULT);
+    private Image result2 = playerdown.getScaledInstance(49, 49, Image.SCALE_DEFAULT);
+    private Image result3 = playerleft.getScaledInstance(49, 49, Image.SCALE_DEFAULT);
+    private Image result4 = playerright.getScaledInstance(49, 49, Image.SCALE_DEFAULT);
 
     private BufferedImage player;
     private boolean hasMoved=false;
@@ -46,29 +51,22 @@ public class Player extends MovableEntity {
 
         //Image scaled = student.getScaledInstance(student.getHeight() / student.getWidth() * gridSpacing.x, student.getWidth() / student.getHeight() * gridSpacing.y, 0);
 
-        playerup = ImageLoader.loadImage("src/resources/Images/playerup.png");
-        playerdown = ImageLoader.loadImage("src/resources/Images/playerdown.png");
-        playerleft = ImageLoader.loadImage("src/resources/Images/playerright.png");
-        playerright = ImageLoader.loadImage("src/resources/Images/playerleft.png");
+
 
         if (facing == Direction.North) {
             assert playerup != null;
-            Image result = playerup.getScaledInstance(49, 49, Image.SCALE_DEFAULT);
-            g.drawImage(result, offset.x + playerScreenPosition.x + 1, offset.y + playerScreenPosition.y + 1, null);
+            g.drawImage(result1, offset.x + playerScreenPosition.x + 1, offset.y + playerScreenPosition.y + 1, null);
         } else if (facing == Direction.South) {
             assert playerdown != null;
-            Image result = playerdown.getScaledInstance(49, 49, Image.SCALE_DEFAULT);
-            g.drawImage(result, offset.x + playerScreenPosition.x + 1, offset.y + playerScreenPosition.y + 1, null);
+            g.drawImage(result2, offset.x + playerScreenPosition.x + 1, offset.y + playerScreenPosition.y + 1, null);
 
         } else if (facing == Direction.East) {
             assert playerleft != null;
-            Image result = playerleft.getScaledInstance(49, 49, Image.SCALE_DEFAULT);
-            g.drawImage(result, offset.x + playerScreenPosition.x + 1, offset.y + playerScreenPosition.y + 1, null);
+            g.drawImage(result3, offset.x + playerScreenPosition.x + 1, offset.y + playerScreenPosition.y + 1, null);
 
         } else {
             assert playerright != null;
-            Image result = playerright.getScaledInstance(49, 49, Image.SCALE_DEFAULT);
-            g.drawImage(result, offset.x + playerScreenPosition.x + 1, offset.y + playerScreenPosition.y + 1, null);
+            g.drawImage(result4, offset.x + playerScreenPosition.x + 1, offset.y + playerScreenPosition.y + 1, null);
         }
 
 
