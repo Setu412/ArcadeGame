@@ -9,7 +9,7 @@ import java.awt.image.BufferedImage;
 
 public class Barrier extends Entity {
 
-    private BufferedImage barrierImg;
+    private BufferedImage barrierImg = ImageLoader.loadImage("src/resources/Images/barrier.jpg");
 
     //May want to have all the barries on the maze itself
     // up for discussion
@@ -23,7 +23,7 @@ public class Barrier extends Entity {
 
     @Override
     public void render(Graphics g, WorldScreenAdapter s) {
-        barrierImg = ImageLoader.loadImage("src/resources/Images/barrier.jpg");
+
         Rectangle offset = g.getClipBounds();
         Point BarrierScreenPosition = s.convert(getPosition());
         //g.setColor(Color.GRAY);
