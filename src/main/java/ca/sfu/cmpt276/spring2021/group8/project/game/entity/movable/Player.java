@@ -13,10 +13,10 @@ import javax.sound.sampled.LineUnavailableException;
 import javax.sound.sampled.UnsupportedAudioFileException;
 
 public class Player extends MovableEntity {
-    private BufferedImage playerup;
-    private BufferedImage playerdown;
-    private BufferedImage playerright;
-    private BufferedImage playerleft;
+    private BufferedImage playerup = ImageLoader.loadImage("src/resources/Images/playerup.png");
+    private BufferedImage playerdown = ImageLoader.loadImage("src/resources/Images/playerdown.png");
+    private BufferedImage playerleft = ImageLoader.loadImage("src/resources/Images/playerright.png");
+    private BufferedImage playerright = ImageLoader.loadImage("src/resources/Images/playerleft.png");
 
 
     public Player(Point startPosition) {
@@ -38,10 +38,7 @@ public class Player extends MovableEntity {
 
         //Image scaled = student.getScaledInstance(student.getHeight() / student.getWidth() * gridSpacing.x, student.getWidth() / student.getHeight() * gridSpacing.y, 0);
 
-        playerup = ImageLoader.loadImage("src/resources/Images/playerup.png");
-        playerdown = ImageLoader.loadImage("src/resources/Images/playerdown.png");
-        playerleft = ImageLoader.loadImage("src/resources/Images/playerright.png");
-        playerright = ImageLoader.loadImage("src/resources/Images/playerleft.png");
+
 
         if (facing == Direction.North) {
             assert playerup != null;

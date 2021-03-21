@@ -10,10 +10,9 @@ import java.util.Random;
 
 public class Maze implements PositionValidator {
 
-    private BufferedImage wallImg;
-    private BufferedImage exitClosedImg;
-    private BufferedImage exitOpenedImg;
-    private BufferedImage entranceImg;
+    private BufferedImage wallImg = ImageLoader.loadImage("src/resources/Images/wall.jpg");
+    private BufferedImage entranceImg = ImageLoader.loadImage("src/resources/Images/entrance.jpg");
+    private BufferedImage exitClosedImg = ImageLoader.loadImage("src/resources/Images/exitclosed.png");
 
 
     public static final int WALL = 4;
@@ -183,9 +182,7 @@ public class Maze implements PositionValidator {
     public void render(Graphics g, WorldScreenAdapter s) {
         Rectangle offset = g.getClipBounds();
 
-        wallImg = ImageLoader.loadImage("src/resources/Images/wall.jpg");
-        entranceImg = ImageLoader.loadImage("src/resources/Images/entrance.jpg");
-        exitClosedImg = ImageLoader.loadImage("src/resources/Images/exitclosed.png");
+
         for (int i=0; i < height; i++)
         {
             for (int j = 0; j < this.width; j++)

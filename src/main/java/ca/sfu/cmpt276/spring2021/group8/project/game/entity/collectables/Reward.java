@@ -7,7 +7,7 @@ import java.awt.*;
 import java.awt.image.BufferedImage;
 
 public class Reward extends Collectable {
-    private BufferedImage rewardImg;
+    private BufferedImage rewardImg = ImageLoader.loadImage("src/resources/Images/p.png");
     final static int REWARDS_POINTS = 2;
 
     public Reward(Point rewardCoordinate) {
@@ -26,7 +26,7 @@ public class Reward extends Collectable {
 
     @Override
     public void render(Graphics g, WorldScreenAdapter s) {
-        rewardImg = ImageLoader.loadImage("src/resources/Images/p.png");
+
 
         Rectangle offset = g.getClipBounds();
         Point RewardScreenPosition = s.convert(this.getPosition());

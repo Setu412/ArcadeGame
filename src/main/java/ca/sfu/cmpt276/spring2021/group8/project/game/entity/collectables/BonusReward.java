@@ -8,7 +8,7 @@ import java.awt.*;
 import java.awt.image.BufferedImage;
 
 public class BonusReward extends Collectable {
-    private BufferedImage bonusImg;
+    private BufferedImage bonusImg = ImageLoader.loadImage("src/resources/Images/bonus.png");
 
     public boolean isVisible = false;
     final static int BONUS_POINTS = 5;
@@ -32,7 +32,7 @@ public class BonusReward extends Collectable {
 
     @Override
     public void render(Graphics g, WorldScreenAdapter s) {
-        bonusImg = ImageLoader.loadImage("src/resources/Images/bonus.png");
+
         if(isVisible) {
             Rectangle offset = g.getClipBounds();
             Point BRewardScreenPosition = s.convert(this.getPosition());

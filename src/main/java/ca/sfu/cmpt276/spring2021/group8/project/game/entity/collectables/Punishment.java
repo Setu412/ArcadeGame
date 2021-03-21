@@ -9,7 +9,7 @@ import java.awt.*;
 import java.awt.image.BufferedImage;
 
 public class Punishment extends Collectable {
-    private BufferedImage punishmentImg;
+    private BufferedImage punishmentImg = ImageLoader.loadImage("src/resources/Images/punishment.jpg");
 
     final static int PUNISHMENT_POINTS = -4;
 
@@ -24,7 +24,7 @@ public class Punishment extends Collectable {
 
     @Override
     public void render(Graphics g, WorldScreenAdapter s) {
-        punishmentImg = ImageLoader.loadImage("src/resources/Images/punishment.jpg");
+
         Rectangle offset = g.getClipBounds();
         Point PunishmentScreenPosition = s.convert(getPosition());
         //g.setColor(Color.PINK);

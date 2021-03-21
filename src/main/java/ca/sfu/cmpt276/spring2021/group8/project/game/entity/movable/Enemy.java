@@ -10,10 +10,10 @@ import java.awt.*;
 import java.awt.image.BufferedImage;
 
 public class Enemy extends MovableEntity {
-    private BufferedImage enemyup;
-    private BufferedImage enemydown;
-    private BufferedImage enemyleft;
-    private BufferedImage enemyright;
+    private BufferedImage enemyup = ImageLoader.loadImage("src/resources/Images/enemyup.png");
+    private BufferedImage enemydown = ImageLoader.loadImage("src/resources/Images/enemydown.png");
+    private BufferedImage enemyleft = ImageLoader.loadImage("src/resources/Images/enemyleft.png");
+    private BufferedImage enemyright = ImageLoader.loadImage("src/resources/Images/enemyright.png");
 
     private MovementGenerator movementGenerator;
 
@@ -38,10 +38,7 @@ public class Enemy extends MovableEntity {
         // Image scaled = student.getScaledInstance(student.getHeight() / student.getWidth() * gridSpacing.x, student.getWidth() / student.getHeight() * gridSpacing.y, 0);
         // g.drawImage(scaled, xoffset + playerScreenPosition.x, yoffset + playerScreenPosition.y, null);
 
-        enemyup = ImageLoader.loadImage("src/resources/Images/enemyup.png");
-        enemydown = ImageLoader.loadImage("src/resources/Images/enemydown.png");
-        enemyleft = ImageLoader.loadImage("src/resources/Images/enemyleft.png");
-        enemyright = ImageLoader.loadImage("src/resources/Images/enemyright.png");
+
 
         if (facing == Direction.North) {
             assert enemyup != null;
