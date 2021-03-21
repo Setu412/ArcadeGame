@@ -1,16 +1,14 @@
 package ca.sfu.cmpt276.spring2021.group8.project;
 
 
+import ca.sfu.cmpt276.spring2021.group8.project.GUI.MainMenu;
 import ca.sfu.cmpt276.spring2021.group8.project.game.*;
 import java.awt.*;
 import java.awt.event.*;
-import java.io.IOException;
 
-import javax.sound.sampled.LineUnavailableException;
-import javax.sound.sampled.UnsupportedAudioFileException;
 import javax.swing.*;
 
-public class Main {
+public class MainFrame {
     private static final String SCREEN_GAME = "game";
     private static final String SCREEN_MAINMENU = "mainmenu";
 
@@ -18,15 +16,12 @@ public class Main {
     private final static int height = 720;
 
     private Canvas canvas;
-    
     private CardLayout cardLayout = new CardLayout();
     private JPanel panel = new JPanel();
 
-    public static void main(String[] args) {
-        new Main().showMainMenu();
-    }
+    private MainMenu mainMenu=new MainMenu();
 
-    private Main() {
+    public MainFrame() {
         JFrame f = new JFrame();
 
         panel.setLayout(cardLayout);
@@ -35,16 +30,30 @@ public class Main {
 
         f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         f.setSize(width, height);
+        f.setResizable(false);
 
-        panel.add(createMainMenu(), SCREEN_MAINMENU);
+//        mainMenu.getStartGameButton().addMouseListener(new MouseAdapter() {
+//            @Override
+//            public void mouseClicked(MouseEvent e) {
+//                startGame();
+//            }
+//        });
+        panel.add(mainMenu, SCREEN_MAINMENU);
         panel.add(createGameCanvas(width, height), SCREEN_GAME);
+        f.setLocationRelativeTo(null);
         f.setVisible(true);
+
+        cardLayout.show(panel,SCREEN_MAINMENU);
 
         try {
             SoundEffects.BRplayMusic("src/resources/Audio/Background.wav");
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    private void showMainMenu() {
+        cardLayout.show(panel, SCREEN_MAINMENU);
     }
 
     private Canvas createGameCanvas(int width, int height) {
@@ -65,24 +74,7 @@ public class Main {
         return canvas;
     }
 
-    private Component createMainMenu() {
-        JPanel panel = new JPanel();
-
-        JButton btn = new JButton("Start Game");
-
-        btn.addMouseListener(new MouseAdapter() {
-            @Override
-            public void mouseClicked(MouseEvent e) {
-                startGame();
-            }
-        });
-        panel.add(btn);
-        panel.setBackground(Color.red);
-
-        return panel;
-    }
-
-    private void startGame() {
+    void startGame() {
         cardLayout.show(panel, SCREEN_GAME);
         canvas.requestFocusInWindow();
 
@@ -107,9 +99,5 @@ public class Main {
                 }
             }
         }).start();
-    }
-
-    private void showMainMenu() {
-        cardLayout.show(panel, SCREEN_MAINMENU);
     }
 }

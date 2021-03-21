@@ -256,15 +256,14 @@ public class World {
             e.render(g, adapter);
         }
 
-        for (Enemy enemy : enemies) {
-            enemy.render(g, adapter);
-        }
-
         for (Barrier i : barriers) {
             i.render(g, adapter);
         }
 
-        // render the player last so it is on top
         player.render(g, adapter);
+
+        for (Enemy enemy : enemies) {
+            enemy.render(g, adapter);
+        }
     }
 }
