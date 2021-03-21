@@ -43,7 +43,6 @@ public class Player extends MovableEntity {
         playerleft = ImageLoader.loadImage("src/resources/Images/playerright.png");
         playerright = ImageLoader.loadImage("src/resources/Images/playerleft.png");
 
-
         if (facing == Direction.North) {
             assert playerup != null;
             Image result = playerup.getScaledInstance(49, 49, Image.SCALE_DEFAULT);
