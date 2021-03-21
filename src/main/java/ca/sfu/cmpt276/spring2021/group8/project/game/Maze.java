@@ -4,7 +4,12 @@ import ca.sfu.cmpt276.spring2021.group8.project.Draw;
 import ca.sfu.cmpt276.spring2021.group8.project.game.positioning.PositionValidator;
 
 import java.awt.*;
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.util.Random;
+import java.util.Scanner;
+import java.util.StringTokenizer;
+
 
 public class Maze implements PositionValidator {
 
@@ -35,9 +40,12 @@ public class Maze implements PositionValidator {
                             {4, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 4},
                             {4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4}
                         };
-                        
+
     // Constructors
     public Maze() {
+
+        maze = GenerateInternalMazeWalls.readWallCoordinates(maze);
+
         int x1, x2;
          // Randomly generate entrance
         x1 = getRandomInt(0, height - 1);
@@ -83,7 +91,6 @@ public class Maze implements PositionValidator {
         nextToExit = nextToDoors(exit);
 
         // Generate barriers ** TO BE DETERMINED
-
     }
 
     // Initialize starting position
@@ -129,14 +136,16 @@ public class Maze implements PositionValidator {
     
     // Returns a Point in the maze to use
     public Point generatePosition() {
-            int x1;
-            int x2;
-             do {
-                x1 = getRandomInt(1, height - 2);
-                x2 = getRandomInt(1, width- 2);
-            }while (maze[x1][x2] != 0);
-            return new Point(x2, x1);
+        int x1;
+        int x2;
+         do {
+            x1 = getRandomInt(1, height - 2);
+            x2 = getRandomInt(1, width- 2);
+        }while (maze[x1][x2] != 0 && !nextToStart.equals(new Point(x2,x1)));
+
+        return new Point(x2, x1);
     }
+
 
     // Resets the maze to the original design (call after creating all the collectible objects) 
     // * Issue: doesn't have any internal walls right now

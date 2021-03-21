@@ -2,10 +2,15 @@ package ca.sfu.cmpt276.spring2021.group8.project.game.entity.movable;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
+import java.io.IOException;
 
 import ca.sfu.cmpt276.spring2021.group8.project.Draw;
+import ca.sfu.cmpt276.spring2021.group8.project.ImageLoader;
 import ca.sfu.cmpt276.spring2021.group8.project.game.*;
 import ca.sfu.cmpt276.spring2021.group8.project.game.positioning.PositionValidator;
+
+import javax.sound.sampled.LineUnavailableException;
+import javax.sound.sampled.UnsupportedAudioFileException;
 
 public class Player extends MovableEntity {
     private BufferedImage player;
@@ -28,7 +33,7 @@ public class Player extends MovableEntity {
     @Override
     public void render(Graphics g, WorldScreenAdapter adapter) {
 
-        //player = ImageLoader.loadImage("src/resources/Images/Student.jpg");
+        player = ImageLoader.loadImage("src/resources/Images/Student.jpg");
         Rectangle offset = g.getClipBounds();
         Point playerScreenPosition = adapter.convert(getPosition());
         g.setColor(Color.BLUE);

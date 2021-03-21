@@ -73,11 +73,13 @@ public class Game implements KeyListener {
 
         // render timer
         g.setColor(Color.RED);
-        g.drawString("Time: " + getFormattedTime(), 10, 20);
+        g.setFont(new Font("TimesRoman", Font.BOLD, 15));
+        g.drawString("Time: " + getFormattedTime(), 10, 30);
 
         // render score
         g.setColor(Color.RED);
-        g.drawString("Score: " + score, 10, 30);
+        g.setFont(new Font("TimesRoman", Font.BOLD, 15));
+        g.drawString("Score: " + score, 1180, 30);
 
         // TODO draw more ui elements
     }

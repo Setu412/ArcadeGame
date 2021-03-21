@@ -27,6 +27,8 @@ public class World {
     private long msSinceLastMove = 0;
     private long msSinceLastBRVisible = 0;
     private long msSinceLastMoveBarrier = 0;
+    private int rewardCollected = 0;
+
 
     private EntityList<Barrier> barriers = new EntityList<>();
     private EntityList<Enemy> enemies = new EntityList<>();
@@ -54,13 +56,13 @@ public class World {
             barriers.add(new Barrier(generateEmptyPosition()));
         }
 
-        //bonusReward.add(new BonusReward(new Point(0,0))); //update this (0,0) coordinate
-
 
         // TODO probably generate non-player entities here
         for (int i=0;i<5;i++) {
             this.enemies.add(new Enemy(this.player.getTargetedMovementGenerator(maze), generateEmptyPosition()));
         }
+
+
     }
 
     public World() {
@@ -156,7 +158,19 @@ public class World {
 
             if (collectable instanceof Reward) {
                 try {
-                    playMusic("src/resources/Audio/pokemonReward.wav");
+                    SoundEffects.playMusic("src/resources/Audio/RewardCollection.wav");
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+                rewardCollected++;
+                if(rewardCollected == 40){
+                    maze.complete();
+                }
+            }
+
+            if (collectable instanceof Punishment) {
+                try {
+                    SoundEffects.playMusic("src/resources/Audio/Punishment.wav");
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
@@ -171,6 +185,13 @@ public class World {
             if (bonusReward.getPosition().equals(pos)) {
                 bonusReward.isVisible  = false;
                 msSinceLastBRVisible = 0;
+
+                    try {
+                        SoundEffects.playMusic("src/resources/Audio/BRCollection.wav");
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+
                 return GameEffect.createScoreEffect(bonusReward.getPoints());
             }
         }
@@ -182,22 +203,6 @@ public class World {
         }
 
         return null;
-    }
-
-    private void playMusic(String path) throws UnsupportedAudioFileException, IOException, LineUnavailableException
-    {
-        Clip clip;
-        // create AudioInputStream object
-        AudioInputStream audioInputStream =
-                AudioSystem.getAudioInputStream(new File(path).getAbsoluteFile());
-
-        // create clip reference
-        clip = AudioSystem.getClip();
-
-        // open audioInputStream to the clip
-        clip.open(audioInputStream);
-
-        clip.start();
     }
 
     public void movePlayer(Direction direction) {
