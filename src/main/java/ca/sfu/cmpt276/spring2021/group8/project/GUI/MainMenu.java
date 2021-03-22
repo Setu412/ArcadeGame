@@ -33,8 +33,9 @@ public class MainMenu extends JPanel{
     private void prepareTitlePanel()
     {
         titlePanel.setBounds(165,110,950,250);
-        titlePanel.setBackground(Color.decode("0xb10707"));
+        titlePanel.setBackground(GUIConfigurations.COMPONENT_COLOR);
         this.add(titlePanel);
+
         titleText.setForeground(GUIConfigurations.TEXT_COLOR);
         titleText.setFont(GUIConfigurations.TITLE_FONT);
         titleText.setBackground(titlePanel.getBackground());
