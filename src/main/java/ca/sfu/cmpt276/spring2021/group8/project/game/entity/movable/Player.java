@@ -13,15 +13,7 @@ import javax.sound.sampled.LineUnavailableException;
 import javax.sound.sampled.UnsupportedAudioFileException;
 
 public class Player extends MovableEntity {
-    private BufferedImage playerup = ImageLoader.loadImage("src/resources/Images/playerup.png");
-    private BufferedImage playerdown = ImageLoader.loadImage("src/resources/Images/playerdown.png");
-    private BufferedImage playerleft = ImageLoader.loadImage("src/resources/Images/playerright.png");
-    private BufferedImage playerright = ImageLoader.loadImage("src/resources/Images/playerleft.png");
 
-    private Image result1 = playerup.getScaledInstance(49, 49, Image.SCALE_DEFAULT);
-    private Image result2 = playerdown.getScaledInstance(49, 49, Image.SCALE_DEFAULT);
-    private Image result3 = playerleft.getScaledInstance(49, 49, Image.SCALE_DEFAULT);
-    private Image result4 = playerright.getScaledInstance(49, 49, Image.SCALE_DEFAULT);
 
     private BufferedImage player;
     private boolean hasMoved=false;
@@ -54,19 +46,19 @@ public class Player extends MovableEntity {
 
 
         if (facing == Direction.North) {
-            assert playerup != null;
-            g.drawImage(result1, offset.x + playerScreenPosition.x + 1, offset.y + playerScreenPosition.y + 1, null);
+            assert ImageLoader.playerup != null;
+            g.drawImage(ImageLoader.p1, offset.x + playerScreenPosition.x + 1, offset.y + playerScreenPosition.y + 1, null);
         } else if (facing == Direction.South) {
-            assert playerdown != null;
-            g.drawImage(result2, offset.x + playerScreenPosition.x + 1, offset.y + playerScreenPosition.y + 1, null);
+            assert ImageLoader.playerdown != null;
+            g.drawImage(ImageLoader.p2, offset.x + playerScreenPosition.x + 1, offset.y + playerScreenPosition.y + 1, null);
 
         } else if (facing == Direction.East) {
-            assert playerleft != null;
-            g.drawImage(result3, offset.x + playerScreenPosition.x + 1, offset.y + playerScreenPosition.y + 1, null);
+            assert ImageLoader.playerleft != null;
+            g.drawImage(ImageLoader.p3, offset.x + playerScreenPosition.x + 1, offset.y + playerScreenPosition.y + 1, null);
 
         } else {
-            assert playerright != null;
-            g.drawImage(result4, offset.x + playerScreenPosition.x + 1, offset.y + playerScreenPosition.y + 1, null);
+            assert ImageLoader.playerright != null;
+            g.drawImage(ImageLoader.p4, offset.x + playerScreenPosition.x + 1, offset.y + playerScreenPosition.y + 1, null);
         }
 
 
