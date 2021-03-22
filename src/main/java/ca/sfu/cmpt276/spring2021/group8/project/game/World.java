@@ -16,9 +16,10 @@ public class World {
     private final static long MS_PER_BARRIER_CHANGE_POS = 13000;
     private final static long MS_PER_BS_VISIBLE = 5000;
 
-    final static int NUM_REWARDS = 40;
-    final static int NUM_PUNISHMENTS = 20;
-    final static int NUM_BARRIERS = 10;
+    private final static int NUM_REWARDS = 40;
+    private static int NUM_PUNISHMENTS = 20;
+    private final static int NUM_BARRIERS = 10;
+    private final static int NUM_ENEMIES=5;
 
     private Maze maze;
     private Player player;
@@ -58,7 +59,7 @@ public class World {
 
 
         // TODO probably generate non-player entities here
-        for (int i=0;i<5;i++) {
+        for (int i=0;i<NUM_ENEMIES;i++) {
             this.enemies.add(new Enemy(this.player.getTargetedMovementGenerator(maze), generateEmptyPosition()));
         }
 

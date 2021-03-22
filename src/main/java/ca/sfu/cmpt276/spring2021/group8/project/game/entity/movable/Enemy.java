@@ -39,7 +39,7 @@ public class Enemy extends MovableEntity {
         if (facing == Direction.North) {
             g.drawImage(ImageLoader.e1, offset.x + playerScreenPosition.x + 1, offset.y + playerScreenPosition.y + 1, null);
         } else if (facing == Direction.South) {
-            g.drawImage(ImageLoader.e1, offset.x + playerScreenPosition.x + 1, offset.y + playerScreenPosition.y + 1, null);
+            g.drawImage(ImageLoader.e2, offset.x + playerScreenPosition.x + 1, offset.y + playerScreenPosition.y + 1, null);
         } else if (facing == Direction.East) {
             g.drawImage(ImageLoader.e3, offset.x + playerScreenPosition.x + 1, offset.y + playerScreenPosition.y + 1, null);
         } else {
