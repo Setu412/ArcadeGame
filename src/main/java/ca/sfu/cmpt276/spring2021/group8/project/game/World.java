@@ -203,6 +203,10 @@ public class World {
             }
         }
 
+        if (player.getPosition().equals(maze.exitPosition())) {
+            return GameEffect.createWinEffect();
+        }
+
         return null;
     }
 
