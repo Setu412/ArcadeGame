@@ -1,6 +1,8 @@
 package ca.sfu.cmpt276.spring2021.group8.project;
 
 
+import ca.sfu.cmpt276.spring2021.group8.project.GUI.GUIConfigurations;
+import ca.sfu.cmpt276.spring2021.group8.project.GUI.HowToPlayMenu;
 import ca.sfu.cmpt276.spring2021.group8.project.GUI.MainMenu;
 import ca.sfu.cmpt276.spring2021.group8.project.game.*;
 import java.awt.*;
@@ -11,15 +13,14 @@ import javax.swing.*;
 public class MainFrame {
     private static final String SCREEN_GAME = "game";
     private static final String SCREEN_MAINMENU = "mainmenu";
-
-    private final static int width = 1280;
-    private final static int height = 720;
+    private static final String SCREEN_HOWTOPLAY= "howtoplay";
 
     private Canvas canvas;
     private CardLayout cardLayout = new CardLayout();
     private JPanel panel = new JPanel();
 
     private MainMenu mainMenu=new MainMenu();
+    private HowToPlayMenu howToPlayMenu=new HowToPlayMenu();
 
     public MainFrame() {
         JFrame f = new JFrame();
@@ -29,17 +30,34 @@ public class MainFrame {
         f.add(panel);
 
         f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        f.setSize(width, height);
+        f.setSize(GUIConfigurations.WIDTH, GUIConfigurations.HEIGHT);
         f.setResizable(false);
 
-//        mainMenu.getStartGameButton().addMouseListener(new MouseAdapter() {
-//            @Override
-//            public void mouseClicked(MouseEvent e) {
-//                startGame();
-//            }
-//        });
+        //mainMenu.setSize(width,height);
+        mainMenu.getStartGameBtn().addActionListener(new ActionListener() {
+
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                startGame();
+            }
+        });
+        mainMenu.getHowToPlayBtn().addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                showHowToPlayMenu();
+            }
+        });
+
+        //howToPlayMenu.setSize(width,height);
+        howToPlayMenu.getMainMenuBtn().addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                showMainMenu();
+            }
+        });
         panel.add(mainMenu, SCREEN_MAINMENU);
-        panel.add(createGameCanvas(width, height), SCREEN_GAME);
+        panel.add(createGameCanvas(GUIConfigurations.WIDTH,GUIConfigurations.HEIGHT), SCREEN_GAME);
+        panel.add(howToPlayMenu,SCREEN_HOWTOPLAY);
         f.setLocationRelativeTo(null);
         f.setVisible(true);
 
@@ -54,6 +72,11 @@ public class MainFrame {
 
     private void showMainMenu() {
         cardLayout.show(panel, SCREEN_MAINMENU);
+    }
+
+    private void showHowToPlayMenu()
+    {
+        cardLayout.show(panel,SCREEN_HOWTOPLAY);
     }
 
     private Canvas createGameCanvas(int width, int height) {
