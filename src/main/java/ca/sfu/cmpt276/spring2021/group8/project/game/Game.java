@@ -16,7 +16,7 @@ public class Game implements KeyListener {
 
     private GameResult update(long deltaTime) {
         if (quitNextUpdate) {
-            return GameResult.QUIT;
+            return GameResult.createQuitResult();
         }
 
         /**
@@ -27,17 +27,25 @@ public class Game implements KeyListener {
 
         GameEffect effect = world.getGameEffect();
         if (effect != null) {
-            if (effect.lose) {
+            if (effect instanceof GameEffect.Lose) {
                 System.out.println("lost the game :(");
-                return GameResult.LOSE;
+                return GameResult.createLoseResult(score, msSinceGameStart());
             }
-            //update score
-            this.score += effect.score;
 
-            //check if score is negative --> ends game
-            if(this.score < 0){
-                System.out.println("lost the game :(");
-                return GameResult.LOSE;
+            if (effect instanceof GameEffect.Win) {
+                System.out.println("won the game :D");
+                return GameResult.createWinResult(score, msSinceGameStart());
+            }
+            
+            if (effect instanceof GameEffect.Score) {
+                //update score
+                this.score += ((GameEffect.Score) effect).score;
+    
+                //check if score is negative --> ends game
+                if(this.score < 0){
+                    System.out.println("lost the game :(");
+                    return GameResult.createLoseResult(score, msSinceGameStart());
+                }
             }
         }
 

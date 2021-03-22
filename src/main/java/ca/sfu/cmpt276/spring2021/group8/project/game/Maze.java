@@ -97,9 +97,14 @@ public class Maze implements PositionValidator {
         // Generate barriers ** TO BE DETERMINED
     }
 
-    // Initialize starting position
+    // get starting position
     public Point startPosition() {
         return new Point(start);
+    }
+
+    // get end position
+    public Point exitPosition() {
+        return new Point(exit);
     }
 
     // Get size of maze

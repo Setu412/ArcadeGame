@@ -97,7 +97,10 @@ public class MainFrame {
         return canvas;
     }
 
-    void startGame() {
+    /**
+     * Switch to game panel and start game loop
+     */
+    private void startGame() {
         cardLayout.show(panel, SCREEN_GAME);
         canvas.requestFocusInWindow();
 
@@ -109,13 +112,11 @@ public class MainFrame {
                     canvas.addKeyListener(game);
 
                     GameResult result = game.loop(canvas);
-                    switch (result) {
-                    default:
-                        System.out.println("game result: " + result.toString());
+                    if (result instanceof GameResult.Quit) {
                         showMainMenu();
-                        break;
-
-                    // TODO handle other game results
+                    } else if (result instanceof GameResult.GameOver) {
+                        GameResult.GameOver info = ((GameResult.GameOver) result);
+                        // TODO pass game info to win/lose screens
                     }
                 } finally {
                     canvas.removeKeyListener(game);
