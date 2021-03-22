@@ -1,5 +1,8 @@
 package ca.sfu.cmpt276.spring2021.group8.project.game.effect;
 
+/**
+ * GameEffect is a container for communicating game state changes
+ */
 public abstract class GameEffect {
     /**
      * Create a GameEffect with the delta score
