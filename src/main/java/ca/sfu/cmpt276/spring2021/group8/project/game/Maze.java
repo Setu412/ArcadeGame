@@ -111,7 +111,7 @@ public class Maze implements PositionValidator {
     public boolean isValidPosition(Point p) {
 
         //check if moving towards unlocked exit tile
-        if (p.equals(exit) && maze[exit.y][exit.x] == 0) {
+        if (p.equals(exit) && maze[exit.y][exit.x] == 9) {
             return true;
         }
 
