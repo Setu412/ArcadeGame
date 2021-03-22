@@ -4,6 +4,7 @@ package ca.sfu.cmpt276.spring2021.group8.project;
 import ca.sfu.cmpt276.spring2021.group8.project.game.*;
 import java.awt.*;
 import java.awt.event.*;
+import java.awt.image.BufferStrategy;
 import java.io.IOException;
 
 import javax.sound.sampled.LineUnavailableException;
@@ -13,6 +14,8 @@ import javax.swing.*;
 public class Main {
     private static final String SCREEN_GAME = "game";
     private static final String SCREEN_MAINMENU = "mainmenu";
+    private static final String SCREEN_WIN = "win";
+    private static final String SCREEN_LOOSE = "loose";
 
     private final static int width = 1280;
     private final static int height = 720;
@@ -95,10 +98,18 @@ public class Main {
 
                     GameResult result = game.loop(canvas);
                     switch (result) {
-                    default:
-                        System.out.println("game result: " + result.toString());
-                        showMainMenu();
-                        break;
+                        case WIN:
+                            panel.add(showWinningScreen(),SCREEN_WIN);
+                            cardLayout.show(panel, SCREEN_WIN);
+                            break;
+                        case LOSE:
+                            panel.add(showLosingScreen(),SCREEN_LOOSE);
+                            cardLayout.show(panel, SCREEN_LOOSE);
+                            break;
+                        default:
+                            System.out.println("game result: " + result.toString());
+                            showMainMenu();
+                            break;
 
                     // TODO handle other game results
                     }
@@ -111,5 +122,39 @@ public class Main {
 
     private void showMainMenu() {
         cardLayout.show(panel, SCREEN_MAINMENU);
+    }
+
+    private Component showWinningScreen(){
+        JPanel panel = new JPanel();
+
+        JButton btn = new JButton("Main Menu");
+        panel.add(btn);
+        panel.setBackground(Color.GREEN);
+
+        btn.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                showMainMenu();
+            }
+        });
+
+        return panel;
+    }
+
+    private Component showLosingScreen(){
+        JPanel panel = new JPanel();
+
+        JButton btn = new JButton("Main Menu");
+        panel.add(btn);
+        panel.setBackground(Color.CYAN);
+
+        btn.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                showMainMenu();
+            }
+        });
+
+        return panel;
     }
 }
