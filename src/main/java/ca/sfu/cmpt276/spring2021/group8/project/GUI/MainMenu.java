@@ -55,7 +55,7 @@ public class MainMenu extends JPanel{
         startGamePanel.setBounds(370,430,539,87);
         startGamePanel.setBackground(this.getBackground());
         this.add(startGamePanel);
-        this.setBtnUI(startGameBtn);
+        GUIConfigurations.setBtnUI(startGameBtn);
         startGamePanel.add(startGameBtn);
     }
     
@@ -64,17 +64,8 @@ public class MainMenu extends JPanel{
         howToPlayPanel.setBounds(370,550,539,87);
         howToPlayPanel.setBackground(this.getBackground());
         this.add(howToPlayPanel);
-        this.setBtnUI(howToPlayBtn);
+        GUIConfigurations.setBtnUI(howToPlayBtn);
         howToPlayPanel.add(howToPlayBtn);
-    }
-    
-    private void setBtnUI(JButton btn)
-    {
-        btn.setFont(GUIConfigurations.BUTTON_FONT);
-        btn.setBackground(GUIConfigurations.COMPONENT_COLOR);
-        btn.setForeground(GUIConfigurations.TEXT_COLOR);
-        btn.setBorderPainted(false);
-        btn.setFocusPainted(false);
     }
 
 }

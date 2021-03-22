@@ -12,6 +12,8 @@ public class GameEffect {
         return new GameEffect(0, true);
     }
 
+    //TODO make win effect
+
     private GameEffect(int score, boolean lose) {
         this.score = score;
         this.lose = lose;
