@@ -4,6 +4,9 @@ import java.awt.*;
 import java.awt.event.*;
 import java.awt.image.*;
 
+import ca.sfu.cmpt276.spring2021.group8.project.game.effect.*;
+import ca.sfu.cmpt276.spring2021.group8.project.game.result.*;
+
 public class Game implements KeyListener {
     private long startTime = System.currentTimeMillis();
     private long score = 0;
@@ -27,19 +30,17 @@ public class Game implements KeyListener {
 
         GameEffect effect = world.getGameEffect();
         if (effect != null) {
-            if (effect instanceof GameEffect.Lose) {
-                System.out.println("lost the game :(");
-                return GameResult.createLoseResult(score, msSinceGameStart());
-            }
-
-            if (effect instanceof GameEffect.Win) {
-                System.out.println("won the game :D");
-                return GameResult.createWinResult(score, msSinceGameStart());
-            }
-            
-            if (effect instanceof GameEffect.Score) {
+            if (effect instanceof GameOverEffect) {
+                if (((GameOverEffect) effect).win) {
+                    System.out.println("won the game :D");
+                    return GameResult.createWinResult(score, msSinceGameStart());
+                } else {
+                    System.out.println("lost the game :(");
+                    return GameResult.createLoseResult(score, msSinceGameStart());
+                }
+            } else if (effect instanceof ScoreEffect) {
                 //update score
-                this.score += ((GameEffect.Score) effect).score;
+                this.score += ((ScoreEffect) effect).score;
     
                 //check if score is negative --> ends game
                 if(this.score < 0){

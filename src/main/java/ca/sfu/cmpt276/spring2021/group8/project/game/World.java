@@ -2,6 +2,7 @@ package ca.sfu.cmpt276.spring2021.group8.project.game;
 
 import ca.sfu.cmpt276.spring2021.group8.project.Draw;
 import ca.sfu.cmpt276.spring2021.group8.project.game.containers.EntityList;
+import ca.sfu.cmpt276.spring2021.group8.project.game.effect.*;
 import ca.sfu.cmpt276.spring2021.group8.project.game.entity.*;
 import ca.sfu.cmpt276.spring2021.group8.project.game.entity.collectables.*;
 import ca.sfu.cmpt276.spring2021.group8.project.game.entity.movable.*;

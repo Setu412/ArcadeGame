@@ -5,6 +5,7 @@ import ca.sfu.cmpt276.spring2021.group8.project.GUI.GUIConfigurations;
 import ca.sfu.cmpt276.spring2021.group8.project.GUI.HowToPlayMenu;
 import ca.sfu.cmpt276.spring2021.group8.project.GUI.MainMenu;
 import ca.sfu.cmpt276.spring2021.group8.project.game.*;
+import ca.sfu.cmpt276.spring2021.group8.project.game.result.*;
 import java.awt.*;
 import java.awt.event.*;
 
@@ -112,11 +113,12 @@ public class MainFrame {
                     canvas.addKeyListener(game);
 
                     GameResult result = game.loop(canvas);
-                    if (result instanceof GameResult.Quit) {
+                    if (result instanceof GameQuitResult) {
                         showMainMenu();
-                    } else if (result instanceof GameResult.GameOver) {
-                        GameResult.GameOver info = ((GameResult.GameOver) result);
+                    } else if (result instanceof GameOverResult) {
+                        GameOverResult info = ((GameOverResult) result);
                         // TODO pass game info to win/lose screens
+                        showMainMenu();
                     }
                 } finally {
                     canvas.removeKeyListener(game);

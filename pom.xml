@@ -38,7 +38,7 @@
               <manifest>
                 <addClasspath>true</addClasspath>
                 <classpathPrefix>dependency/</classpathPrefix>
-                <mainClass>ca.sfu.cmpt276.spring2021.group8.project.MainFrame</mainClass>
+                <mainClass>ca.sfu.cmpt276.spring2021.group8.project.Launcher</mainClass>
               </manifest>
             </archive>
           </configuration>
