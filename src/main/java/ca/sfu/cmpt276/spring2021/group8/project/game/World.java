@@ -24,17 +24,20 @@ public class World {
     private Player player;
     private WorldScreenAdapter adapter;
     private BonusReward bonusReward;
+    private EntityList<Barrier> barriers = new EntityList<>();
+    private EntityList<Enemy> enemies = new EntityList<>();
+    private EntityList<Collectable> collectables = new EntityList<>();
+
     private long msSinceLastMove = 0;
     private long msSinceLastBRVisible = 0;
     private long msSinceLastMoveBarrier = 0;
     private int rewardCollected = 0;
 
-
-    private EntityList<Barrier> barriers = new EntityList<>();
-    private EntityList<Enemy> enemies = new EntityList<>();
-    private EntityList<Collectable> collectables = new EntityList<>();
-
-
+    /**
+     * Constructs the World class object
+     *
+     * @param maze
+     */
     public World(Maze maze) {
         this.maze = maze;
         this.player = new Player(maze.startPosition());
@@ -65,26 +68,58 @@ public class World {
 
     }
 
+    /**
+     * Constructs World class object
+     */
     public World() {
         this(new Maze());
     }
 
+    /**
+     * Ensures none of the Collectable entities already exists on new point
+     *
+     * @param p new Position generated
+     * @return returns true if any other collectable already exists on new point, returns false if it does not
+     */
     private boolean isCollectiblePoint(Point p) {
         return !collectables.isValidPosition(p);
     }
 
+    /**
+     * Ensures none of the Barrier already exists on new point
+     *
+     * @param p new Position generated
+     * @return returns true if any other Barrier already exists on new point, returns false if it does not
+     */
     private boolean isBarrierPoint(Point p) {
         return !barriers.isValidPosition(p);
     }
 
+    /**
+     * Ensures none of the Bonus Reward entities already exists on new point
+     *
+     * @param p new Position generated
+     * @return returns true if any other Bonus Reward already exists on new point, returns false if it does not
+     */
     private boolean isBRPoint(Point p) {
         return bonusReward != null && bonusReward.getPosition().equals(p);
     }
 
+    /**
+     * Makes call to different types of entity to make sure newly generated position is empty
+     *
+     * @param p New Position generated
+     * @return returns true if any other entity already exists on new point, returns false if it does not
+     */
     private boolean isEmptyPosition(Point p) {
         return !isCollectiblePoint(p) &&  !isBarrierPoint(p) && !isBRPoint(p);
     }
 
+    /**
+     * Generated a new empty Position
+     *
+     * @return empty position Point object
+     */
     private Point generateEmptyPosition() {
         // TODO fix this function for the case when there are no empty positions
 
@@ -96,20 +131,22 @@ public class World {
         return p;
     }
 
-    public Point getSize() {
-        return maze.getSize();
-    }
-
-    public Point playerPosition() {
-        return player.getPosition();
-    }
-
+    /**
+     * Calls individual update functions for Barriers, enemies and Bonus reward
+     *
+     * @param deltaTime saves the time difference between two consecutive ticks
+     */
     public void update(long deltaTime) {
         updateBarriers(deltaTime);
         updateEnemy(deltaTime);
         updateBR(deltaTime);
     }
 
+    /**
+     * Ensures enemies make a move in game after every 1 second
+     *
+     * @param deltaTime saves the time difference between two consecutive ticks
+     */
     public void updateEnemy(long deltaTime){
         msSinceLastMove += deltaTime;
         if (msSinceLastMove > MS_PER_ENEMY_MOVE) {
@@ -123,6 +160,11 @@ public class World {
         }
     }
 
+    /**
+     * Updates the position of barriers with new position after every 13 seconds
+     *
+     * @param deltaTime saves the time difference between two consecutive ticks
+     */
     public void updateBarriers(long deltaTime){
         msSinceLastMoveBarrier+= deltaTime;
         if (msSinceLastMoveBarrier > MS_PER_BARRIER_CHANGE_POS) {
@@ -133,6 +175,12 @@ public class World {
         }
     }
 
+    /**
+     * Ensures BonusReward appears and disappears in the game after every 5 second.
+     * Updates the position of BonusReward with new position after each reappearance
+     *
+     * @param deltaTime saves the time difference between two consecutive ticks
+     */
     private void updateBR(long deltaTime) {
         msSinceLastBRVisible += deltaTime;
         if (msSinceLastBRVisible > MS_PER_BS_VISIBLE) {
@@ -145,12 +193,16 @@ public class World {
         }
     }
 
+    /**
+     * Identifies type of Collectible and called createScoreEffect to update score,
+     * or createLoseeffct with enemy is encountered or createWinEffect in case all reward are collected
+     * upon player movemenet
+     *
+     * @return Determines the type of GameEffect for eg. WinEffect, LoseEffects or ScoreEffect
+     */
     public GameEffect getGameEffect() {
         Point pos = player.getPosition();
 
-        /**
-         * Identifies type of Collectible and called createScoreEffect to update score
-         */
         for (Collectable collectable : collectables) {
             if (!collectable.getPosition().equals(pos)) {
                 continue;
@@ -205,7 +257,6 @@ public class World {
         if (player.getPosition().equals(maze.exitPosition())) {
             return GameEffect.createWinEffect();
         }
-
         return null;
     }
 
@@ -213,8 +264,14 @@ public class World {
         player.move(new CompositePositionValidator(maze, barriers), direction);
     }
 
+    /**
+     * Draws the grid onto canvas
+     *
+     * @param g Graphics object to draw on canvas
+     * @param xoffset
+     * @param yoffset
+     */
     private void drawGrid(Graphics g, int xoffset, int yoffset) {
-        // TODO replace with actual map textures
         g.setColor(Color.BLACK);
 
         for (int x = 0; x <= adapter.worldWidth(); x++) {
@@ -239,6 +296,12 @@ public class World {
         }
     }
 
+    /**
+     * Makes calls to overridden render function of all game entities after each tick.
+     *
+     * @param g Graphics object to draw on canvas
+     * @param size
+     */
     public void render(Graphics g, Point size) {
         Point gridSize = adapter.gridSize();
 
@@ -250,9 +313,6 @@ public class World {
 
         maze.render(g, adapter);
 
-        /**
-         * render all the entities
-         */
         bonusReward.render(g, adapter);
 
         for (Collectable e:collectables) {
@@ -268,5 +328,13 @@ public class World {
         for (Enemy enemy : enemies) {
             enemy.render(g, adapter);
         }
+    }
+
+    public Point getSize() {
+        return maze.getSize();
+    }
+
+    public Point playerPosition() {
+        return player.getPosition();
     }
 }
