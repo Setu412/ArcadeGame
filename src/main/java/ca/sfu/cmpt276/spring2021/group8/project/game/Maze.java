@@ -141,7 +141,12 @@ public class Maze implements PositionValidator {
          do {
             x1 = getRandomInt(1, height - 2);
             x2 = getRandomInt(1, width- 2);
-        }while (maze[x1][x2] != 0 && !nextToStart.equals(new Point(x2,x1)));
+
+            if(nextToStart.equals(new Point(x2,x1))){
+                continue;
+            }
+
+        }while (maze[x1][x2] != 0);
 
         return new Point(x2, x1);
     }
