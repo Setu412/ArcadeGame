@@ -4,7 +4,7 @@ public class WinningScreen extends EndingScreen{
 
     @Override
     public void prepareLetterContent() {
-        letterTitlePanel.setBackground(GUIConfigurations.COMPONENT_COLOR);
+        letterTitlePanel.setBackground(GUIConfigurations.PRIMARY_COMPONENT_COLOR);
 
         letterTitleText.setText("Fake University");
         letterTitleText.setForeground(GUIConfigurations.TEXT_COLOR);

@@ -1,13 +1,11 @@
 package ca.sfu.cmpt276.spring2021.group8.project.gui;
 
-import java.awt.*;
-
 public class LosingScreen extends EndingScreen{
     @Override
     public void prepareLetterContent() {
         letterTitleText.setText("<html>"+"GAME OVER"+"<hr style='width:100%'></html>");
         letterTitleText.setFont(GUIConfigurations.EXPULSION_TITLE_FONT);
-        letterTitleText.setForeground(GUIConfigurations.COMPONENT_COLOR);
+        letterTitleText.setForeground(GUIConfigurations.PRIMARY_COMPONENT_COLOR);
 
         letterBodyText.setText(
                 "<html><body style='width: 600 px; text-align:center'>"
