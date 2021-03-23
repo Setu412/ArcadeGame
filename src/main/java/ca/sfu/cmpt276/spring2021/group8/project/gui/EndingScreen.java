@@ -36,7 +36,7 @@ public abstract class EndingScreen extends JPanel {
     public void prepareLetterPanel()
     {
         this.add(letterPanel);
-        letterPanel.setBounds(142,42,995,436);
+        letterPanel.setBounds(142,50,995,450);
         letterPanel.setBackground(GUIConfigurations.LETTER_BACKGROUND_COLOR);
         letterPanel.setBorder(BorderFactory.createLineBorder(Color.black,4));
         letterPanel.setLayout(null);
@@ -73,7 +73,7 @@ public abstract class EndingScreen extends JPanel {
     public void prepareScorePanel()
     {
         this.add(scorePanel);
-        scorePanel.setBounds(422,499,210,60);
+        scorePanel.setBounds(422,540,210,60);
         scorePanel.setBackground(GUIConfigurations.SECONDARY_COMPONENT_COLOR);
         scorePanel.setBorder(BorderFactory.createLineBorder(GUIConfigurations.LETTER_TEXT_COLOR,2));
         scoreText.setForeground(GUIConfigurations.LETTER_TEXT_COLOR);
@@ -86,7 +86,7 @@ public abstract class EndingScreen extends JPanel {
     public void prepareTimePanel()
     {
         this.add(timePanel);
-        timePanel.setBounds(647,499,210,60);
+        timePanel.setBounds(647,540,210,60);
         timePanel.setBackground(GUIConfigurations.SECONDARY_COMPONENT_COLOR);
         timePanel.setBorder(BorderFactory.createLineBorder(GUIConfigurations.LETTER_TEXT_COLOR,2));
         timeText.setForeground(GUIConfigurations.LETTER_TEXT_COLOR);
@@ -98,7 +98,7 @@ public abstract class EndingScreen extends JPanel {
     public void preparePlayAgainPanel()
     {
         this.add(playAgainPanel);
-        playAgainPanel.setBounds(250,579,322,87);
+        playAgainPanel.setBounds(250,630,322,87);
         playAgainPanel.setBackground(this.getBackground());
 
         playAgainPanel.add(playAgainBtn);
@@ -108,7 +108,7 @@ public abstract class EndingScreen extends JPanel {
     public void prepareMainMenuPanel()
     {
         this.add(mainMenuPanel);
-        mainMenuPanel.setBounds(705,579,350,87);
+        mainMenuPanel.setBounds(705,630,350,87);
         mainMenuPanel.setBackground(this.getBackground());
 
         mainMenuPanel.add(mainMenuBtn);

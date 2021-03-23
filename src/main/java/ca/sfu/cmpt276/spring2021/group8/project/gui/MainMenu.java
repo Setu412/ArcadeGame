@@ -31,14 +31,14 @@ public class MainMenu extends JPanel{
 
     private void prepareTitlePanel()
     {
-        titlePanel.setBounds(165,110,950,250);
+        titlePanel.setBounds(165,110,950,290);
         titlePanel.setBackground(GUIConfigurations.PRIMARY_COMPONENT_COLOR);
         this.add(titlePanel);
 
         titleText.setForeground(GUIConfigurations.TEXT_COLOR);
         titleText.setFont(GUIConfigurations.TITLE_FONT);
         titleText.setBackground(titlePanel.getBackground());
-        titleText.setText("<html><body style='text-align:center'> <em>How to Not Fail <br> University</em> </body><html>");
+        titleText.setText("<html><body style='width:800 px; text-align:center'> <em>How to Not Fail University</em> </body><html>");
         titleText.setHorizontalAlignment(JLabel.CENTER);
         titleText.setVerticalAlignment(JLabel.CENTER);
         titleText.setBounds(titlePanel.getBounds());
@@ -51,7 +51,7 @@ public class MainMenu extends JPanel{
     
     private void prepareStartGamePanel()
     {
-        startGamePanel.setBounds(464,430,350,87);
+        startGamePanel.setBounds(464,510,350,87);
         startGamePanel.setBackground(this.getBackground());
         this.add(startGamePanel);
         GUIConfigurations.setBtnUI(startGameBtn);
@@ -60,7 +60,7 @@ public class MainMenu extends JPanel{
     
     private void prepareHowToPlayPanel()
     {
-        howToPlayPanel.setBounds(464,550,350,87);
+        howToPlayPanel.setBounds(464,630,350,87);
         howToPlayPanel.setBackground(this.getBackground());
         this.add(howToPlayPanel);
         GUIConfigurations.setBtnUI(howToPlayBtn);

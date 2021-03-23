@@ -14,13 +14,13 @@ public class GUIConfigurations {
     public static final Color LETTER_TEXT_COLOR=Color.black;
 
     //Fonts (we could use custom fonts later on)
-    public static final Font TITLE_FONT= new Font("Times New Roman", Font.BOLD, 103);
+    public static final Font TITLE_FONT= new Font("Times New Roman", Font.BOLD, 115);
     public static final Font BUTTON_FONT=new Font("Times New Roman",Font.PLAIN,60);
     public static final Font TEXT_FONT=new Font("Times New Roman",Font.PLAIN,25);
-    public static final Font RULES_FONT=new Font("Times New Roman",Font.PLAIN,18);
+    public static final Font RULES_FONT=new Font("Times New Roman",Font.PLAIN,21);
     public static final Font DIPLOMA_TITLE_FONT=new Font("Times New Roman",Font.ITALIC,70);
     public static final Font EXPULSION_TITLE_FONT=new Font("Times New Roman", Font.BOLD,70);
-    public static final Font LETTER_TEXT_FONT =new Font("Times New Roman", Font.PLAIN,32);
+    public static final Font LETTER_TEXT_FONT =new Font("Times New Roman", Font.PLAIN,33);
     public static final Font RESULT_FONT=new Font("Times New Roman",Font.PLAIN,40);
 
     //Sizes

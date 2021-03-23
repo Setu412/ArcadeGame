@@ -51,7 +51,7 @@ public class HowToPlayMenu extends JPanel{
     public void prepareRulesPanel()
     {
         rulesPanel.setBackground(GUIConfigurations.SECONDARY_COMPONENT_COLOR);
-        rulesPanel.setBounds(53,205,1182,330);
+        rulesPanel.setBounds(53,205,1182,400);
         rulesPanel.setBorder(BorderFactory.createLineBorder(GUIConfigurations.LETTER_TEXT_COLOR,2));
         this.add(rulesPanel);
 
@@ -105,7 +105,7 @@ public class HowToPlayMenu extends JPanel{
 
     public void prepareMainMenuPanel()
     {
-        mainMenuPanel.setBounds(370,550,539,87);
+        mainMenuPanel.setBounds(370,630,539,87);
         mainMenuPanel.setBackground(this.getBackground());
         this.add(mainMenuPanel);
         GUIConfigurations.setBtnUI(mainMenuBtn);
