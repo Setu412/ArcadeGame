@@ -58,22 +58,7 @@ public class Game implements KeyListener {
     }
 
     private String getFormattedTime() {
-        // TODO format time as xx:xx
-        // We tried String.format(%tM, int) but it didn't work, but this is working but it's not great
-        long seconds = msSinceGameStart()/1000;
-        long minutes = (seconds / 60);
-        seconds = seconds % 60;
-        String strSecond = String.valueOf(seconds);
-        String strMinute = String.valueOf(minutes);
-
-        if (strMinute.length() < 2)
-            strMinute = "0" + strMinute;
-        if (strSecond.length() < 2)
-            strSecond = "0" + strSecond;
-
-        String formatTime =  strMinute + ":" + strSecond;
-        return formatTime;
-
+        return TimeFormatConverter.convertTime(msSinceGameStart()/1000);
     }
 
     private void render(Graphics g, Point size) {
