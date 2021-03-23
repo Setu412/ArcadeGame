@@ -1,24 +1,35 @@
 package ca.sfu.cmpt276.spring2021.group8.project.game.entity;
 
-import ca.sfu.cmpt276.spring2021.group8.project.Draw;
 import ca.sfu.cmpt276.spring2021.group8.project.ImageLoader;
 import ca.sfu.cmpt276.spring2021.group8.project.game.WorldScreenAdapter;
 
 import java.awt.*;
-import java.awt.image.BufferedImage;
 
 public class Barrier extends Entity {
 
-    //May want to have all the barries on the maze itself
-    // up for discussion
+    /**
+     * Constructs a Barrier object and assigns a Position on maze to it
+     * @param startPosition Point object having initial position to be assigned to Barrier object
+     */
     public Barrier(Point startPosition) {
         super(startPosition);
     }
 
+    /**
+     * Assigns new updated Position to a barrier object on the maze
+     *
+     * @param newPosition Point object having new Position to be assigned to a barrier
+     */
     public void updatePosition(Point newPosition){
         this.setPosition(newPosition);
     }
 
+    /**
+     * Renders the Barrier onto the screen
+     *
+     * @param g Graphic object to draw Image onto screen
+     * @param s
+     */
     @Override
     public void render(Graphics g, WorldScreenAdapter s) {
 

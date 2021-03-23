@@ -34,9 +34,9 @@ public class World {
     private int rewardCollected = 0;
 
     /**
-     * Constructs the World class object
+     * Constructs the World class object, assigns maze object parameter to maze field and instantiate all the entities
      *
-     * @param maze
+     * @param maze Maze object containing maze design
      */
     public World(Maze maze) {
         this.maze = maze;
