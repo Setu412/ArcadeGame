@@ -29,8 +29,9 @@ public class HowToPlayMenu extends JPanel{
 
     public void prepareStoryPanel()
     {
-        storyPanel.setBackground(GUIConfigurations.COMPONENT_COLOR);
+        storyPanel.setBackground(GUIConfigurations.SECONDARY_COMPONENT_COLOR);
         storyPanel.setBounds(53,25,1182,161);
+        storyPanel.setBorder(BorderFactory.createLineBorder(GUIConfigurations.LETTER_TEXT_COLOR,2));
         this.add(storyPanel);
 
         storyText.setText(
@@ -43,14 +44,15 @@ public class HowToPlayMenu extends JPanel{
                 "</body></html>");
         storyText.setFont(GUIConfigurations.TEXT_FONT);
         storyText.setBounds(storyPanel.getBounds());
-        storyText.setForeground(GUIConfigurations.TEXT_COLOR);
+        storyText.setForeground(GUIConfigurations.LETTER_TEXT_COLOR);
         storyPanel.add(storyText);
     }
 
     public void prepareRulesPanel()
     {
-        rulesPanel.setBackground(GUIConfigurations.COMPONENT_COLOR);
+        rulesPanel.setBackground(GUIConfigurations.SECONDARY_COMPONENT_COLOR);
         rulesPanel.setBounds(53,205,1182,330);
+        rulesPanel.setBorder(BorderFactory.createLineBorder(GUIConfigurations.LETTER_TEXT_COLOR,2));
         this.add(rulesPanel);
 
         rulesText.setText(
@@ -95,7 +97,7 @@ public class HowToPlayMenu extends JPanel{
                 +GUIConfigurations.tab
                 +"- You can navigate the player by WASD or arrow keys. Press q to quit the game and go back to the main menu"
         );
-        rulesText.setForeground(GUIConfigurations.TEXT_COLOR);
+        rulesText.setForeground(GUIConfigurations.LETTER_TEXT_COLOR);
         rulesText.setFont(GUIConfigurations.RULES_FONT);
 
         rulesPanel.add(rulesText,BorderLayout.SOUTH);

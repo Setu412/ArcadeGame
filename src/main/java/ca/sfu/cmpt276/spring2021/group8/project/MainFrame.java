@@ -93,8 +93,7 @@ public class MainFrame {
         f.setLocationRelativeTo(null);
         f.setVisible(true);
 
-        //cardLayout.show(panel,SCREEN_MAINMENU);
-cardLayout.show(panel,SCREEN_LOST);
+        cardLayout.show(panel,SCREEN_MAINMENU);
 
         try {
             SoundEffects.BRplayMusic("src/resources/Audio/Background.wav");
@@ -161,10 +160,14 @@ cardLayout.show(panel,SCREEN_LOST);
                         // TODO pass game info to win/lose screens
                         if(((GameOverResult) result).win)
                         {
+                            winningScreen.getScoreText().setText("Score: "+((GameOverResult) result).score);
+                            winningScreen.getTimeText().setText("Time: "+TimeFormatConverter.convertTime(((GameOverResult) result).time));
                             showWinningScreen();
                         }
                         else if(!((GameOverResult) result).win)
                         {
+                            losingScreen.getScoreText().setText("Score: "+((GameOverResult) result).score);
+                            losingScreen.getTimeText().setText("Time: "+TimeFormatConverter.convertTime(((GameOverResult) result).time));
                             showLosingScreen();
                         }
                     }
