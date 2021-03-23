@@ -58,7 +58,7 @@ public class Game implements KeyListener {
     }
 
     private String getFormattedTime() {
-        return TimeFormatConverter.convertTime(msSinceGameStart()/1000);
+        return TimeFormatConverter.convertTime(msSinceGameStart());
     }
 
     private void render(Graphics g, Point size) {

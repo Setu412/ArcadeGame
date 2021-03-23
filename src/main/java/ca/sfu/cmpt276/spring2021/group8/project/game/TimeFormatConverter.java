@@ -3,7 +3,7 @@ package ca.sfu.cmpt276.spring2021.group8.project.game;
 public interface TimeFormatConverter {
     static String convertTime(long ms)
     {
-        long seconds = ms;
+        long seconds = ms/1000;
         long minutes = (seconds / 60);
         seconds = seconds % 60;
         String strSecond = String.valueOf(seconds);
