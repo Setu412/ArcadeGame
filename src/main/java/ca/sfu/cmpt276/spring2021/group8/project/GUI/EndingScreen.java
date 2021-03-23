@@ -38,6 +38,7 @@ public abstract class EndingScreen extends JPanel {
         this.add(letterPanel);
         letterPanel.setBounds(142,42,995,436);
         letterPanel.setBackground(GUIConfigurations.LETTER_BACKGROUND_COLOR);
+        letterPanel.setLayout(null);
 
         letterPanel.add(letterTitlePanel);
         letterTitlePanel.setBounds(382,65,516,94);

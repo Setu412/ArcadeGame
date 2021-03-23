@@ -1,9 +1,7 @@
 package ca.sfu.cmpt276.spring2021.group8.project;
 
 
-import ca.sfu.cmpt276.spring2021.group8.project.GUI.GUIConfigurations;
-import ca.sfu.cmpt276.spring2021.group8.project.GUI.HowToPlayMenu;
-import ca.sfu.cmpt276.spring2021.group8.project.GUI.MainMenu;
+import ca.sfu.cmpt276.spring2021.group8.project.GUI.*;
 import ca.sfu.cmpt276.spring2021.group8.project.game.*;
 import ca.sfu.cmpt276.spring2021.group8.project.game.result.*;
 import java.awt.*;
@@ -15,6 +13,8 @@ public class MainFrame {
     private static final String SCREEN_GAME = "game";
     private static final String SCREEN_MAINMENU = "mainmenu";
     private static final String SCREEN_HOWTOPLAY= "howtoplay";
+    private static final String SCREEN_WIN="win";
+    private static final String SCREEN_LOST="lost";
 
     private Canvas canvas;
     private CardLayout cardLayout = new CardLayout();
@@ -22,6 +22,8 @@ public class MainFrame {
 
     private MainMenu mainMenu=new MainMenu();
     private HowToPlayMenu howToPlayMenu=new HowToPlayMenu();
+    private WinningScreen winningScreen=new WinningScreen();
+    private LosingScreen losingScreen=new LosingScreen();
 
     public MainFrame() {
         JFrame f = new JFrame();
@@ -59,6 +61,8 @@ public class MainFrame {
         panel.add(mainMenu, SCREEN_MAINMENU);
         panel.add(createGameCanvas(GUIConfigurations.WIDTH,GUIConfigurations.HEIGHT), SCREEN_GAME);
         panel.add(howToPlayMenu,SCREEN_HOWTOPLAY);
+        panel.add(winningScreen,SCREEN_WIN);
+        panel.add(losingScreen,SCREEN_LOST);
         f.setLocationRelativeTo(null);
         f.setVisible(true);
 
@@ -78,6 +82,15 @@ public class MainFrame {
     private void showHowToPlayMenu()
     {
         cardLayout.show(panel,SCREEN_HOWTOPLAY);
+    }
+
+    private void showWinningScreen()
+    {
+        cardLayout.show(panel,SCREEN_WIN);
+    }
+    private void showLosingScreen()
+    {
+        cardLayout.show(panel,SCREEN_LOST);
     }
 
     private Canvas createGameCanvas(int width, int height) {
@@ -118,7 +131,14 @@ public class MainFrame {
                     } else if (result instanceof GameOverResult) {
                         GameOverResult info = ((GameOverResult) result);
                         // TODO pass game info to win/lose screens
-                        showMainMenu();
+                        if(((GameOverResult) result).win)
+                        {
+                            showWinningScreen();
+                        }
+                        else if(!((GameOverResult) result).win)
+                        {
+                            showLosingScreen();
+                        }
                     }
                 } finally {
                     canvas.removeKeyListener(game);
