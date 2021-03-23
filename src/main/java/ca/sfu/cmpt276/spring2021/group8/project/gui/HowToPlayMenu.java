@@ -1,4 +1,4 @@
-package ca.sfu.cmpt276.spring2021.group8.project.GUI;
+package ca.sfu.cmpt276.spring2021.group8.project.gui;
 
 import javax.swing.*;
 import java.awt.*;
@@ -67,7 +67,7 @@ public class HowToPlayMenu extends JPanel{
                 +"- The P (passing) grades are your required credits, and are worth 2 points each."
                 +"<br>"
                 +GUIConfigurations.tab+GUIConfigurations.tab
-                +"- The A+ grades randomly appear for a short period of time and are worth 5 points each."
+                +"- The A grades randomly appear for a short period of time and are worth 5 points each."
                 + "<br>"
                 +GUIConfigurations.tab
                 +"Punishments:"

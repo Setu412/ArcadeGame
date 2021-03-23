@@ -1,7 +1,7 @@
 package ca.sfu.cmpt276.spring2021.group8.project;
 
 
-import ca.sfu.cmpt276.spring2021.group8.project.GUI.*;
+import ca.sfu.cmpt276.spring2021.group8.project.gui.*;
 import ca.sfu.cmpt276.spring2021.group8.project.game.*;
 import ca.sfu.cmpt276.spring2021.group8.project.game.result.*;
 import java.awt.*;
@@ -58,6 +58,33 @@ public class MainFrame {
                 showMainMenu();
             }
         });
+
+        winningScreen.getMainMenuBtn().addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                showMainMenu();
+            }
+        });
+        winningScreen.getPlayAgainBtn().addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                startGame();
+            }
+        });
+
+        losingScreen.getMainMenuBtn().addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                showMainMenu();
+            }
+        });
+        losingScreen.getPlayAgainBtn().addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                startGame();
+            }
+        });
+
         panel.add(mainMenu, SCREEN_MAINMENU);
         panel.add(createGameCanvas(GUIConfigurations.WIDTH,GUIConfigurations.HEIGHT), SCREEN_GAME);
         panel.add(howToPlayMenu,SCREEN_HOWTOPLAY);
@@ -66,7 +93,8 @@ public class MainFrame {
         f.setLocationRelativeTo(null);
         f.setVisible(true);
 
-        cardLayout.show(panel,SCREEN_MAINMENU);
+        //cardLayout.show(panel,SCREEN_MAINMENU);
+cardLayout.show(panel,SCREEN_LOST);
 
         try {
             SoundEffects.BRplayMusic("src/resources/Audio/Background.wav");

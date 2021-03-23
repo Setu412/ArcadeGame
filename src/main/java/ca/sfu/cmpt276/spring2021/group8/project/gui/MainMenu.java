@@ -1,7 +1,6 @@
-package ca.sfu.cmpt276.spring2021.group8.project.GUI;
+package ca.sfu.cmpt276.spring2021.group8.project.gui;
 
 import javax.swing.*;
-import java.awt.*;
 
 public class MainMenu extends JPanel{
     JPanel titlePanel=new JPanel();
@@ -39,7 +38,7 @@ public class MainMenu extends JPanel{
         titleText.setForeground(GUIConfigurations.TEXT_COLOR);
         titleText.setFont(GUIConfigurations.TITLE_FONT);
         titleText.setBackground(titlePanel.getBackground());
-        titleText.setText("<html><body style='text-align:center'> How to Not Fail <br> University </body><html>");
+        titleText.setText("<html><body style='text-align:center'> <em>How to Not Fail <br> University</em> </body><html>");
         titleText.setHorizontalAlignment(JLabel.CENTER);
         titleText.setVerticalAlignment(JLabel.CENTER);
         titleText.setBounds(titlePanel.getBounds());
