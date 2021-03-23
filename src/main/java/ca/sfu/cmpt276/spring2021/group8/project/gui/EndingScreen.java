@@ -1,4 +1,4 @@
-package ca.sfu.cmpt276.spring2021.group8.project.GUI;
+package ca.sfu.cmpt276.spring2021.group8.project.gui;
 
 import javax.swing.*;
 import java.awt.*;
@@ -36,28 +36,48 @@ public abstract class EndingScreen extends JPanel {
     public void prepareLetterPanel()
     {
         this.add(letterPanel);
-        letterPanel.setBounds(142,42,995,436);
+        letterPanel.setBounds(142,50,995,450);
         letterPanel.setBackground(GUIConfigurations.LETTER_BACKGROUND_COLOR);
+        letterPanel.setBorder(BorderFactory.createLineBorder(Color.black,4));
         letterPanel.setLayout(null);
 
         letterPanel.add(letterTitlePanel);
-        letterTitlePanel.setBounds(382,65,516,94);
-        //TODO add fonts and text, change bg color to be the same as the panel
-        letterTitlePanel.setBackground(Color.blue);
+        letterTitlePanel.setBounds(240,23,516,94);
+        letterTitlePanel.setBackground(letterPanel.getBackground());
+        letterTitlePanel.add(letterTitleText);
 
         letterPanel.add(letterBodyPanel);
-        letterBodyPanel.setBounds(215,181,850,279);
-        //TODO add fonts and text, change bg color to be the same as the panel
-        letterBodyPanel.setBackground(Color.blue);
+        letterBodyPanel.setBounds(73,139,850,279);
+        letterBodyPanel.setBackground(letterPanel.getBackground());
+        letterBodyPanel.add(letterBodyText);
 
         prepareLetterContent();
+    }
+
+    public JButton getMainMenuBtn() {
+        return mainMenuBtn;
+    }
+
+    public JButton getPlayAgainBtn() {
+        return playAgainBtn;
+    }
+
+    public JLabel getScoreText() {
+        return scoreText;
+    }
+
+    public JLabel getTimeText() {
+        return timeText;
     }
 
     public void prepareScorePanel()
     {
         this.add(scorePanel);
-        scorePanel.setBounds(237,506,301,51);
-        scorePanel.setBackground(Color.blue);
+        scorePanel.setBounds(422,540,210,60);
+        scorePanel.setBackground(GUIConfigurations.SECONDARY_COMPONENT_COLOR);
+        scorePanel.setBorder(BorderFactory.createLineBorder(GUIConfigurations.LETTER_TEXT_COLOR,2));
+        scoreText.setForeground(GUIConfigurations.LETTER_TEXT_COLOR);
+        scoreText.setFont(GUIConfigurations.RESULT_FONT);
 
         scorePanel.add(scoreText);
 
@@ -66,8 +86,11 @@ public abstract class EndingScreen extends JPanel {
     public void prepareTimePanel()
     {
         this.add(timePanel);
-        timePanel.setBounds(742,506,301,51);
-        timePanel.setBackground(Color.blue);
+        timePanel.setBounds(647,540,210,60);
+        timePanel.setBackground(GUIConfigurations.SECONDARY_COMPONENT_COLOR);
+        timePanel.setBorder(BorderFactory.createLineBorder(GUIConfigurations.LETTER_TEXT_COLOR,2));
+        timeText.setForeground(GUIConfigurations.LETTER_TEXT_COLOR);
+        timeText.setFont(GUIConfigurations.RESULT_FONT);
 
         timePanel.add(timeText);
     }
@@ -75,7 +98,7 @@ public abstract class EndingScreen extends JPanel {
     public void preparePlayAgainPanel()
     {
         this.add(playAgainPanel);
-        playAgainPanel.setBounds(142,579,490,87);
+        playAgainPanel.setBounds(250,630,322,87);
         playAgainPanel.setBackground(this.getBackground());
 
         playAgainPanel.add(playAgainBtn);
@@ -85,7 +108,7 @@ public abstract class EndingScreen extends JPanel {
     public void prepareMainMenuPanel()
     {
         this.add(mainMenuPanel);
-        mainMenuPanel.setBounds(648,579,490,87);
+        mainMenuPanel.setBounds(705,630,350,87);
         mainMenuPanel.setBackground(this.getBackground());
 
         mainMenuPanel.add(mainMenuBtn);

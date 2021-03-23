@@ -1,4 +1,4 @@
-package ca.sfu.cmpt276.spring2021.group8.project.GUI;
+package ca.sfu.cmpt276.spring2021.group8.project.gui;
 
 import javax.swing.*;
 import java.awt.*;
@@ -29,8 +29,9 @@ public class HowToPlayMenu extends JPanel{
 
     public void prepareStoryPanel()
     {
-        storyPanel.setBackground(GUIConfigurations.COMPONENT_COLOR);
+        storyPanel.setBackground(GUIConfigurations.SECONDARY_COMPONENT_COLOR);
         storyPanel.setBounds(53,25,1182,161);
+        storyPanel.setBorder(BorderFactory.createLineBorder(GUIConfigurations.LETTER_TEXT_COLOR,2));
         this.add(storyPanel);
 
         storyText.setText(
@@ -43,14 +44,15 @@ public class HowToPlayMenu extends JPanel{
                 "</body></html>");
         storyText.setFont(GUIConfigurations.TEXT_FONT);
         storyText.setBounds(storyPanel.getBounds());
-        storyText.setForeground(GUIConfigurations.TEXT_COLOR);
+        storyText.setForeground(GUIConfigurations.LETTER_TEXT_COLOR);
         storyPanel.add(storyText);
     }
 
     public void prepareRulesPanel()
     {
-        rulesPanel.setBackground(GUIConfigurations.COMPONENT_COLOR);
-        rulesPanel.setBounds(53,205,1182,330);
+        rulesPanel.setBackground(GUIConfigurations.SECONDARY_COMPONENT_COLOR);
+        rulesPanel.setBounds(53,205,1182,400);
+        rulesPanel.setBorder(BorderFactory.createLineBorder(GUIConfigurations.LETTER_TEXT_COLOR,2));
         this.add(rulesPanel);
 
         rulesText.setText(
@@ -67,7 +69,7 @@ public class HowToPlayMenu extends JPanel{
                 +"- The P (passing) grades are your required credits, and are worth 2 points each."
                 +"<br>"
                 +GUIConfigurations.tab+GUIConfigurations.tab
-                +"- The A+ grades randomly appear for a short period of time and are worth 5 points each."
+                +"- The A grades randomly appear for a short period of time and are worth 5 points each."
                 + "<br>"
                 +GUIConfigurations.tab
                 +"Punishments:"
@@ -95,7 +97,7 @@ public class HowToPlayMenu extends JPanel{
                 +GUIConfigurations.tab
                 +"- You can navigate the player by WASD or arrow keys. Press q to quit the game and go back to the main menu"
         );
-        rulesText.setForeground(GUIConfigurations.TEXT_COLOR);
+        rulesText.setForeground(GUIConfigurations.LETTER_TEXT_COLOR);
         rulesText.setFont(GUIConfigurations.RULES_FONT);
 
         rulesPanel.add(rulesText,BorderLayout.SOUTH);
@@ -103,7 +105,7 @@ public class HowToPlayMenu extends JPanel{
 
     public void prepareMainMenuPanel()
     {
-        mainMenuPanel.setBounds(370,550,539,87);
+        mainMenuPanel.setBounds(370,630,539,87);
         mainMenuPanel.setBackground(this.getBackground());
         this.add(mainMenuPanel);
         GUIConfigurations.setBtnUI(mainMenuBtn);

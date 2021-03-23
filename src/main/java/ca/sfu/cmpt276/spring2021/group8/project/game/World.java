@@ -15,10 +15,10 @@ public class World {
     private final static long MS_PER_BARRIER_CHANGE_POS = 13000;
     private final static long MS_PER_BS_VISIBLE = 5000;
 
-    private final static int NUM_REWARDS = 40;
-    private static int NUM_PUNISHMENTS = 20;
-    private final static int NUM_BARRIERS = 10;
-    private final static int NUM_ENEMIES=5;
+    private final static int NUM_REWARDS = 40; //40
+    private static int NUM_PUNISHMENTS = 20; //20
+    private final static int NUM_BARRIERS = 10; //10
+    private final static int NUM_ENEMIES=5; //5
 
     private Maze maze;
     private Player player;
@@ -215,7 +215,7 @@ public class World {
                     e.printStackTrace();
                 }
                 rewardCollected++;
-                if(rewardCollected == 40){
+                if(rewardCollected == NUM_REWARDS){
                     maze.complete();
                 }
             }
