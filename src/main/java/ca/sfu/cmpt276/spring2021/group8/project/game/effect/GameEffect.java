@@ -3,14 +3,14 @@ package ca.sfu.cmpt276.spring2021.group8.project.game.effect;
 /**
  * GameEffect is a container for communicating game state changes
  */
-public abstract class GameEffect {
+public interface GameEffect {
     /**
      * Create a GameEffect with the delta score
      * 
      * @param deltaScore the delta score
      * @return a GameEffect that changes
      */
-    public static GameEffect createScoreEffect(int deltaScore) {
+    static GameEffect createScoreEffect(int deltaScore) {
         return new ScoreEffect(deltaScore);
     }
 
@@ -19,7 +19,7 @@ public abstract class GameEffect {
      * 
      * @return a GameEffect that loses the game
      */
-    public static GameEffect createLoseEffect() {
+    static GameEffect createLoseEffect() {
         return new GameOverEffect(false);
     }
 
@@ -28,7 +28,7 @@ public abstract class GameEffect {
      * 
      * @return a GameEffect that wins the game
      */
-    public static GameEffect createWinEffect() {
+    static GameEffect createWinEffect() {
         return new GameOverEffect(true);
     }
 }
