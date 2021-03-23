@@ -8,9 +8,7 @@ import ca.sfu.cmpt276.spring2021.group8.project.game.entity.collectables.*;
 import ca.sfu.cmpt276.spring2021.group8.project.game.entity.movable.*;
 import ca.sfu.cmpt276.spring2021.group8.project.game.positioning.CompositePositionValidator;
 
-import javax.sound.sampled.*;
 import java.awt.*;
-import java.io.*;
 
 public class World {
     private final static long MS_PER_ENEMY_MOVE = 1000;
@@ -44,22 +42,22 @@ public class World {
 
         this.bonusReward = new BonusReward(generateEmptyPosition());
 
-        // Create rewards
+        // Generating rewards
         for (int i = 0; i < NUM_REWARDS; i++) {
             collectables.add(new Reward(generateEmptyPosition()));
         }
 
-        // Create punishments
+        // Generating punishments
         for (int i = 0; i < NUM_PUNISHMENTS; i++) {
             collectables.add(new Punishment(generateEmptyPosition()));
         }
 
+        //Generating Barriers
         for(int i = 0; i< NUM_BARRIERS;i++) {
             barriers.add(new Barrier(generateEmptyPosition()));
         }
 
-
-        // TODO probably generate non-player entities here
+        //Generating Enemies
         for (int i=0;i<NUM_ENEMIES;i++) {
             this.enemies.add(new Enemy(this.player.getTargetedMovementGenerator(maze), generateEmptyPosition()));
         }
@@ -248,15 +246,14 @@ public class World {
         int yOffset = (size.y - gridSize.y) / 2;
 
         drawGrid(g, xOffset, yOffset);
-
         g.clipRect(xOffset, yOffset, gridSize.x, gridSize.y);
 
-
         maze.render(g, adapter);
-        bonusReward.render(g, adapter);
+
         /**
          * render all the entities
          */
+        bonusReward.render(g, adapter);
 
         for (Collectable e:collectables) {
             e.render(g, adapter);

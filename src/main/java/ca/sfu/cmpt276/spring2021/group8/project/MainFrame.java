@@ -131,14 +131,15 @@ public class MainFrame {
                     } else if (result instanceof GameOverResult) {
                         GameOverResult info = ((GameOverResult) result);
                         // TODO pass game info to win/lose screens
-                        if(((GameOverResult) result).win)
+                        showMainMenu();
+                        /*if(((GameOverResult) result).win)
                         {
                             showWinningScreen();
                         }
                         else if(!((GameOverResult) result).win)
                         {
                             showLosingScreen();
-                        }
+                        }*/
                     }
                 } finally {
                     canvas.removeKeyListener(game);

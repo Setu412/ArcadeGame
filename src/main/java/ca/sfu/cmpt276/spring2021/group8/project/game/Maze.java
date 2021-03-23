@@ -1,16 +1,10 @@
 package ca.sfu.cmpt276.spring2021.group8.project.game;
 
-import ca.sfu.cmpt276.spring2021.group8.project.Draw;
 import ca.sfu.cmpt276.spring2021.group8.project.ImageLoader;
 import ca.sfu.cmpt276.spring2021.group8.project.game.positioning.PositionValidator;
 
 import java.awt.*;
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.awt.image.BufferedImage;
 import java.util.Random;
-import java.util.Scanner;
-import java.util.StringTokenizer;
 
 
 public class Maze implements PositionValidator {
@@ -22,8 +16,8 @@ public class Maze implements PositionValidator {
     public static int EXITOPEN = 9;
 
     // Maze variables
-    private int width = 20;
-    private int height = 12;
+    private int width = 21;
+    private int height = 14;
 
     private Point start;
     private Point exit;
@@ -31,28 +25,32 @@ public class Maze implements PositionValidator {
     public Point nextToStart;
     public Point nextToExit;
 
-    private int[][] maze={  {4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4},
-                            {4, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 4},
-                            {4, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 4},
-                            {4, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 4},
-                            {4, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 4},
-                            {4, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 4},
-                            {4, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 4},
-                            {4, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 4},
-                            {4, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 4},
-                            {4, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 4},
-                            {4, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 4},
-                            {4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4}
+    private int[][] maze={  {4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4},
+                            {4, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 4},
+                            {4, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 4},
+                            {4, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 4},
+                            {4, 0, 0, 4, 4, 4, 4, 4, 4, 0, 0, 0, 4, 4, 4, 4, 4, 4, 0, 0, 4},
+                            {4, 0, 0, 4, 0, 0, 0, 0, 4, 0, 0, 0, 4, 0, 0, 0, 0, 4, 0, 0, 4},
+                            {4, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 4},
+                            {4, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 4},
+                            {4, 0, 0, 4, 0, 0, 0, 0, 4, 0, 0, 0, 4, 0, 0, 0, 0, 4, 0, 0, 4},
+                            {4, 0, 0, 4, 4, 4, 4, 4, 4, 0, 0, 0, 4, 4, 4, 4, 4, 4, 0, 0, 4},
+                            {4, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 4},
+                            {4, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 4},
+                            {4, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 4},
+                            {4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4}
                         };
 
     // Constructors
     public Maze() {
 
-        maze = GenerateInternalMazeWalls.readWallCoordinates(maze);
+        //maze = GenerateInternalMazeWalls.readWallCoordinates(maze);
 
         int x1, x2;
-         // Randomly generate entrance
+
+        // Randomly generate entrance
         x1 = getRandomInt(0, height - 1);
+
         // If random height is first or last row
         if (x1 == 0 || x1 == height - 1) {
             x2 = getRandomInt(1, width- 2);
@@ -68,8 +66,9 @@ public class Maze implements PositionValidator {
         }
         start = new Point(x2, x1);
 
-         // Randomly generate exit
+        // Randomly generate exit
         x1 = getRandomInt(0, height - 1);
+
         // If random height is first or last row
         if (x1 == 0 || x1 == height - 1) {
             x2 = getRandomInt(1, width- 2);
@@ -89,12 +88,11 @@ public class Maze implements PositionValidator {
                 maze[x1][x2] = EXIT;
             }
         } 
+
         exit = new Point(x2, x1);
 
         nextToStart = nextToDoors(start);
         nextToExit = nextToDoors(exit);
-
-        // Generate barriers ** TO BE DETERMINED
     }
 
     // get starting position
@@ -160,24 +158,13 @@ public class Maze implements PositionValidator {
         return new Point(x2, x1);
     }
 
-    // Resets the maze to the original design (call after creating all the collectible objects) 
-    // * Issue: doesn't have any internal walls right now
-    public void resetMaze() {
-        for (int i=0; i < height; i++) {
-            for (int j=0; j < this.width; j++) {
-                if (maze[i][j] == 2) {
-                    maze[i][j] = 0;
-                }
-            }
-        }
-    }
-
     public void complete(){
         maze[exit.y][exit.x] = 9;
     }
 
     // Set the coordinates of the position next to the doors
     public Point nextToDoors(Point door) {
+
         // Check what row it is on
         if (door.y == 0) {
             return new Point(door.x,  door.y + 1);
@@ -195,8 +182,8 @@ public class Maze implements PositionValidator {
     }
 
     public void render(Graphics g, WorldScreenAdapter s) {
-        Rectangle offset = g.getClipBounds();
 
+        Rectangle offset = g.getClipBounds();
 
         for (int i=0; i < height; i++)
         {

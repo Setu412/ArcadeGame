@@ -42,6 +42,7 @@ public enum Direction {
     /**
      * Returns the opposite direction of the caller
      * eg: North.getOppositeDirection() will return South
+     *
      * @return The opposite direction of the caller
      */
     public Direction getOppositeDirection()
@@ -52,6 +53,7 @@ public enum Direction {
     /**
      * Returns the first perpendicular direction from the caller in clockwise order
      * eg: North.getCWOrthogonalDirection() will return East
+     *
      * @return the first perpendicular direction from the caller in clockwise order
      */
     public Direction getCWOrthogonalDirection()
@@ -62,6 +64,7 @@ public enum Direction {
     /**
      * Returns the first perpendicular direction from the caller in counter clockwise order
      * eg: North.getCounterCWOrthogonalDirection() will return West
+     *
      * @return the first perpendicular direction from the caller in counter clockwise orde
      */
     public Direction getCounterCWOrthogonalDirection()
