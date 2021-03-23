@@ -6,6 +6,14 @@ import java.io.IOException;
 
 public class SoundEffects {
 
+    /**
+     * Plays a sound clip for different game entities
+     *
+     * @param path Location of required audio file
+     * @throws UnsupportedAudioFileException
+     * @throws IOException
+     * @throws LineUnavailableException
+     */
     public static void playMusic(String path) throws UnsupportedAudioFileException, IOException, LineUnavailableException
     {
         Clip clip;
@@ -15,6 +23,14 @@ public class SoundEffects {
         clip.start();
     }
 
+    /**
+     * Plays a background sound clip
+     *
+     * @param path Location for required audio file
+     * @throws UnsupportedAudioFileException
+     * @throws IOException
+     * @throws LineUnavailableException
+     */
     public static void BRplayMusic(String path) throws UnsupportedAudioFileException, IOException, LineUnavailableException
     {
         Clip clip;

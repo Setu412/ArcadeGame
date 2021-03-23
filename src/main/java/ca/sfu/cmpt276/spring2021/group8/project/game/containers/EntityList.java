@@ -7,6 +7,13 @@ import java.awt.Point;
 import java.util.LinkedList;
 
 public class EntityList<T extends Entity> extends LinkedList<T> implements PositionValidator {
+
+    /**
+     * Ensure none of the entities already exists on the position passed as parameter
+     *
+     * @param p Point object containing a new Position
+     * @return True if none of the entities already exists on new Position, return false if any entity already exists
+     */
     public boolean isValidPosition(Point p) {
         for (T entity : this) {
             if (entity.getPosition().equals(p)) {

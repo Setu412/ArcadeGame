@@ -158,7 +158,8 @@ public class MainFrame {
                     } else if (result instanceof GameOverResult) {
                         GameOverResult info = ((GameOverResult) result);
                         // TODO pass game info to win/lose screens
-                        if(((GameOverResult) result).win)
+                        showMainMenu();
+                        /*if(((GameOverResult) result).win)
                         {
                             winningScreen.getScoreText().setText("Score: "+((GameOverResult) result).score);
                             winningScreen.getTimeText().setText("Time: "+TimeFormatConverter.convertTime(((GameOverResult) result).time));
@@ -169,7 +170,7 @@ public class MainFrame {
                             losingScreen.getScoreText().setText("Score: "+((GameOverResult) result).score);
                             losingScreen.getTimeText().setText("Time: "+TimeFormatConverter.convertTime(((GameOverResult) result).time));
                             showLosingScreen();
-                        }
+                        }*/
                     }
                 } finally {
                     canvas.removeKeyListener(game);

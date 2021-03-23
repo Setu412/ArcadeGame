@@ -85,6 +85,7 @@ public class TargetedMovementGenerator implements MovementGenerator {
     /**
      * Generating a list of weighted movement order for the movement generator to try
      * Movement is weighted according to target location
+     *
      * @param relVerticalPos A Direction value of the relative vertical position of the target to the current position
      * @param relHorizontalPos A Direction value of the relative horizontal position of the target to the current position
      * @return An ArrayList of Directions values, ordered by movement priority
