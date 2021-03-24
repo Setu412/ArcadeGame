@@ -3,6 +3,9 @@ package ca.sfu.cmpt276.spring2021.group8.project.game;
 import java.awt.Point;
 import java.nio.file.DirectoryIteratorException;
 
+/**
+ * Direction is the direction that can be moved towards
+ */
 public enum Direction {
     // Ordered in clockwise fashion
     // Note: Do NOT change the order, changing the order modifies methods defined below

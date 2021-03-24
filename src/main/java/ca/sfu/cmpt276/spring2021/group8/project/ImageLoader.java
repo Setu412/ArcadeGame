@@ -6,6 +6,9 @@ import java.awt.image.BufferedImage;
 import java.io.FileInputStream;
 import java.io.IOException;
 
+/**
+ *  ImageLoader loads all the images for the render functions to use
+ */
 public class ImageLoader {
     // Player Images
     public static BufferedImage playerup = ImageLoader.loadImage("src/resources/Images/playerup.png");
@@ -56,6 +59,11 @@ public class ImageLoader {
     public static Image exitC = exitClosedImg.getScaledInstance(49, 49, Image.SCALE_DEFAULT);
     public static Image exitO = exitOpenImg.getScaledInstance(49, 49, Image.SCALE_DEFAULT);
 
+    /**
+     *
+     * @param ImagePath The path of the image to load
+     * @return BufferedImage that is loaded from resources
+     */
     public static BufferedImage loadImage(String ImagePath) {
         try {
             return ImageIO.read(new FileInputStream(ImagePath));
@@ -64,6 +72,4 @@ public class ImageLoader {
         }
         return null;
     }
-
-
 }

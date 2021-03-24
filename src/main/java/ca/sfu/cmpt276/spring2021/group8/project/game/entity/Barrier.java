@@ -5,10 +5,14 @@ import ca.sfu.cmpt276.spring2021.group8.project.game.WorldScreenAdapter;
 
 import java.awt.*;
 
+/**
+ * The barriers that obstruct the path of the player and enemies
+ */
 public class Barrier extends Entity {
 
     /**
      * Constructs a Barrier object and assigns a Position on maze to it
+     *
      * @param startPosition Point object having initial position to be assigned to Barrier object
      */
     public Barrier(Point startPosition) {

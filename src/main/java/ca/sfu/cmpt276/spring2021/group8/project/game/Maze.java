@@ -6,7 +6,9 @@ import ca.sfu.cmpt276.spring2021.group8.project.game.positioning.PositionValidat
 import java.awt.*;
 import java.util.Random;
 
-
+/**
+ * Maze is the game board that contains the entrance, exit, and walls
+ */
 public class Maze implements PositionValidator {
 
 
