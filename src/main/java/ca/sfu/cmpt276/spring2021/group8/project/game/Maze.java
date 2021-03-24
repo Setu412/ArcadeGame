@@ -225,7 +225,6 @@ public class Maze implements PositionValidator {
      * @param s
      */
     public void render(Graphics g, WorldScreenAdapter s) {
-
         Rectangle offset = g.getClipBounds();
 
         for (int i=0; i < height; i++)
@@ -235,22 +234,16 @@ public class Maze implements PositionValidator {
                 if (maze[i][j] == WALL)
                 {
                     Point wallScreenPosition = s.convert(j, i);
-                    //g.setColor(Color.BLACK);
-                    //Draw.dot(g, offset.x + wallScreenPosition.x + s.gridHorizontalSpacing() / 2, offset.y + wallScreenPosition.y + s.gridVerticalSpacing() / 2, 16);
                     g.drawImage(ImageLoader.w, offset.x + wallScreenPosition.x - 24 + s.gridHorizontalSpacing() / 2, offset.y + wallScreenPosition.y - 24 + s.gridVerticalSpacing() / 2, null);
                 }
                 if (maze[i][j] == ENTRANCE)
                 {
                     Point wallScreenPosition = s.convert(j, i);
-                    //g.setColor(Color.CYAN);
-                    //Draw.dot(g, offset.x + wallScreenPosition.x + s.gridHorizontalSpacing() / 2, offset.y + wallScreenPosition.y + s.gridVerticalSpacing() / 2, 16);
                     g.drawImage(ImageLoader.entr, offset.x + wallScreenPosition.x - 24 + s.gridHorizontalSpacing() / 2, offset.y + wallScreenPosition.y - 24 + s.gridVerticalSpacing() / 2, null );
                 }
                 if (maze[i][j] == EXIT)
                 {
                     Point wallScreenPosition = s.convert(j, i);
-                    //g.setColor(Color.MAGENTA);
-                    //Draw.dot(g, offset.x + wallScreenPosition.x + s.gridHorizontalSpacing() / 2, offset.y + wallScreenPosition.y + s.gridVerticalSpacing() / 2, 16);
                     g.drawImage(ImageLoader.exitC, offset.x + wallScreenPosition.x - 24 + s.gridHorizontalSpacing() / 2, offset.y + wallScreenPosition.y - 24 + s.gridVerticalSpacing() / 2, null);
                 }
 

@@ -36,12 +36,8 @@ public class Punishment extends Collectable {
      */
     @Override
     public void render(Graphics g, WorldScreenAdapter s) {
-
         Rectangle offset = g.getClipBounds();
         Point PunishmentScreenPosition = s.convert(getPosition());
-        //g.setColor(Color.PINK);
-        //Draw.dot(g, offset.x + PunishmentScreenPosition.x + s.gridHorizontalSpacing()/2, offset.y + PunishmentScreenPosition.y + s.gridVerticalSpacing()/2, 16);
-
         g.drawImage(ImageLoader.pun, offset.x + PunishmentScreenPosition.x - 23 + s.gridHorizontalSpacing()/2, offset.y + PunishmentScreenPosition.y - 23 + s.gridVerticalSpacing()/2, null);
     }
 }

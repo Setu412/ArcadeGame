@@ -35,12 +35,8 @@ public class Reward extends Collectable {
      */
     @Override
     public void render(Graphics g, WorldScreenAdapter s) {
-
         Rectangle offset = g.getClipBounds();
         Point RewardScreenPosition = s.convert(this.getPosition());
-        //g.setColor(Color.YELLOW);
-        //Draw.dot(g, offset.x + RewardScreenPosition.x + s.gridHorizontalSpacing()/2, offset.y + RewardScreenPosition.y + s.gridVerticalSpacing()/2, 16);
-
         g.drawImage(ImageLoader.rr, offset.x + RewardScreenPosition.x - 23 + s.gridHorizontalSpacing()/2, offset.y + RewardScreenPosition.y - 23 + s.gridVerticalSpacing()/2, null);
     }
 }

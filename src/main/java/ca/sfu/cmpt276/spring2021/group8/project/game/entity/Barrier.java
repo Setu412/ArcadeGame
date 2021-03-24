@@ -36,12 +36,8 @@ public class Barrier extends Entity {
      */
     @Override
     public void render(Graphics g, WorldScreenAdapter s) {
-
         Rectangle offset = g.getClipBounds();
         Point BarrierScreenPosition = s.convert(getPosition());
-        //g.setColor(Color.GRAY);
-        //Draw.dot(g, offset.x + BarrierScreenPosition.x + s.gridHorizontalSpacing()/2, offset.y + BarrierScreenPosition.y + s.gridVerticalSpacing()/2, 16);
-
         g.drawImage(ImageLoader.bar, offset.x + BarrierScreenPosition.x - 24 + s.gridHorizontalSpacing()/2, offset.y + BarrierScreenPosition.y - 24 + s.gridVerticalSpacing()/2, null);
     }
 }

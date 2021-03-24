@@ -44,7 +44,6 @@ public class Enemy extends MovableEntity {
      */
     @Override
     public void render(Graphics g, WorldScreenAdapter adapter) {
-
         Rectangle offset = g.getClipBounds();
         Point playerScreenPosition = adapter.convert(getPosition());
 
