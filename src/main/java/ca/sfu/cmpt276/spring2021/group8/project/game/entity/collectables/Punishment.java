@@ -5,6 +5,9 @@ import ca.sfu.cmpt276.spring2021.group8.project.game.WorldScreenAdapter;
 
 import java.awt.*;
 
+/**
+ * The Punishments that are scattered across the board
+ */
 public class Punishment extends Collectable {
 
     final static int PUNISHMENT_POINTS = -4;

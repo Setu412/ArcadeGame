@@ -5,6 +5,9 @@ import ca.sfu.cmpt276.spring2021.group8.project.game.WorldScreenAdapter;
 
 import java.awt.*;
 
+/**
+ * The BonusReward that appears and disappears
+ */
 public class BonusReward extends Collectable {
 
     public boolean isVisible = false;

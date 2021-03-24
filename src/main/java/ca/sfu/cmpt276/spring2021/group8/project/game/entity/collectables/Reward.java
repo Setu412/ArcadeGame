@@ -4,6 +4,9 @@ import ca.sfu.cmpt276.spring2021.group8.project.ImageLoader;
 import ca.sfu.cmpt276.spring2021.group8.project.game.WorldScreenAdapter;
 import java.awt.*;
 
+/**
+ * The regular rewards the are scattered across the board
+ */
 public class Reward extends Collectable {
 
     final static int REWARDS_POINTS = 2;
