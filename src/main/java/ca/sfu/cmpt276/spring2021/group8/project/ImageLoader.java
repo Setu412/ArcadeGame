@@ -45,7 +45,7 @@ public class ImageLoader {
     public static Image pun = punishmentImg.getScaledInstance(47, 47, Image.SCALE_DEFAULT);
 
     // Barrier Images
-    public static BufferedImage barrierImg = ImageLoader.loadImage("src/resources/Images/barrier.jpg");
+    public static BufferedImage barrierImg = ImageLoader.loadImage("src/resources/Images/barrier2.jpg");
     public static Image bar = barrierImg.getScaledInstance(49, 49, Image.SCALE_DEFAULT);
 
     // Maze Images
