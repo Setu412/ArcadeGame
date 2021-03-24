@@ -34,9 +34,9 @@ public class World {
     private int rewardCollected = 0;
 
     /**
-     * Constructs the World class object
+     * Constructs the World class object, assigns maze object parameter to maze field and instantiate all the entities
      *
-     * @param maze
+     * @param maze Maze object containing maze design
      */
     public World(Maze maze) {
         this.maze = maze;
@@ -300,7 +300,7 @@ public class World {
      * Makes calls to overridden render function of all game entities after each tick.
      *
      * @param g Graphics object to draw on canvas
-     * @param size
+     * @param size Point object for the size of the maze
      */
     public void render(Graphics g, Point size) {
         Point gridSize = adapter.gridSize();

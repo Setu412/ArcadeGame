@@ -6,7 +6,9 @@ import ca.sfu.cmpt276.spring2021.group8.project.game.positioning.PositionValidat
 import java.awt.*;
 import java.util.Random;
 
-
+/**
+ * Maze is the game board that contains the entrance, exit, and walls
+ */
 public class Maze implements PositionValidator {
 
 
@@ -41,7 +43,10 @@ public class Maze implements PositionValidator {
                             {4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4}
                         };
 
-    // Constructors
+
+    /**
+     * Constructs a Maze object, along with randomly generating entrance and exit positions
+     */
     public Maze() {
 
         //maze = GenerateInternalMazeWalls.readWallCoordinates(maze);
@@ -95,22 +100,39 @@ public class Maze implements PositionValidator {
         nextToExit = nextToDoors(exit);
     }
 
-    // get starting position
+    /**
+     * Returns the entrance position where the player spawn into the game
+     *
+     * @return start point
+     */
     public Point startPosition() {
         return new Point(start);
     }
 
-    // get end position
+    /**
+     * Returns the exit position where player need to reach after collection all rewards
+     *
+     * @return exit point
+     */
     public Point exitPosition() {
         return new Point(exit);
     }
 
-    // Get size of maze
+    /**
+     * Return Height and Width of the maze as a Point object
+     *
+     * @return Size of maze as Point object
+     */
     public Point getSize() {
         return new Point(width , height);
     }
 
-    // Return whether a move is valid (not running into walls)
+    /**
+     * Ensures the new position the movable entity intends to move is not a wall
+     *
+     * @param p New position of movable entity
+     * @return True if the position p is not a wall or an unlocked exit point, Return False the new position is a wall
+     */
     public boolean isValidPosition(Point p) {
 
         //check if moving towards unlocked exit tile
@@ -135,13 +157,23 @@ public class Maze implements PositionValidator {
         return maze[p.y][p.x] == 0;
     }
 
-    // Generate random integer within range
+    /**
+     * Generate and returns a random integer within range
+     *
+     * @param min minimum bound for random number generation
+     * @param max maximum bound for random number generation
+     * @return randomly generated integer
+     */
     static int getRandomInt(int min, int max) {
         Random r = new Random();
         return r.nextInt((max - min) + 1) + min;
     }
-    
-    // Returns a Point in the maze to use
+
+    /**
+     * Generates and returns a Point on the maze to use
+     *
+     * @return newly generated position as Point object
+     */
     public Point generatePosition() {
         int x1;
         int x2;
@@ -158,11 +190,19 @@ public class Maze implements PositionValidator {
         return new Point(x2, x1);
     }
 
+    /**
+     * When all rewards are collected, value stored at maze coordinate is changed to 9
+     */
     public void complete(){
         maze[exit.y][exit.x] = 9;
     }
 
-    // Set the coordinates of the position next to the doors
+    /**
+     * Finds and returns the position on maze right next to start or exit point
+     *
+     * @param door Point of the Start or the Exit
+     * @return A position right next to Start or exits as Point object
+     */
     public Point nextToDoors(Point door) {
 
         // Check what row it is on
@@ -181,8 +221,13 @@ public class Maze implements PositionValidator {
         return null;
     }
 
+    /**
+     * Renders the maze layout on to the screen containing walls, entrance and exit positions
+     *
+     * @param g Graphic object to draw Image onto screen
+     * @param s WorldScreenAdapter object to relate the world and screen
+     */
     public void render(Graphics g, WorldScreenAdapter s) {
-
         Rectangle offset = g.getClipBounds();
 
         for (int i=0; i < height; i++)
@@ -192,22 +237,16 @@ public class Maze implements PositionValidator {
                 if (maze[i][j] == WALL)
                 {
                     Point wallScreenPosition = s.convert(j, i);
-                    //g.setColor(Color.BLACK);
-                    //Draw.dot(g, offset.x + wallScreenPosition.x + s.gridHorizontalSpacing() / 2, offset.y + wallScreenPosition.y + s.gridVerticalSpacing() / 2, 16);
                     g.drawImage(ImageLoader.w, offset.x + wallScreenPosition.x - 24 + s.gridHorizontalSpacing() / 2, offset.y + wallScreenPosition.y - 24 + s.gridVerticalSpacing() / 2, null);
                 }
                 if (maze[i][j] == ENTRANCE)
                 {
                     Point wallScreenPosition = s.convert(j, i);
-                    //g.setColor(Color.CYAN);
-                    //Draw.dot(g, offset.x + wallScreenPosition.x + s.gridHorizontalSpacing() / 2, offset.y + wallScreenPosition.y + s.gridVerticalSpacing() / 2, 16);
                     g.drawImage(ImageLoader.entr, offset.x + wallScreenPosition.x - 24 + s.gridHorizontalSpacing() / 2, offset.y + wallScreenPosition.y - 24 + s.gridVerticalSpacing() / 2, null );
                 }
                 if (maze[i][j] == EXIT)
                 {
                     Point wallScreenPosition = s.convert(j, i);
-                    //g.setColor(Color.MAGENTA);
-                    //Draw.dot(g, offset.x + wallScreenPosition.x + s.gridHorizontalSpacing() / 2, offset.y + wallScreenPosition.y + s.gridVerticalSpacing() / 2, 16);
                     g.drawImage(ImageLoader.exitC, offset.x + wallScreenPosition.x - 24 + s.gridHorizontalSpacing() / 2, offset.y + wallScreenPosition.y - 24 + s.gridVerticalSpacing() / 2, null);
                 }
 
