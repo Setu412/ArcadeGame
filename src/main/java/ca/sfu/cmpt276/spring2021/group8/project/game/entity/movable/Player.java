@@ -42,7 +42,7 @@ public class Player extends MovableEntity {
     /**
      * Checks to see if the player has moved or not
      *
-     * @return Boolean of whether the player moved or not
+     * @return True if player has moved, false if player has not moved
      */
     public boolean getHasMoved()
     {
