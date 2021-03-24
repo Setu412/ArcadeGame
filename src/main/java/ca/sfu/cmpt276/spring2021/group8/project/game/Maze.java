@@ -190,6 +190,9 @@ public class Maze implements PositionValidator {
         return new Point(x2, x1);
     }
 
+    /**
+     * When all rewards are collected, value stored at maze coordinate is changed to 9
+     */
     public void complete(){
         maze[exit.y][exit.x] = 9;
     }
@@ -222,7 +225,7 @@ public class Maze implements PositionValidator {
      * Renders the maze layout on to the screen containing walls, entrance and exit positions
      *
      * @param g Graphic object to draw Image onto screen
-     * @param s
+     * @param s WorldScreenAdapter object to relate the world and screen
      */
     public void render(Graphics g, WorldScreenAdapter s) {
         Rectangle offset = g.getClipBounds();

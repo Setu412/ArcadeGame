@@ -60,6 +60,7 @@ public class ImageLoader {
     public static Image exitO = exitOpenImg.getScaledInstance(49, 49, Image.SCALE_DEFAULT);
 
     /**
+     * Loads the images as a BufferedImage
      *
      * @param ImagePath The path of the image to load
      * @return BufferedImage that is loaded from resources

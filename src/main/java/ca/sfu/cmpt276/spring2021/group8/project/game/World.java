@@ -300,7 +300,7 @@ public class World {
      * Makes calls to overridden render function of all game entities after each tick.
      *
      * @param g Graphics object to draw on canvas
-     * @param size
+     * @param size Point object for the size of the maze
      */
     public void render(Graphics g, Point size) {
         Point gridSize = adapter.gridSize();
