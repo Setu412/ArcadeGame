@@ -8,16 +8,31 @@ import java.awt.Point;
 import java.util.ArrayList;
 import java.util.Random;
 
+/**
+ * A class to generate movement for an entity to get closer to a target
+ * @see MovementGenerator
+ */
 public class TargetedMovementGenerator implements MovementGenerator {
     private final Entity target;
     private final PositionValidator validator;
 
+    /**
+     * Generates a targeted movement generator to generate movement in the general direction of the target
+     * @param validator a PositionValidator to check whether or not a movement is valid
+     * @param target an Entity as the target of our movement
+     */
     public TargetedMovementGenerator(PositionValidator validator, Entity target) {
         this.validator = validator;
         this.target = target;
     }
 
-    //TODO: change currentPosition into a field
+    /**
+     * Generates the next move of an entity in the general direction of the target
+     * @param currentPosition Point of the current position of the entity to move
+     * @return Direction of the next move of an entity in general direction of the target
+     * @see MovementGenerator#next(Point)
+     */
+    @Override
     public Direction next(Point currentPosition) {
         //get an arraylist of movements to test, ordered from the most optimal direct move to the worst
         ArrayList<Direction> movOrder=this.generateMovementOrder(this.getRelativeVerticalPos(currentPosition),this.getRelativeHorizontalPos(currentPosition));
@@ -154,7 +169,11 @@ public class TargetedMovementGenerator implements MovementGenerator {
         return movOrder;
     }
 
-    private boolean getCoinFlip()  //generates a random coinflip, used for randomizing weighted movement
+    /**
+     * generates a random value of true/false, used for randomizing weighted movement
+     * @return randomized boolean t/f
+     */
+    private boolean getCoinFlip()
     {
         Random random=new Random();
         return random.nextInt()%2==0;

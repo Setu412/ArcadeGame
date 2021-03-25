@@ -9,6 +9,9 @@ import java.awt.event.*;
 
 import javax.swing.*;
 
+/**
+ * The class that sets up the GUI frame of the game
+ */
 public class MainFrame {
     private static final String SCREEN_GAME = "game";
     private static final String SCREEN_MAINMENU = "mainmenu";
@@ -25,6 +28,9 @@ public class MainFrame {
     private WinningScreen winningScreen=new WinningScreen();
     private LosingScreen losingScreen=new LosingScreen();
 
+    /**
+     * Creates a new game frame
+     */
     public MainFrame() {
         JFrame f = new JFrame();
 
@@ -102,24 +108,43 @@ public class MainFrame {
         }
     }
 
+    /**
+     * changes the frame to show the main menu
+     */
     private void showMainMenu() {
         cardLayout.show(panel, SCREEN_MAINMENU);
     }
 
+    /**
+     * changes the frame to show the how to play menu
+     */
     private void showHowToPlayMenu()
     {
         cardLayout.show(panel,SCREEN_HOWTOPLAY);
     }
 
+    /**
+     * changes the frame to show the winning screen
+     */
     private void showWinningScreen()
     {
         cardLayout.show(panel,SCREEN_WIN);
     }
+
+    /**
+     * changes the frame to show the losing screen
+     */
     private void showLosingScreen()
     {
         cardLayout.show(panel,SCREEN_LOST);
     }
 
+    /**
+     * creates a game canvas with the given dimensions
+     * @param width an int of the width of the canvas
+     * @param height an int of the height of the canvas
+     * @return the newly created Canvas object representing the game object
+     */
     private Canvas createGameCanvas(int width, int height) {
         canvas = new Canvas();
 

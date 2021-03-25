@@ -3,6 +3,17 @@ package ca.sfu.cmpt276.spring2021.group8.project.gui;
 import javax.swing.*;
 import java.awt.*;
 
+/**
+ * A GUI template for ending screens (winning and losing screen).
+ * Contains:
+ * A letter (diploma or letter of expulsion, depending on wheter or not its a winning or losing screen)
+ * A text label of the final score of the player
+ * A text label of the final time of the player
+ * A button to go back to the main menu
+ * A button to play again
+ * @see LosingScreen
+ * @see WinningScreen
+ */
 public abstract class EndingScreen extends JPanel {
     JPanel letterPanel=new JPanel();
     JPanel letterTitlePanel=new JPanel();
@@ -19,6 +30,14 @@ public abstract class EndingScreen extends JPanel {
     JButton mainMenuBtn=new JButton("Main Menu");
     JButton playAgainBtn=new JButton("Play Again");
 
+    /**
+     * Creates a new ending screen
+     * @see #prepareLetterPanel()
+     * @see #prepareScorePanel()
+     * @see #prepareScorePanel()
+     * @see #preparePlayAgainPanel()
+     * @see #prepareTimePanel()
+     */
     public EndingScreen()
     {
         this.setBackground(GUIConfigurations.BACKGROUND_COLOR);
@@ -31,9 +50,18 @@ public abstract class EndingScreen extends JPanel {
         this.prepareTimePanel();
     }
 
-    public abstract void prepareLetterContent();
+    /**
+     * Prepares the body content of the letters for the respective ending screens
+     * @see LosingScreen#prepareLetterContent()
+     * @see WinningScreen#prepareLetterContent()
+     */
+    abstract void prepareLetterContent();
 
-    public void prepareLetterPanel()
+    /**
+     * Prepares the panel which contains the letter
+     * Sets the bounds, background, and border of the panel and underlying panels for the body and text of the letter.
+     */
+    private void prepareLetterPanel()
     {
         this.add(letterPanel);
         letterPanel.setBounds(142,50,995,450);
@@ -54,23 +82,39 @@ public abstract class EndingScreen extends JPanel {
         prepareLetterContent();
     }
 
+    /**
+     * Returns the main menu button
+     */
     public JButton getMainMenuBtn() {
         return mainMenuBtn;
     }
 
+    /**
+     * Returns the play again button
+     */
     public JButton getPlayAgainBtn() {
         return playAgainBtn;
     }
 
+    /**
+     * returns the text label for final score
+     */
     public JLabel getScoreText() {
         return scoreText;
     }
 
+    /**
+     * returns the text label for final time
+     */
     public JLabel getTimeText() {
         return timeText;
     }
 
-    public void prepareScorePanel()
+    /**
+     * Prepares the panel which contains the final score of the player
+     * Sets the boundary, background color, borders, text color, and text font
+     */
+    private void prepareScorePanel()
     {
         this.add(scorePanel);
         scorePanel.setBounds(422,540,210,60);
@@ -83,6 +127,10 @@ public abstract class EndingScreen extends JPanel {
 
     }
 
+    /**
+     * Prepares the panel which contains the final time of the player
+     * Sets the boundary, background color, borders, text color, and text font
+     */
     public void prepareTimePanel()
     {
         this.add(timePanel);
@@ -95,6 +143,11 @@ public abstract class EndingScreen extends JPanel {
         timePanel.add(timeText);
     }
 
+    /**
+     * Prepares the panel which contains the play again button
+     * Sets the boundary of the panel and background color of the panel, sets up and add the button to the panel
+     * @see GUIConfigurations#setBtnUI(JButton)
+     */
     public void preparePlayAgainPanel()
     {
         this.add(playAgainPanel);
@@ -105,6 +158,11 @@ public abstract class EndingScreen extends JPanel {
         GUIConfigurations.setBtnUI(playAgainBtn);
     }
 
+    /**
+     * Prepares the panel which contains the main menu button
+     * Sets the boundary of the panel and background color of the panel, sets up and add the button to the panel
+     * @see GUIConfigurations#setBtnUI(JButton)
+     */
     public void prepareMainMenuPanel()
     {
         this.add(mainMenuPanel);

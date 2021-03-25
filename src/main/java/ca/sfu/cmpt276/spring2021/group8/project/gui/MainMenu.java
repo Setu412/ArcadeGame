@@ -2,6 +2,13 @@ package ca.sfu.cmpt276.spring2021.group8.project.gui;
 
 import javax.swing.*;
 
+/**
+ * The GUI menu of the menu when the player starts the game, the default starting menu
+ * Contains:
+ * The title of the game
+ * A start game button
+ * A how-to-play button
+ */
 public class MainMenu extends JPanel{
     JPanel titlePanel=new JPanel();
     JPanel howToPlayPanel=new JPanel();
@@ -11,6 +18,12 @@ public class MainMenu extends JPanel{
     JButton howToPlayBtn=new JButton("How to Play");
 
 
+    /**
+     * Creates a new main menu
+     * @see #prepareHowToPlayPanel()
+     * @see #prepareStartGamePanel()
+     * @see #prepareTitlePanel()
+     */
     public MainMenu()
     {
         this.setBackground(GUIConfigurations.BACKGROUND_COLOR);
@@ -21,14 +34,24 @@ public class MainMenu extends JPanel{
         this.prepareHowToPlayPanel();
     }
 
+    /**
+     * returns the start game button
+     */
     public JButton getStartGameBtn() {
         return startGameBtn;
     }
 
+    /**
+     * returns the how to play button
+     */
     public JButton getHowToPlayBtn() {
         return howToPlayBtn;
     }
 
+    /**
+     * Prepares the panel which contains the title of the game
+     * Sets up bounds, background color, text color, text font, text content and alignment
+     */
     private void prepareTitlePanel()
     {
         titlePanel.setBounds(165,110,950,290);
@@ -48,7 +71,12 @@ public class MainMenu extends JPanel{
 
         titlePanel.add(titleText);
     }
-    
+
+    /**
+     * Prepares the panel which contains the start game button
+     * Sets up bounds, background color, and sets up the button
+     * @see GUIConfigurations#setBtnUI(JButton)
+     */
     private void prepareStartGamePanel()
     {
         startGamePanel.setBounds(464,510,350,87);
@@ -57,7 +85,12 @@ public class MainMenu extends JPanel{
         GUIConfigurations.setBtnUI(startGameBtn);
         startGamePanel.add(startGameBtn);
     }
-    
+
+    /**
+     * Prepares the panel which contains the how to play button
+     * Sets up bounds, background color, and sets up the button
+     * @see GUIConfigurations#setBtnUI(JButton)
+     */
     private void prepareHowToPlayPanel()
     {
         howToPlayPanel.setBounds(464,630,350,87);

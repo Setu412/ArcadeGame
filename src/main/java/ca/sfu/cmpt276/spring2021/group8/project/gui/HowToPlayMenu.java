@@ -3,6 +3,13 @@ package ca.sfu.cmpt276.spring2021.group8.project.gui;
 import javax.swing.*;
 import java.awt.*;
 
+/**
+ * The GUI menu that has the instructions on how to play the game
+ * Contains:
+ * A summary of the story the game is set
+ * The rules of the game and how to play the game
+ * A button to go back to the main menu
+ */
 public class HowToPlayMenu extends JPanel{
     JPanel storyPanel =new JPanel();
     JPanel rulesPanel =new JPanel();
@@ -12,6 +19,12 @@ public class HowToPlayMenu extends JPanel{
     JLabel rulesText= new JLabel();
     JButton mainMenuBtn=new JButton("Back to Main Menu");
 
+    /**
+     * Creates a new how to play menu
+     * @see #prepareMainMenuPanel()
+     * @see #prepareRulesPanel()
+     * @see #prepareStoryPanel()
+     */
     public HowToPlayMenu()
     {
         this.setBackground(GUIConfigurations.BACKGROUND_COLOR);
@@ -23,11 +36,18 @@ public class HowToPlayMenu extends JPanel{
 
     }
 
+    /**
+     * Returns the main menu button
+     */
     public JButton getMainMenuBtn() {
         return mainMenuBtn;
     }
 
-    public void prepareStoryPanel()
+    /**
+     * Prepares the panel which contains the story of the game.
+     * Sets up the background color, bounds, borders, text of the content, text font, and text color
+     */
+    private void prepareStoryPanel()
     {
         storyPanel.setBackground(GUIConfigurations.SECONDARY_COMPONENT_COLOR);
         storyPanel.setBounds(53,25,1182,161);
@@ -48,7 +68,11 @@ public class HowToPlayMenu extends JPanel{
         storyPanel.add(storyText);
     }
 
-    public void prepareRulesPanel()
+    /**
+     * Prepares the panel which contains the rules of the game.
+     * Sets up the background color, bounds, borders, text of the content, text font, and text color
+     */
+    private void prepareRulesPanel()
     {
         rulesPanel.setBackground(GUIConfigurations.SECONDARY_COMPONENT_COLOR);
         rulesPanel.setBounds(53,205,1182,400);
@@ -103,7 +127,12 @@ public class HowToPlayMenu extends JPanel{
         rulesPanel.add(rulesText,BorderLayout.SOUTH);
     }
 
-    public void prepareMainMenuPanel()
+    /**
+     * Prepares the panel which contains the back to main menu button
+     * Sets up the bounds, background color of the panel, and sets up the button GUI
+     * @see GUIConfigurations#setBtnUI(JButton) 
+     */
+    private void prepareMainMenuPanel()
     {
         mainMenuPanel.setBounds(370,630,539,87);
         mainMenuPanel.setBackground(this.getBackground());
