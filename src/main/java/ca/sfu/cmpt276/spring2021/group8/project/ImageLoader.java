@@ -33,15 +33,15 @@ public class ImageLoader {
     public static Image e4 = enemyleft.getScaledInstance(49, 49, Image.SCALE_DEFAULT);
 
     // Regular Reward Images
-    public static BufferedImage rewardImg = ImageLoader.loadImage("src/resources/Images/p.png");
+    public static BufferedImage rewardImg = ImageLoader.loadImage("src/resources/Images/Pnew.png");
     public static Image rr = rewardImg.getScaledInstance(47, 47, Image.SCALE_DEFAULT);
 
     // Bonus Images
-    public static BufferedImage bonusImg = ImageLoader.loadImage("src/resources/Images/bonus.png");
+    public static BufferedImage bonusImg = ImageLoader.loadImage("src/resources/Images/Anew.png");
     public static Image bon = bonusImg.getScaledInstance(47, 47, Image.SCALE_DEFAULT);
 
     // Punishment Images
-    public static BufferedImage punishmentImg = ImageLoader.loadImage("src/resources/Images/punishment.jpg");
+    public static BufferedImage punishmentImg = ImageLoader.loadImage("src/resources/Images/Fnew.png");
     public static Image pun = punishmentImg.getScaledInstance(47, 47, Image.SCALE_DEFAULT);
 
     // Barrier Images

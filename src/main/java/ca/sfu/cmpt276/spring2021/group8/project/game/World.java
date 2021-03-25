@@ -1,6 +1,5 @@
 package ca.sfu.cmpt276.spring2021.group8.project.game;
 
-import ca.sfu.cmpt276.spring2021.group8.project.Draw;
 import ca.sfu.cmpt276.spring2021.group8.project.game.containers.EntityList;
 import ca.sfu.cmpt276.spring2021.group8.project.game.effect.*;
 import ca.sfu.cmpt276.spring2021.group8.project.game.entity.*;
@@ -10,6 +9,9 @@ import ca.sfu.cmpt276.spring2021.group8.project.game.positioning.CompositePositi
 
 import java.awt.*;
 
+/**
+ * The World class contains all the game entities and handles interactions between these entities, and renders
+ */
 public class World {
     private final static long MS_PER_ENEMY_MOVE = 1000;
     private final static long MS_PER_BARRIER_CHANGE_POS = 13000;
@@ -64,8 +66,6 @@ public class World {
         for (int i=0;i<NUM_ENEMIES;i++) {
             this.enemies.add(new Enemy(this.player.getTargetedMovementGenerator(maze), generateEmptyPosition()));
         }
-
-
     }
 
     /**
@@ -78,7 +78,7 @@ public class World {
     /**
      * Ensures none of the Collectable entities already exists on new point
      *
-     * @param p new Position generated
+     * @param p Point object having new position generated
      * @return returns true if any other collectable already exists on new point, returns false if it does not
      */
     private boolean isCollectiblePoint(Point p) {
@@ -88,7 +88,7 @@ public class World {
     /**
      * Ensures none of the Barrier already exists on new point
      *
-     * @param p new Position generated
+     * @param p Point object having new position generated
      * @return returns true if any other Barrier already exists on new point, returns false if it does not
      */
     private boolean isBarrierPoint(Point p) {
@@ -98,7 +98,7 @@ public class World {
     /**
      * Ensures none of the Bonus Reward entities already exists on new point
      *
-     * @param p new Position generated
+     * @param p Point object having new position generated
      * @return returns true if any other Bonus Reward already exists on new point, returns false if it does not
      */
     private boolean isBRPoint(Point p) {
@@ -108,17 +108,31 @@ public class World {
     /**
      * Makes call to different types of entity to make sure newly generated position is empty
      *
-     * @param p New Position generated
+     * @param p Point object having new position generated
      * @return returns true if any other entity already exists on new point, returns false if it does not
      */
     private boolean isEmptyPosition(Point p) {
-        return !isCollectiblePoint(p) &&  !isBarrierPoint(p) && !isBRPoint(p);
+        return !isCollectiblePoint(p) &&  !isBarrierPoint(p) && !isBRPoint(p) && !isAroundPlayer(p);
     }
 
     /**
-     * Generated a new empty Position
+     *  Ensure that the the new generated position is not within 1 block around the player
      *
-     * @return empty position Point object
+     * @param p Point object having new position generated
+     * @return True if the new generated point is around the player, Returns false if it is not around the player
+     */
+    private boolean isAroundPlayer(Point p) {
+        Point pos = player.getPosition();
+
+        if(Math.abs(pos.x - p.x)<2 && Math.abs(pos.y - p.y)<2)
+            return true;
+        return false;
+    }
+
+    /**
+     * Generates a new empty position
+     *
+     * @return Point object having the new empty position
      */
     private Point generateEmptyPosition() {
         // TODO fix this function for the case when there are no empty positions
@@ -134,7 +148,7 @@ public class World {
     /**
      * Calls individual update functions for Barriers, enemies and Bonus reward
      *
-     * @param deltaTime saves the time difference between two consecutive ticks
+     * @param deltaTime Integer value containing time difference between two consecutive ticks
      */
     public void update(long deltaTime) {
         updateBarriers(deltaTime);
@@ -145,7 +159,7 @@ public class World {
     /**
      * Ensures enemies make a move in game after every 1 second
      *
-     * @param deltaTime saves the time difference between two consecutive ticks
+     * @param deltaTime Integer value containing time difference between two consecutive ticks
      */
     public void updateEnemy(long deltaTime){
         msSinceLastMove += deltaTime;
@@ -163,7 +177,7 @@ public class World {
     /**
      * Updates the position of barriers with new position after every 13 seconds
      *
-     * @param deltaTime saves the time difference between two consecutive ticks
+     * @param deltaTime Integer value containing time difference between two consecutive ticks
      */
     public void updateBarriers(long deltaTime){
         msSinceLastMoveBarrier+= deltaTime;
@@ -179,7 +193,7 @@ public class World {
      * Ensures BonusReward appears and disappears in the game after every 5 second.
      * Updates the position of BonusReward with new position after each reappearance
      *
-     * @param deltaTime saves the time difference between two consecutive ticks
+     * @param deltaTime Integer value containing time difference between two consecutive ticks
      */
     private void updateBR(long deltaTime) {
         msSinceLastBRVisible += deltaTime;
@@ -198,7 +212,7 @@ public class World {
      * or createLoseeffct with enemy is encountered or createWinEffect in case all reward are collected
      * upon player movemenet
      *
-     * @return Determines the type of GameEffect for eg. WinEffect, LoseEffects or ScoreEffect
+     * @return the type of GameEffect for eg. WinEffect, LoseEffects or ScoreEffect
      */
     public GameEffect getGameEffect() {
         Point pos = player.getPosition();
@@ -250,6 +264,13 @@ public class World {
 
         for (Enemy enemy : enemies) {
             if (enemy.getPosition().equals(pos)) {
+
+                try {
+                    SoundEffects.playMusic("src/resources/Audio/Punishment.wav");
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+
                 return GameEffect.createLoseEffect();
             }
         }
@@ -268,8 +289,8 @@ public class World {
      * Draws the grid onto canvas
      *
      * @param g Graphics object to draw on canvas
-     * @param xoffset
-     * @param yoffset
+     * @param xoffset Horizontal distance from the top of canvas to the intended position
+     * @param yoffset Vertical distance from the top of canvas to the intended position
      */
     private void drawGrid(Graphics g, int xoffset, int yoffset) {
         g.setColor(Color.BLACK);
@@ -284,15 +305,6 @@ public class World {
             Point left = adapter.convert(0, y);
             Point right = adapter.convert(adapter.worldWidth(), y);
             g.drawLine(xoffset + left.x, yoffset + left.y, xoffset + right.x, yoffset + right.y);
-        }
-
-        int xPadding = adapter.gridVerticalSpacing()/2;
-        int yPadding = adapter.gridHorizontalSpacing()/2;
-        for (int x = 0; x < adapter.worldWidth(); x++) {
-            for (int y = 0; y < adapter.worldHeight(); y++) {
-                Point screenPoint = adapter.convert(x, y);
-                Draw.dot(g, xoffset + screenPoint.x + xPadding, yoffset + screenPoint.y + yPadding, 2);
-            }
         }
     }
 
@@ -328,13 +340,5 @@ public class World {
         for (Enemy enemy : enemies) {
             enemy.render(g, adapter);
         }
-    }
-
-    public Point getSize() {
-        return maze.getSize();
-    }
-
-    public Point playerPosition() {
-        return player.getPosition();
     }
 }
