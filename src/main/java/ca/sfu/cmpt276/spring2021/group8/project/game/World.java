@@ -135,7 +135,6 @@ public class World {
      * @return Point object having the new empty position
      */
     private Point generateEmptyPosition() {
-        // TODO fix this function for the case when there are no empty positions
 
         Point p;
         do {
