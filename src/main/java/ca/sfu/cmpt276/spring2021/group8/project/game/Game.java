@@ -5,6 +5,7 @@ import java.awt.event.*;
 import java.awt.image.*;
 
 import ca.sfu.cmpt276.spring2021.group8.project.game.effect.*;
+import ca.sfu.cmpt276.spring2021.group8.project.game.entity.movement.Direction;
 import ca.sfu.cmpt276.spring2021.group8.project.game.result.*;
 
 public class Game implements KeyListener {
@@ -22,10 +23,6 @@ public class Game implements KeyListener {
             return GameResult.createQuitResult();
         }
 
-        /**
-         * all game logic calling here and returning here
-         * change isRunning to false when player wants to stop
-         */
         world.update(deltaTime);
 
         GameEffect effect = world.getGameEffect();
@@ -77,7 +74,7 @@ public class Game implements KeyListener {
 
         // TODO draw more ui elements
     }
-    
+
     public GameResult loop(Canvas canvas) {
         BufferStrategy buffer = canvas.getBufferStrategy();
         if (buffer == null) {
@@ -111,10 +108,18 @@ public class Game implements KeyListener {
         }
     }
 
+    /**
+     * Quits the game
+     */
     private void quit() {
         quitNextUpdate = true;
     }
 
+    /**
+     * Record the key pressed and moves the player according to the corresponding Direction
+     * @param e the KeyEvent of the key press
+     * @see World#movePlayer(Direction)
+     */
     @Override
     public void keyPressed(KeyEvent e) {
         Direction direction;
@@ -123,6 +128,7 @@ public class Game implements KeyListener {
                 return;
 
             case KeyEvent.VK_Q:
+            case KeyEvent.VK_ESCAPE:
                 quit();
                 return;
 
@@ -152,11 +158,9 @@ public class Game implements KeyListener {
 
     @Override
     public void keyTyped(KeyEvent e) {
-        // TODO Auto-generated method stub
     }
 
     @Override
     public void keyReleased(KeyEvent e) {
-        // TODO Auto-generated method stub
     }
 }
