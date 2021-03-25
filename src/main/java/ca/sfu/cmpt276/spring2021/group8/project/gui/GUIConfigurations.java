@@ -38,7 +38,7 @@ public class GUIConfigurations {
 
     /**
      * Prepares the button in the parameter, setting its font, background color, text color, removing borders, removing focus indications, and adding an on click color change
-     * @param btn
+     * @param btn Jbutton object that the user can click on
      */
     //Setting up buttons
     public static void setBtnUI(JButton btn)
