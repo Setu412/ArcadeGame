@@ -1,7 +1,6 @@
-package ca.sfu.cmpt276.spring2021.group8.project.game;
+package ca.sfu.cmpt276.spring2021.group8.project.game.entity.movement;
 
 import java.awt.Point;
-import java.nio.file.DirectoryIteratorException;
 
 /**
  * Direction is the direction that can be moved towards

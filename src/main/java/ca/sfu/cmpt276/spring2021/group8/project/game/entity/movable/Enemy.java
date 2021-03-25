@@ -2,12 +2,11 @@ package ca.sfu.cmpt276.spring2021.group8.project.game.entity.movable;
 
 import ca.sfu.cmpt276.spring2021.group8.project.ImageLoader;
 import ca.sfu.cmpt276.spring2021.group8.project.game.*;
+import ca.sfu.cmpt276.spring2021.group8.project.game.entity.movement.Direction;
 import ca.sfu.cmpt276.spring2021.group8.project.game.entity.movement.MovementGenerator;
 import ca.sfu.cmpt276.spring2021.group8.project.game.positioning.PositionValidator;
-import ca.sfu.cmpt276.spring2021.group8.project.Draw;
 
 import java.awt.*;
-import java.awt.image.BufferedImage;
 
 /**
  * The enemies that move around in the game

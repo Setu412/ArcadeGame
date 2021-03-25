@@ -119,7 +119,7 @@ public class HowToPlayMenu extends JPanel{
                 +"How to Play:"
                 +"<br>"
                 +GUIConfigurations.tab
-                +"- You can navigate the player by WASD or arrow keys. Press q to quit the game and go back to the main menu"
+                +"- You can navigate the player by WASD or arrow keys. Press q or esc to quit the game and go back to the main menu"
         );
         rulesText.setForeground(GUIConfigurations.LETTER_TEXT_COLOR);
         rulesText.setFont(GUIConfigurations.RULES_FONT);

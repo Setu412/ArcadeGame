@@ -5,6 +5,7 @@ import ca.sfu.cmpt276.spring2021.group8.project.game.effect.*;
 import ca.sfu.cmpt276.spring2021.group8.project.game.entity.*;
 import ca.sfu.cmpt276.spring2021.group8.project.game.entity.collectables.*;
 import ca.sfu.cmpt276.spring2021.group8.project.game.entity.movable.*;
+import ca.sfu.cmpt276.spring2021.group8.project.game.entity.movement.Direction;
 import ca.sfu.cmpt276.spring2021.group8.project.game.positioning.CompositePositionValidator;
 
 import java.awt.*;

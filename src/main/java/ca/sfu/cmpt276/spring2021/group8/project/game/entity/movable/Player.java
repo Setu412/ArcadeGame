@@ -2,15 +2,11 @@ package ca.sfu.cmpt276.spring2021.group8.project.game.entity.movable;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
-import java.io.IOException;
 
-import ca.sfu.cmpt276.spring2021.group8.project.Draw;
 import ca.sfu.cmpt276.spring2021.group8.project.ImageLoader;
 import ca.sfu.cmpt276.spring2021.group8.project.game.*;
+import ca.sfu.cmpt276.spring2021.group8.project.game.entity.movement.Direction;
 import ca.sfu.cmpt276.spring2021.group8.project.game.positioning.PositionValidator;
-
-import javax.sound.sampled.LineUnavailableException;
-import javax.sound.sampled.UnsupportedAudioFileException;
 
 /**
  *  Player is the movable player that the user controls
