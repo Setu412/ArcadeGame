@@ -28,12 +28,14 @@ public class Enemy extends MovableEntity {
     }
 
     /**
-     * Tries to move the enemy
+     * Moves the enemy
      *
      * @param validator To check if move is valid
+     * @see #tryMove(PositionValidator, Point, Direction)
      */
     public void move(PositionValidator validator) {
-        tryMove(validator, movementGenerator.next(getPosition()).getNewPosition(getPosition()), movementGenerator.next(getPosition()));
+        Direction nextDirection= movementGenerator.next(validator, getPosition());
+        tryMove(validator, nextDirection.getNewPosition(getPosition()), nextDirection);
     }
 
     /**
