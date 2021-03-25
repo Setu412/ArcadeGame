@@ -13,15 +13,12 @@ import java.util.Random;
  */
 public class TargetedMovementGenerator implements MovementGenerator {
     private final Entity target;
-    private final PositionValidator validator;
 
     /**
      * Generates a targeted movement generator to generate movement in the general direction of the target
-     * @param validator a PositionValidator to check whether or not a movement is valid
      * @param target an Entity as the target of our movement
      */
-    public TargetedMovementGenerator(PositionValidator validator, Entity target) {
-        this.validator = validator;
+    public TargetedMovementGenerator(Entity target) {
         this.target = target;
     }
 
@@ -29,10 +26,10 @@ public class TargetedMovementGenerator implements MovementGenerator {
      * Generates the next move of an entity in the general direction of the target
      * @param currentPosition Point of the current position of the entity to move
      * @return Direction of the next move of an entity in general direction of the target
-     * @see MovementGenerator#next(Point)
+     * @see MovementGenerator#next(PositionValidator, Point) 
      */
     @Override
-    public Direction next(Point currentPosition) {
+    public Direction next(PositionValidator validator, Point currentPosition) {
         //get an arraylist of movements to test, ordered from the most optimal direct move to the worst
         ArrayList<Direction> movOrder=this.generateMovementOrder(this.getRelativeVerticalPos(currentPosition),this.getRelativeHorizontalPos(currentPosition));
         for (Direction direction : movOrder) {
