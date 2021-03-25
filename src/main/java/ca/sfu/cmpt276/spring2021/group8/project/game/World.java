@@ -9,6 +9,9 @@ import ca.sfu.cmpt276.spring2021.group8.project.game.positioning.CompositePositi
 
 import java.awt.*;
 
+/**
+ * The World class contains all the game entities and handles interactions between these entities, and renders
+ */
 public class World {
     private final static long MS_PER_ENEMY_MOVE = 1000;
     private final static long MS_PER_BARRIER_CHANGE_POS = 13000;
@@ -286,8 +289,8 @@ public class World {
      * Draws the grid onto canvas
      *
      * @param g Graphics object to draw on canvas
-     * @param xoffset
-     * @param yoffset
+     * @param xoffset Horizontal distance from the top of canvas to the intended position
+     * @param yoffset Vertical distance from the top of canvas to the intended position
      */
     private void drawGrid(Graphics g, int xoffset, int yoffset) {
         g.setColor(Color.BLACK);
