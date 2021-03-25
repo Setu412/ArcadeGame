@@ -6,6 +6,11 @@ import ca.sfu.cmpt276.spring2021.group8.project.game.positioning.PositionValidat
 import java.awt.Point;
 import java.util.LinkedList;
 
+/**
+ * EntityList is a list to store multiple entities of the same type
+ *
+ * @param <T> The type of the Entity
+ */
 public class EntityList<T extends Entity> extends LinkedList<T> implements PositionValidator {
 
     /**

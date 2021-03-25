@@ -7,6 +7,9 @@ import ca.sfu.cmpt276.spring2021.group8.project.game.entity.movement.MovementGen
 
 import java.awt.*;
 
+/**
+ * Entity is an object on the game board
+ */
 public abstract class Entity {
 
     private Point position = new Point();

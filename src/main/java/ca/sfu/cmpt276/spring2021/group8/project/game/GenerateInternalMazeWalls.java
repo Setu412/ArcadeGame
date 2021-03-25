@@ -5,6 +5,9 @@ import java.io.FileNotFoundException;
 import java.util.Random;
 import java.util.Scanner;
 
+/**
+ * GenerateInternalMazeWalls generates a map that is used as the maze layout
+ */
 public class GenerateInternalMazeWalls {
 
     /**

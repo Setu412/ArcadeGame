@@ -3,6 +3,9 @@ package ca.sfu.cmpt276.spring2021.group8.project.gui;
 import javax.swing.*;
 import java.awt.*;
 
+/**
+ * A class to store all GUI configuration constants, such as colors, fonts, and Frame size
+ */
 public class GUIConfigurations {
 
     //Colors
@@ -23,13 +26,20 @@ public class GUIConfigurations {
     public static final Font LETTER_TEXT_FONT =new Font("Times New Roman", Font.PLAIN,33);
     public static final Font RESULT_FONT=new Font("Times New Roman",Font.PLAIN,40);
 
-    //Sizes
+    //Frame size
     public static final int WIDTH=1280;
     public static final int HEIGHT=820;
 
+    /**
+     * A shortcut for printing tabs
+     */
     //Tabs
     public static final String tab="&nbsp;&nbsp;&nbsp;&nbsp;";
 
+    /**
+     * Prepares the button in the parameter, setting its font, background color, text color, removing borders, removing focus indications, and adding an on click color change
+     * @param btn
+     */
     //Setting up buttons
     public static void setBtnUI(JButton btn)
     {

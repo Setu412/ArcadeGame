@@ -6,7 +6,9 @@ import ca.sfu.cmpt276.spring2021.group8.project.game.positioning.PositionValidat
 import java.awt.*;
 import java.util.Random;
 
-
+/**
+ * Maze is the game board that contains the entrance, exit, and walls
+ */
 public class Maze implements PositionValidator {
 
 
@@ -188,6 +190,9 @@ public class Maze implements PositionValidator {
         return new Point(x2, x1);
     }
 
+    /**
+     * When all rewards are collected, value stored at maze coordinate is changed to 9
+     */
     public void complete(){
         maze[exit.y][exit.x] = 9;
     }
@@ -220,10 +225,9 @@ public class Maze implements PositionValidator {
      * Renders the maze layout on to the screen containing walls, entrance and exit positions
      *
      * @param g Graphic object to draw Image onto screen
-     * @param s
+     * @param s WorldScreenAdapter object to relate the world and screen
      */
     public void render(Graphics g, WorldScreenAdapter s) {
-
         Rectangle offset = g.getClipBounds();
 
         for (int i=0; i < height; i++)
@@ -233,22 +237,16 @@ public class Maze implements PositionValidator {
                 if (maze[i][j] == WALL)
                 {
                     Point wallScreenPosition = s.convert(j, i);
-                    //g.setColor(Color.BLACK);
-                    //Draw.dot(g, offset.x + wallScreenPosition.x + s.gridHorizontalSpacing() / 2, offset.y + wallScreenPosition.y + s.gridVerticalSpacing() / 2, 16);
                     g.drawImage(ImageLoader.w, offset.x + wallScreenPosition.x - 24 + s.gridHorizontalSpacing() / 2, offset.y + wallScreenPosition.y - 24 + s.gridVerticalSpacing() / 2, null);
                 }
                 if (maze[i][j] == ENTRANCE)
                 {
                     Point wallScreenPosition = s.convert(j, i);
-                    //g.setColor(Color.CYAN);
-                    //Draw.dot(g, offset.x + wallScreenPosition.x + s.gridHorizontalSpacing() / 2, offset.y + wallScreenPosition.y + s.gridVerticalSpacing() / 2, 16);
                     g.drawImage(ImageLoader.entr, offset.x + wallScreenPosition.x - 24 + s.gridHorizontalSpacing() / 2, offset.y + wallScreenPosition.y - 24 + s.gridVerticalSpacing() / 2, null );
                 }
                 if (maze[i][j] == EXIT)
                 {
                     Point wallScreenPosition = s.convert(j, i);
-                    //g.setColor(Color.MAGENTA);
-                    //Draw.dot(g, offset.x + wallScreenPosition.x + s.gridHorizontalSpacing() / 2, offset.y + wallScreenPosition.y + s.gridVerticalSpacing() / 2, 16);
                     g.drawImage(ImageLoader.exitC, offset.x + wallScreenPosition.x - 24 + s.gridHorizontalSpacing() / 2, offset.y + wallScreenPosition.y - 24 + s.gridVerticalSpacing() / 2, null);
                 }
 

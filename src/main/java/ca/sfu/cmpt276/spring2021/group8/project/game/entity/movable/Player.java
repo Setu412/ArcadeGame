@@ -12,38 +12,53 @@ import ca.sfu.cmpt276.spring2021.group8.project.game.positioning.PositionValidat
 import javax.sound.sampled.LineUnavailableException;
 import javax.sound.sampled.UnsupportedAudioFileException;
 
+/**
+ *  Player is the movable player that the user controls
+ */
 public class Player extends MovableEntity {
-
-
     private BufferedImage player;
     private boolean hasMoved=false;
 
+    /**
+     * Sets the starting position for the player
+     *
+     * @param startPosition Sets the starting point coordinates of the player
+     */
     public Player(Point startPosition) {
         super(startPosition);
     }
 
+    /**
+     * Tries to move the player
+     *
+     * @param validator Check if move is valid
+     * @param direction The direction the player a tried to move towards
+     */
     public void move(PositionValidator validator, Direction direction) {
         tryMove(validator, direction.getNewPosition(getPosition()), direction);
         hasMoved=true;
     }
 
+    /**
+     * Checks to see if the player has moved or not
+     *
+     * @return True if player has moved, false if player has not moved
+     */
     public boolean getHasMoved()
     {
         return hasMoved;
     }
 
+    /**
+     * Renders the player images based on the direction it is facing onto the screen
+     *
+     * @param g Graphic object to draw Image onto screen
+     * @param adapter WorldScreenAdapter object to relate the world and screen
+     */
     @Override
     public void render(Graphics g, WorldScreenAdapter adapter) {
-
-
         Rectangle offset = g.getClipBounds();
         Point playerScreenPosition = adapter.convert(getPosition());
-        //g.setColor(Color.BLUE);
-        //Draw.dot(g, offset.x + playerScreenPosition.x + adapter.gridHorizontalSpacing()/2, offset.y + playerScreenPosition.y + adapter.gridVerticalSpacing()/2, 16);
-
-        //Image scaled = student.getScaledInstance(student.getHeight() / student.getWidth() * gridSpacing.x, student.getWidth() / student.getHeight() * gridSpacing.y, 0);
-
-
 
         if (facing == Direction.North) {
             assert ImageLoader.playerup != null;
@@ -60,47 +75,5 @@ public class Player extends MovableEntity {
             assert ImageLoader.playerright != null;
             g.drawImage(ImageLoader.p4, offset.x + playerScreenPosition.x + 1, offset.y + playerScreenPosition.y + 1, null);
         }
-
-
-        /*
-        switch (facing) {
-            case North:
-                // Sprite facing up
-                Image result = playerup.getScaledInstance(49, 49, Image.SCALE_DEFAULT);
-                g.drawImage(result, offset.x + playerScreenPosition.x + 1, offset.y + playerScreenPosition.y + 1, null);
-                break;
-            case South:
-                // Sprite facing down
-                Image result2 = playerup.getScaledInstance(49, 49, Image.SCALE_DEFAULT);
-
-                g.drawImage(result2, offset.x + playerScreenPosition.x + 1, offset.y + playerScreenPosition.y + 1, null);
-                break;
-            case East:
-                // Sprite facing right
-
-                Image result3 = playerup.getScaledInstance(49, 49, Image.SCALE_DEFAULT);
-
-                g.drawImage(result3, offset.x + playerScreenPosition.x + 1, offset.y + playerScreenPosition.y + 1, null);
-                break;
-            case West:
-                // Sprite facing left
-
-                Image result4 = playerup.getScaledInstance(49, 49, Image.SCALE_DEFAULT);
-
-                g.drawImage(result4, offset.x + playerScreenPosition.x + 1, offset.y + playerScreenPosition.y + 1, null);
-                break;
-            default:
-                Image result5 = playerup.getScaledInstance(49, 49, Image.SCALE_DEFAULT);
-
-                g.drawImage(result5, offset.x + playerScreenPosition.x + 1, offset.y + playerScreenPosition.y + 1, null);
-                break;
-        }
-
-        /*
-        playerup = ImageLoader.loadImage("src/resources/Images/Student.jpg");
-        Image result = playerup.getScaledInstance(49, 49, Image.SCALE_DEFAULT);
-
-        g.drawImage(result, offset.x + playerScreenPosition.x + 1, offset.y + playerScreenPosition.y + 1, null); */
-
     }
 }

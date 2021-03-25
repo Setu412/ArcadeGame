@@ -5,6 +5,9 @@ import ca.sfu.cmpt276.spring2021.group8.project.game.WorldScreenAdapter;
 
 import java.awt.*;
 
+/**
+ * The BonusReward that appears and disappears
+ */
 public class BonusReward extends Collectable {
 
     public boolean isVisible = false;
@@ -46,13 +49,9 @@ public class BonusReward extends Collectable {
      */
     @Override
     public void render(Graphics g, WorldScreenAdapter s) {
-
         if(isVisible) {
             Rectangle offset = g.getClipBounds();
             Point BRewardScreenPosition = s.convert(this.getPosition());
-            //g.setColor(Color.GREEN);
-            //Draw.dot(g, offset.x + BRewardScreenPosition.x + s.gridHorizontalSpacing() / 2, offset.y + BRewardScreenPosition.y + s.gridVerticalSpacing() / 2, 16);
-
             g.drawImage(ImageLoader.bon,offset.x + BRewardScreenPosition.x - 23 + s.gridHorizontalSpacing() / 2, offset.y + BRewardScreenPosition.y - 23 + s.gridVerticalSpacing() / 2, null);
         }
     }
