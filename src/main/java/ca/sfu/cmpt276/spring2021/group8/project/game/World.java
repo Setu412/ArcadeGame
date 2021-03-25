@@ -280,6 +280,10 @@ public class World {
         return null;
     }
 
+    /**
+     * Moves the player by the given direction parameter
+     * @param direction Direction of the player movement
+     */
     public void movePlayer(Direction direction) {
         player.move(new CompositePositionValidator(maze, barriers), direction);
     }

@@ -43,9 +43,9 @@ public abstract class Entity {
     }
 
     /**
+     * Get a targeted movement generator, where the this entity is the target for the movement generator
      *
-     * @param validator
-     * @return
+     * @param validator a PositionValidator to check whether or not movement is valid
      */
     public MovementGenerator getTargetedMovementGenerator(PositionValidator validator) {
         return new TargetedMovementGenerator(validator, this);
