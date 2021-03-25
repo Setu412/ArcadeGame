@@ -27,7 +27,6 @@ public class CompositePositionValidator implements PositionValidator {
                 return false;
             }
         }
-
         return true;
     }
 }

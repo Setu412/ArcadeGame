@@ -19,8 +19,8 @@ public class World {
 
     private final static int NUM_REWARDS = 40; //40
     private static int NUM_PUNISHMENTS = 20; //20
-    private final static int NUM_BARRIERS = 0; //10
-    private final static int NUM_ENEMIES=5; //5
+    private final static int NUM_BARRIERS = 10; //10
+    private final static int NUM_ENEMIES = 5; //5
 
     private Maze maze;
     private Player player;
@@ -245,7 +245,6 @@ public class World {
             collectables.remove(collectable);
             return GameEffect.createScoreEffect(collectable.getPoints());
         }
-
 
         if (bonusReward.isVisible) {
             if (bonusReward.getPosition().equals(pos)) {

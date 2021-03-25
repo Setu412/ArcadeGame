@@ -45,7 +45,7 @@ public class BonusReward extends Collectable {
      * Renders the BonusReward onto the screen only when it should be visible in the game
      *
      * @param g Graphic object to draw Image onto screen
-     * @param s
+     * @param s WorldScreenAdapter object used to relate the size of world screen
      */
     @Override
     public void render(Graphics g, WorldScreenAdapter s) {

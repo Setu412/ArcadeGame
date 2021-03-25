@@ -55,7 +55,7 @@ public abstract class Entity {
      * Renders the entity onto screen
      *
      * @param g Graphic object to draw Image onto screen
-     * @param s
+     * @param s WorldScreenAdapter object used to relate the size of world screen
      */
     abstract public void render(Graphics g, WorldScreenAdapter s);
 }
