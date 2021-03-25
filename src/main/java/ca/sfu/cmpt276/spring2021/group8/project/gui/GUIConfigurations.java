@@ -50,5 +50,4 @@ public class GUIConfigurations {
         btn.setFocusPainted(false);
         UIManager.put("Button.select", Color.decode("0x851425")); //turns buttons a darker shade of red when clicked
     }
-
 }

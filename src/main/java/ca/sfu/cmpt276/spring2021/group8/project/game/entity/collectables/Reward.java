@@ -34,7 +34,7 @@ public class Reward extends Collectable {
      * Renders the Reward onto the screen
      *
      * @param g Graphic object to draw Image onto screen
-     * @param s
+     * @param s WorldScreenAdapter object used to relate the size of world screen
      */
     @Override
     public void render(Graphics g, WorldScreenAdapter s) {

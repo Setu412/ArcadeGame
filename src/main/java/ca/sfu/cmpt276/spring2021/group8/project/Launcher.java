@@ -1,7 +1,5 @@
 package ca.sfu.cmpt276.spring2021.group8.project;
 
-import javax.swing.*;
-
 /**
  * Launcher is where the game is run from, contains the main method
  */

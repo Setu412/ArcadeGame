@@ -246,7 +246,6 @@ public class World {
             return GameEffect.createScoreEffect(collectable.getPoints());
         }
 
-
         if (bonusReward.isVisible) {
             if (bonusReward.getPosition().equals(pos)) {
                 bonusReward.isVisible  = false;

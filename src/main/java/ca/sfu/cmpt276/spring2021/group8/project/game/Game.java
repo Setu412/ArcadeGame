@@ -8,16 +8,21 @@ import ca.sfu.cmpt276.spring2021.group8.project.game.effect.*;
 import ca.sfu.cmpt276.spring2021.group8.project.game.entity.movement.Direction;
 import ca.sfu.cmpt276.spring2021.group8.project.game.result.*;
 
+/**
+ * Game contains the world and updates the World entities after every loop and records key pressed
+ */
 public class Game implements KeyListener {
     private long startTime = System.currentTimeMillis();
     private long score = 0;
     private World world = new World();
     private boolean quitNextUpdate = false;
 
-    public Game() {
-        // TODO initialize resources here
-    }
-
+    /**
+     * Updates the world and checks the game is over and further return the gameResult accordingly
+     *
+     * @param deltaTime Integer value containing time difference between two consecutive ticks
+     * @return GameResult objects - loosingEffect if game is lost or WinningEffect if player wins the game
+     */
     private GameResult update(long deltaTime) {
         if (quitNextUpdate) {
             return GameResult.createQuitResult();
@@ -50,14 +55,30 @@ public class Game implements KeyListener {
         return null;
     }
 
+    /**
+     * Return the milliseconds since the game started
+     *
+     * @return long value of the milliseconds since the game started
+     */
     private long msSinceGameStart() {
         return System.currentTimeMillis() - startTime;
     }
 
+    /**
+     * Returns into standard format to time representation mm:ss in form of string
+     *
+     * @return Standard representation of time in form of string
+     */
     private String getFormattedTime() {
         return TimeFormatConverter.convertTime(msSinceGameStart());
     }
 
+    /**
+     * Renders everything in the world on canvas including score, time, grid
+     *
+     * @param g Graphics object to draw on canvas
+     * @param size Point object for the size of the maze
+     */
     private void render(Graphics g, Point size) {
         world.render(g, size);
         g.setClip(null);
@@ -71,10 +92,14 @@ public class Game implements KeyListener {
         g.setColor(Color.RED);
         g.setFont(new Font("TimesRoman", Font.BOLD, 15));
         g.drawString("Score: " + score, 1180, 30);
-
-        // TODO draw more ui elements
     }
 
+    /**
+     * Continuous loop that controls the overall flow of the game until player attains a gameResult
+     *
+     * @param canvas Used to put everything the game renders onto
+     * @return GameResult objects - loosingEffect if game is lost or WinningEffect if player wins the game
+     */
     public GameResult loop(Canvas canvas) {
         BufferStrategy buffer = canvas.getBufferStrategy();
         if (buffer == null) {

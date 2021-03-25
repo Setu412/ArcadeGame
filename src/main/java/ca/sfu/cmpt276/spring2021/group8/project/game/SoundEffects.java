@@ -4,6 +4,9 @@ import javax.sound.sampled.*;
 import java.io.File;
 import java.io.IOException;
 
+/**
+ * Class to give the sound effects to player's action
+ */
 public class SoundEffects {
 
     /**
