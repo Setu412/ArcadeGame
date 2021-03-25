@@ -65,7 +65,7 @@ public class World {
 
         //Generating Enemies
         for (int i=0;i<NUM_ENEMIES;i++) {
-            this.enemies.add(new Enemy(this.player.getTargetedMovementGenerator(maze), generateEmptyPosition()));
+            this.enemies.add(new Enemy(this.player.getTargetedMovementGenerator(), generateEmptyPosition()));
         }
     }
 
