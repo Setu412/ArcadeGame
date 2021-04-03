@@ -5,9 +5,8 @@ import ca.sfu.cmpt276.spring2021.group8.project.game.entity.movement.Direction;
 import ca.sfu.cmpt276.spring2021.group8.project.game.entity.movement.TargetedMovementGenerator;
 import ca.sfu.cmpt276.spring2021.group8.project.game.positioning.PositionValidator;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.*;
-import static org.junit.jupiter.api.Assertions.*;
 
 import java.awt.*;
 
@@ -55,6 +54,7 @@ public class TargetedMovementGeneratorTest {
     {
         Player target=new Player(new Point(3,4));
         targetedMovementGenerator=new TargetedMovementGenerator(target);
+        System.out.println("calling setup");
     }
 
     /*
@@ -80,7 +80,6 @@ public class TargetedMovementGeneratorTest {
     @Test
     public void testTargetSouthNoWalls()
     {
-        setup();
         /*
     Current maze setup:
                 {4,4,4,4,4,4,4},
