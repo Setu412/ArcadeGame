@@ -18,7 +18,7 @@ class TimeFormatConverterTest {
 
         Test_MS = 120000;
 
-        //Mathematically 61200 milliseconds equals to 02 minute 00 seconds
+        //Mathematically 120000 milliseconds equals to 02 minute 00 seconds
         TestMS_to_TimeFormat = "02:00";
         assertEquals(TestMS_to_TimeFormat,TimeFormatConverter.convertTime(Test_MS));
     }
