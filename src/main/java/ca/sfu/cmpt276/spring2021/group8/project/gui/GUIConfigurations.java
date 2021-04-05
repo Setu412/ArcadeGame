@@ -2,11 +2,26 @@ package ca.sfu.cmpt276.spring2021.group8.project.gui;
 
 import javax.swing.*;
 import java.awt.*;
+import java.io.File;
+import java.io.IOException;
 
 /**
  * A class to store all GUI configuration constants, such as colors, fonts, and Frame size
  */
 public class GUIConfigurations {
+
+    //Font Loader
+    static Font timesNewRoman;
+
+    static {
+        try {
+            timesNewRoman = Font.createFont(Font.TRUETYPE_FONT, new File("src/main/resources/font/times-new-roman.ttf"));
+        } catch (FontFormatException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 
     //Colors
     public static final Color PRIMARY_COMPONENT_COLOR =Color.decode("0xA6192E"); //Dark Red, alternative: b10707
@@ -17,14 +32,14 @@ public class GUIConfigurations {
     public static final Color LETTER_TEXT_COLOR=Color.black;
 
     //Fonts (we could use custom fonts later on)
-    public static final Font TITLE_FONT= new Font("Times New Roman", Font.BOLD, 115);
-    public static final Font BUTTON_FONT=new Font("Times New Roman",Font.PLAIN,60);
-    public static final Font TEXT_FONT=new Font("Times New Roman",Font.PLAIN,25);
-    public static final Font RULES_FONT=new Font("Times New Roman",Font.PLAIN,21);
-    public static final Font DIPLOMA_TITLE_FONT=new Font("Times New Roman",Font.ITALIC,70);
-    public static final Font EXPULSION_TITLE_FONT=new Font("Times New Roman", Font.BOLD,70);
-    public static final Font LETTER_TEXT_FONT =new Font("Times New Roman", Font.PLAIN,33);
-    public static final Font RESULT_FONT=new Font("Times New Roman",Font.PLAIN,40);
+    public static final Font TITLE_FONT= timesNewRoman.deriveFont(Font.BOLD,115f); //new Font("Times New Roman", Font.BOLD, 115);
+    public static final Font BUTTON_FONT=timesNewRoman.deriveFont(60f); //new Font("Times New Roman",Font.PLAIN,60);
+    public static final Font TEXT_FONT=timesNewRoman.deriveFont(25f); //new Font("Times New Roman",Font.PLAIN,25);
+    public static final Font RULES_FONT=timesNewRoman.deriveFont(21f); //new Font("Times New Roman",Font.PLAIN,21);
+    public static final Font DIPLOMA_TITLE_FONT=timesNewRoman.deriveFont(Font.ITALIC,70f); //new Font("Times New Roman",Font.ITALIC,70);
+    public static final Font EXPULSION_TITLE_FONT= timesNewRoman.deriveFont(Font.BOLD,70f);//new Font("Times New Roman", Font.BOLD,70);
+    public static final Font LETTER_TEXT_FONT =timesNewRoman.deriveFont(33f); //new Font("Times New Roman", Font.PLAIN,33);
+    public static final Font RESULT_FONT=timesNewRoman.deriveFont(40f); //new Font("Times New Roman",Font.PLAIN,40);
 
     //Frame size
     public static final int WIDTH=1280;
@@ -35,6 +50,9 @@ public class GUIConfigurations {
      */
     //Tabs
     public static final String tab="&nbsp;&nbsp;&nbsp;&nbsp;";
+
+    public GUIConfigurations() throws IOException, FontFormatException {
+    }
 
     /**
      * Prepares the button in the parameter, setting its font, background color, text color, removing borders, removing focus indications, and adding an on click color change
