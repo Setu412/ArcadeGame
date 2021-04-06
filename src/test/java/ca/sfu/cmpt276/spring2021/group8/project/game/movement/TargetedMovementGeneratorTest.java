@@ -9,7 +9,6 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.*;
 
 import java.awt.*;
-import java.util.WeakHashMap;
 
 public class TargetedMovementGeneratorTest {
     private class TestMaze implements PositionValidator {
