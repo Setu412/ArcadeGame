@@ -11,6 +11,7 @@ import org.junit.jupiter.api.*;
 import java.awt.*;
 
 public class TargetedMovementGeneratorTest {
+    //mock maze class for testing purposes
     private class TestMaze implements PositionValidator {
         private final int width=9;
         private final int height=9;
@@ -358,10 +359,9 @@ public class TargetedMovementGeneratorTest {
         }
     }
 
-    //Testing movement generation when target is southwest of entity with  walls in between
+    //Testing movement generation when target is southwest of entity with  walls in the west
     @Test
-    public void testTargetSouthWestWalls()
-    {
+    public void testTargetSouthWestWallsWest() {
         /*
         Testing if blocked by wall in the west
 
@@ -380,6 +380,11 @@ public class TargetedMovementGeneratorTest {
      */
         Direction nextMovement = targetedMovementGenerator.next(testMaze, new Point(7, 3));
         assert (nextMovement == Direction.South);
+    }
+
+    //Testing movement generation when target is southwest of entity with  walls in the south
+    @Test
+    public void testTargetSouthWestWallsSouth() {
 
         /*
         Testing if blocked by wall in the south
@@ -397,8 +402,13 @@ public class TargetedMovementGeneratorTest {
      Where T is the target, 4 are walls, and 0 are empty spaces, E is the position of the entity to generate movement from
      
      */
-        nextMovement = targetedMovementGenerator.next(testMaze, new Point(5, 1));
+        Direction nextMovement = targetedMovementGenerator.next(testMaze, new Point(5, 1));
         assert (nextMovement == Direction.West);
+    }
+
+    //Testing movement generation when target is southwest of entity with  walls in the south and west
+    @Test
+    public void testTargetSouthWestWallsSouthAndWest(){
 
         /*
         Testing if blocked by wall in the south and west
@@ -417,15 +427,14 @@ public class TargetedMovementGeneratorTest {
      
      */
         for (int i=0;i<10;i++) {
-            nextMovement = targetedMovementGenerator.next(testMaze, new Point(6, 2));
+            Direction nextMovement = targetedMovementGenerator.next(testMaze, new Point(6, 2));
             assert (nextMovement == Direction.North || nextMovement == Direction.East);
         }
     }
 
-    //Testing movement generation when target is southeast of entity with  walls in between
+    //Testing movement generation when target is southeast of entity with  walls in East
     @Test
-    public void testTargetSouthEastWalls()
-    {
+    public void testTargetSouthEastWallsEast() {
         /*
         Testing if blocked by wall in the east
 
@@ -444,6 +453,11 @@ public class TargetedMovementGeneratorTest {
      */
         Direction nextMovement = targetedMovementGenerator.next(testMaze, new Point(1, 3));
         assert (nextMovement == Direction.South);
+    }
+
+    //Testing movement generation when target is southeast of entity with  walls in south
+    @Test
+    public void testTargetSouthEastWallsSouth() {
 
         /*
         Testing if blocked by wall in the south
@@ -461,11 +475,16 @@ public class TargetedMovementGeneratorTest {
      Where T is the target, 4 are walls, and 0 are empty spaces, E is the position of the entity to generate movement from
      
      */
-        nextMovement = targetedMovementGenerator.next(testMaze, new Point(3, 1));
+        Direction nextMovement = targetedMovementGenerator.next(testMaze, new Point(3, 1));
         assert (nextMovement == Direction.East);
+    }
+
+    //Testing movement generation when target is southeast of entity with  walls in south and east
+    @Test
+    public void testTargetSouthEastWallsSouthAndEast() {
 
         /*
-        Testing if blocked by wall in the south and west
+        Testing if blocked by wall in the south and east
 
     Current maze setup:
                 {4,4,4,4,4,4,4,4,4},
@@ -481,15 +500,14 @@ public class TargetedMovementGeneratorTest {
      
      */
         for (int i=0;i<10;i++) {
-            nextMovement = targetedMovementGenerator.next(testMaze, new Point(2, 2));
+            Direction nextMovement = targetedMovementGenerator.next(testMaze, new Point(2, 2));
             assert (nextMovement == Direction.North || nextMovement == Direction.West);
         }
     }
 
-    //Testing movement generation when target is northwest of entity with walls in between
+    //Testing movement generation when target is northwest of entity with walls in west
     @Test
-    public void testTargetNorthWestWalls()
-    {
+    public void testTargetNorthWestWallsWest() {
        /*
         Testing if blocked by wall in the west
 
@@ -508,6 +526,11 @@ public class TargetedMovementGeneratorTest {
      */
         Direction nextMovement = targetedMovementGenerator.next(testMaze, new Point(7, 5));
         assert (nextMovement == Direction.North);
+    }
+
+    //Testing movement generation when target is northwest of entity with walls in north
+    @Test
+    public void testTargetNorthWestWallsNorth() {
 
         /*
         Testing if blocked by wall in the north
@@ -525,11 +548,17 @@ public class TargetedMovementGeneratorTest {
      Where T is the target, 4 are walls, and 0 are empty spaces, E is the position of the entity to generate movement from
 
      */
-        nextMovement = targetedMovementGenerator.next(testMaze, new Point(5, 7));
+        Direction nextMovement = targetedMovementGenerator.next(testMaze, new Point(5, 7));
         assert (nextMovement == Direction.West);
+    }
+
+    //Testing movement generation when target is northwest of entity with walls in north and west
+    @Test
+    public void testTargetNorthWestWallsNorthAndWest()
+    {
 
         /*
-        Testing if blocked by wall in the north and east
+        Testing if blocked by wall in the north and west
 
     Current maze setup:
                 {4,4,4,4,4,4,4,4,4},
@@ -545,15 +574,14 @@ public class TargetedMovementGeneratorTest {
 
      */
         for (int i=0;i<10;i++) {
-            nextMovement = targetedMovementGenerator.next(testMaze, new Point(6, 6));
+            Direction nextMovement = targetedMovementGenerator.next(testMaze, new Point(6, 6));
             assert (nextMovement == Direction.South || nextMovement == Direction.East);
         }
     }
 
-    //Testing movement generation when target is northeast of entity with walls in between
+    //Testing movement generation when target is northeast of entity with walls in east
     @Test
-    public void testTargetNorthEastWalls()
-    {
+    public void testTargetNorthEastWallsEast() {
         /*
         Testing if blocked by wall in the east
 
@@ -572,6 +600,11 @@ public class TargetedMovementGeneratorTest {
      */
         Direction nextMovement = targetedMovementGenerator.next(testMaze, new Point(1, 5));
         assert (nextMovement == Direction.North);
+    }
+
+    //Testing movement generation when target is northeast of entity with walls in south
+    @Test
+    public void testTargetNorthEastWallsSouth(){
 
         /*
         Testing if blocked by wall in the south
@@ -589,8 +622,13 @@ public class TargetedMovementGeneratorTest {
      Where T is the target, 4 are walls, and 0 are empty spaces, E is the position of the entity to generate movement from
 
      */
-        nextMovement = targetedMovementGenerator.next(testMaze, new Point(3, 7));
+        Direction nextMovement = targetedMovementGenerator.next(testMaze, new Point(3, 7));
         assert (nextMovement == Direction.East);
+    }
+
+    //Testing movement generation when target is northeast of entity with walls in north and east
+    @Test
+    public void testTargetNorthEastWallsNorthAndEast(){
 
         /*
         Testing if blocked by wall in the north and east
@@ -609,7 +647,7 @@ public class TargetedMovementGeneratorTest {
 
      */
         for (int i=0;i<10;i++) {
-            nextMovement = targetedMovementGenerator.next(testMaze, new Point(2, 6));
+            Direction nextMovement = targetedMovementGenerator.next(testMaze, new Point(2, 6));
             assert (nextMovement == Direction.South || nextMovement == Direction.West);
         }
     }
