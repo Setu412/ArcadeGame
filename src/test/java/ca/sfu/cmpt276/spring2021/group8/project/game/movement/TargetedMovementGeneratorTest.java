@@ -1,4 +1,4 @@
-package ca.sfu.cmpt276.spring2021.group8.project.game;
+package ca.sfu.cmpt276.spring2021.group8.project.game.movement;
 
 import ca.sfu.cmpt276.spring2021.group8.project.game.entity.movable.Player;
 import ca.sfu.cmpt276.spring2021.group8.project.game.entity.movement.Direction;
