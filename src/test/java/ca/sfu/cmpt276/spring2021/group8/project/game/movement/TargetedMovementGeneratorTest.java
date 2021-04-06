@@ -1,5 +1,7 @@
 package ca.sfu.cmpt276.spring2021.group8.project.game.movement;
 
+import ca.sfu.cmpt276.spring2021.group8.project.game.WorldScreenAdapter;
+import ca.sfu.cmpt276.spring2021.group8.project.game.entity.Entity;
 import ca.sfu.cmpt276.spring2021.group8.project.game.entity.movable.Player;
 import ca.sfu.cmpt276.spring2021.group8.project.game.entity.movement.Direction;
 import ca.sfu.cmpt276.spring2021.group8.project.game.entity.movement.TargetedMovementGenerator;
@@ -11,8 +13,8 @@ import org.junit.jupiter.api.*;
 import java.awt.*;
 
 public class TargetedMovementGeneratorTest {
-    //mock maze class for testing purposes
-    private class TestMaze implements PositionValidator {
+    //mock maze class to decouple from actual maze class
+    private class MockMaze implements PositionValidator {
         private final int width=9;
         private final int height=9;
         private int[][] maze={
@@ -47,13 +49,26 @@ public class TargetedMovementGeneratorTest {
         }
     }
 
-    TestMaze testMaze=new TestMaze();
+    //a mock target class to decouple test from actual entity classes
+    class MockTarget extends Entity
+    {
+        protected MockTarget(Point startPosition) {
+            super(startPosition);
+        }
+
+        @Override
+        public void render(Graphics g, WorldScreenAdapter s) {
+            return;
+        }
+    }
+
+    MockMaze mockMaze =new MockMaze();
     TargetedMovementGenerator targetedMovementGenerator;
 
     @BeforeEach
     public void setup()
     {
-        Player target=new Player(new Point(4,4));
+        MockTarget target=new MockTarget(new Point(4,4));
         targetedMovementGenerator=new TargetedMovementGenerator(target);
     }
 
@@ -80,21 +95,21 @@ public class TargetedMovementGeneratorTest {
     @Test
     public void testTargetSouthNoWalls()
     {
-        /*
-    Current maze setup:
-                {4,4,4,4,4,4,4,4,4},
-                {4,0,0,0,0,0,0,0,4},
-                {4,0,0,4,4,4,0,0,4},
-                {4,0,4,0,E,0,4,0,4},
-                {4,0,4,0,T,0,4,0,4},
-                {4,0,4,0,0,0,4,0,4},
-                {4,0,0,4,4,4,0,0,4},
-                {4,0,0,0,0,0,0,0,4},
-                {4,4,4,4,4,4,4,0,4}
-     Where T is the target, 4 are walls, and 0 are empty spaces, E is the position of the entity to generate movement from
-     
-     */
-        Direction nextMovement= targetedMovementGenerator.next(testMaze,new Point(4,3));
+    /*
+Current maze setup:
+            {4,4,4,4,4,4,4,4,4},
+            {4,0,0,0,0,0,0,0,4},
+            {4,0,0,4,4,4,0,0,4},
+            {4,0,4,0,E,0,4,0,4},
+            {4,0,4,0,T,0,4,0,4},
+            {4,0,4,0,0,0,4,0,4},
+            {4,0,0,4,4,4,0,0,4},
+            {4,0,0,0,0,0,0,0,4},
+            {4,4,4,4,4,4,4,0,4}
+ Where T is the target, 4 are walls, and 0 are empty spaces, E is the position of the entity to generate movement from
+
+ */
+        Direction nextMovement= targetedMovementGenerator.next(mockMaze,new Point(4,3));
         assert(nextMovement==Direction.South);
     }
 
@@ -102,21 +117,21 @@ public class TargetedMovementGeneratorTest {
     @Test
     public void testTargetNorthNoWalls()
     {
-        /*
-    Current maze setup:
-                {4,4,4,4,4,4,4,4,4},
-                {4,0,0,0,0,0,0,0,4},
-                {4,0,0,4,4,4,0,0,4},
-                {4,0,4,0,0,0,4,0,4},
-                {4,0,4,0,T,0,4,0,4},
-                {4,0,4,0,E,0,4,0,4},
-                {4,0,0,4,4,4,0,0,4},
-                {4,0,0,0,0,0,0,0,4},
-                {4,4,4,4,4,4,4,0,4}
-     Where T is the target, 4 are walls, and 0 are empty spaces, E is the position of the entity to generate movement from
-     
-     */
-        Direction nextMovement= targetedMovementGenerator.next(testMaze,new Point(4,5));
+    /*
+Current maze setup:
+            {4,4,4,4,4,4,4,4,4},
+            {4,0,0,0,0,0,0,0,4},
+            {4,0,0,4,4,4,0,0,4},
+            {4,0,4,0,0,0,4,0,4},
+            {4,0,4,0,T,0,4,0,4},
+            {4,0,4,0,E,0,4,0,4},
+            {4,0,0,4,4,4,0,0,4},
+            {4,0,0,0,0,0,0,0,4},
+            {4,4,4,4,4,4,4,0,4}
+ Where T is the target, 4 are walls, and 0 are empty spaces, E is the position of the entity to generate movement from
+
+ */
+        Direction nextMovement= targetedMovementGenerator.next(mockMaze,new Point(4,5));
         assert(nextMovement==Direction.North);
     }
 
@@ -124,21 +139,21 @@ public class TargetedMovementGeneratorTest {
     @Test
     public void testTargetEastNoWalls()
     {
-        /*
-    Current maze setup:
-                {4,4,4,4,4,4,4,4,4},
-                {4,0,0,0,0,0,0,0,4},
-                {4,0,0,4,4,4,0,0,4},
-                {4,0,4,0,0,0,4,0,4},
-                {4,0,4,E,T,0,4,0,4},
-                {4,0,4,0,0,0,4,0,4},
-                {4,0,0,4,4,4,0,0,4},
-                {4,0,0,0,0,0,0,0,4},
-                {4,4,4,4,4,4,4,0,4}
-     Where T is the target, 4 are walls, and 0 are empty spaces, E is the position of the entity to generate movement from
-     
-     */
-        Direction nextMovement= targetedMovementGenerator.next(testMaze,new Point(3,4));
+    /*
+Current maze setup:
+            {4,4,4,4,4,4,4,4,4},
+            {4,0,0,0,0,0,0,0,4},
+            {4,0,0,4,4,4,0,0,4},
+            {4,0,4,0,0,0,4,0,4},
+            {4,0,4,E,T,0,4,0,4},
+            {4,0,4,0,0,0,4,0,4},
+            {4,0,0,4,4,4,0,0,4},
+            {4,0,0,0,0,0,0,0,4},
+            {4,4,4,4,4,4,4,0,4}
+ Where T is the target, 4 are walls, and 0 are empty spaces, E is the position of the entity to generate movement from
+
+ */
+        Direction nextMovement= targetedMovementGenerator.next(mockMaze,new Point(3,4));
         assert(nextMovement==Direction.East);
     }
 
@@ -146,21 +161,21 @@ public class TargetedMovementGeneratorTest {
     @Test
     public void testTargetWestNoWalls()
     {
-        /*
-    Current maze setup:
-                {4,4,4,4,4,4,4,4,4},
-                {4,0,0,0,0,0,0,0,4},
-                {4,0,0,4,4,4,0,0,4},
-                {4,0,4,0,0,0,4,0,4},
-                {4,0,4,0,T,E,4,0,4},
-                {4,0,4,0,0,0,4,0,4},
-                {4,0,0,4,4,4,0,0,4},
-                {4,0,0,0,0,0,0,0,4},
-                {4,4,4,4,4,4,4,0,4}
-     Where T is the target, 4 are walls, and 0 are empty spaces, E is the position of the entity to generate movement from
-     
-     */
-        Direction nextMovement= targetedMovementGenerator.next(testMaze,new Point(5,4));
+    /*
+Current maze setup:
+            {4,4,4,4,4,4,4,4,4},
+            {4,0,0,0,0,0,0,0,4},
+            {4,0,0,4,4,4,0,0,4},
+            {4,0,4,0,0,0,4,0,4},
+            {4,0,4,0,T,E,4,0,4},
+            {4,0,4,0,0,0,4,0,4},
+            {4,0,0,4,4,4,0,0,4},
+            {4,0,0,0,0,0,0,0,4},
+            {4,4,4,4,4,4,4,0,4}
+ Where T is the target, 4 are walls, and 0 are empty spaces, E is the position of the entity to generate movement from
+
+ */
+        Direction nextMovement= targetedMovementGenerator.next(mockMaze,new Point(5,4));
         assert(nextMovement==Direction.West);
     }
 
@@ -168,23 +183,23 @@ public class TargetedMovementGeneratorTest {
     @Test
     public void testTargetSouthWestNoWalls()
     {
-        /*
-    Current maze setup:
-                {4,4,4,4,4,4,4,4,4},
-                {4,0,0,0,0,0,0,0,4},
-                {4,0,0,4,4,4,0,0,4},
-                {4,0,4,0,0,E,4,0,4},
-                {4,0,4,0,T,0,4,0,4},
-                {4,0,4,0,0,0,4,0,4},
-                {4,0,0,4,4,4,0,0,4},
-                {4,0,0,0,0,0,0,0,4},
-                {4,4,4,4,4,4,4,0,4}
-     Where T is the target, 4 are walls, and 0 are empty spaces, E is the position of the entity to generate movement from
-     
-     */
+    /*
+Current maze setup:
+            {4,4,4,4,4,4,4,4,4},
+            {4,0,0,0,0,0,0,0,4},
+            {4,0,0,4,4,4,0,0,4},
+            {4,0,4,0,0,E,4,0,4},
+            {4,0,4,0,T,0,4,0,4},
+            {4,0,4,0,0,0,4,0,4},
+            {4,0,0,4,4,4,0,0,4},
+            {4,0,0,0,0,0,0,0,4},
+            {4,4,4,4,4,4,4,0,4}
+ Where T is the target, 4 are walls, and 0 are empty spaces, E is the position of the entity to generate movement from
+
+ */
         for (int i=0;i<10;i++) //testing multiple times because direction will be randomized
         {
-            Direction nextMovement = targetedMovementGenerator.next(testMaze, new Point(5, 3));
+            Direction nextMovement = targetedMovementGenerator.next(mockMaze, new Point(5, 3));
             assert (nextMovement == Direction.West || nextMovement == Direction.South);
         }
     }
@@ -193,23 +208,23 @@ public class TargetedMovementGeneratorTest {
     @Test
     public void testTargetSouthEastNoWalls()
     {
-        /*
-    Current maze setup:
-                {4,4,4,4,4,4,4,4,4},
-                {4,0,0,0,0,0,0,0,4},
-                {4,0,0,4,4,4,0,0,4},
-                {4,0,4,E,0,0,4,0,4},
-                {4,0,4,0,T,0,4,0,4},
-                {4,0,4,0,0,0,4,0,4},
-                {4,0,0,4,4,4,0,0,4},
-                {4,0,0,0,0,0,0,0,4},
-                {4,4,4,4,4,4,4,0,4}
-     Where T is the target, 4 are walls, and 0 are empty spaces, E is the position of the entity to generate movement from
-     
-     */
+    /*
+Current maze setup:
+            {4,4,4,4,4,4,4,4,4},
+            {4,0,0,0,0,0,0,0,4},
+            {4,0,0,4,4,4,0,0,4},
+            {4,0,4,E,0,0,4,0,4},
+            {4,0,4,0,T,0,4,0,4},
+            {4,0,4,0,0,0,4,0,4},
+            {4,0,0,4,4,4,0,0,4},
+            {4,0,0,0,0,0,0,0,4},
+            {4,4,4,4,4,4,4,0,4}
+ Where T is the target, 4 are walls, and 0 are empty spaces, E is the position of the entity to generate movement from
+
+ */
         for (int i=0;i<10;i++) //testing multiple times because direction will be randomized
         {
-            Direction nextMovement = targetedMovementGenerator.next(testMaze, new Point(3, 3));
+            Direction nextMovement = targetedMovementGenerator.next(mockMaze, new Point(3, 3));
             assert (nextMovement == Direction.East || nextMovement == Direction.South);
         }
     }
@@ -218,23 +233,23 @@ public class TargetedMovementGeneratorTest {
     @Test
     public void testTargetNorthWestNoWalls()
     {
-        /*
-    Current maze setup:
-                {4,4,4,4,4,4,4,4,4},
-                {4,0,0,0,0,0,0,0,4},
-                {4,0,0,4,4,4,0,0,4},
-                {4,0,4,0,0,0,4,0,4},
-                {4,0,4,0,T,0,4,0,4},
-                {4,0,4,0,0,E,4,0,4},
-                {4,0,0,4,4,4,0,0,4},
-                {4,0,0,0,0,0,0,0,4},
-                {4,4,4,4,4,4,4,0,4}
-     Where T is the target, 4 are walls, and 0 are empty spaces, E is the position of the entity to generate movement from
-     
-     */
+    /*
+Current maze setup:
+            {4,4,4,4,4,4,4,4,4},
+            {4,0,0,0,0,0,0,0,4},
+            {4,0,0,4,4,4,0,0,4},
+            {4,0,4,0,0,0,4,0,4},
+            {4,0,4,0,T,0,4,0,4},
+            {4,0,4,0,0,E,4,0,4},
+            {4,0,0,4,4,4,0,0,4},
+            {4,0,0,0,0,0,0,0,4},
+            {4,4,4,4,4,4,4,0,4}
+ Where T is the target, 4 are walls, and 0 are empty spaces, E is the position of the entity to generate movement from
+
+ */
         for (int i=0;i<10;i++) //testing multiple times because direction will be randomized
         {
-            Direction nextMovement = targetedMovementGenerator.next(testMaze, new Point(5, 5));
+            Direction nextMovement = targetedMovementGenerator.next(mockMaze, new Point(5, 5));
             assert (nextMovement == Direction.West || nextMovement == Direction.North);
         }
     }
@@ -243,23 +258,23 @@ public class TargetedMovementGeneratorTest {
     @Test
     public void testTargetNorthEastNoWalls()
     {
-        /*
-    Current maze setup:
-                {4,4,4,4,4,4,4,4,4},
-                {4,0,0,0,0,0,0,0,4},
-                {4,0,0,4,4,4,0,0,4},
-                {4,0,4,0,0,0,4,0,4},
-                {4,0,4,0,T,0,4,0,4},
-                {4,0,4,E,0,0,4,0,4},
-                {4,0,0,4,4,4,0,0,4},
-                {4,0,0,0,0,0,0,0,4},
-                {4,4,4,4,4,4,4,0,4}
-     Where T is the target, 4 are walls, and 0 are empty spaces, E is the position of the entity to generate movement from
-     
-     */
+    /*
+Current maze setup:
+            {4,4,4,4,4,4,4,4,4},
+            {4,0,0,0,0,0,0,0,4},
+            {4,0,0,4,4,4,0,0,4},
+            {4,0,4,0,0,0,4,0,4},
+            {4,0,4,0,T,0,4,0,4},
+            {4,0,4,E,0,0,4,0,4},
+            {4,0,0,4,4,4,0,0,4},
+            {4,0,0,0,0,0,0,0,4},
+            {4,4,4,4,4,4,4,0,4}
+ Where T is the target, 4 are walls, and 0 are empty spaces, E is the position of the entity to generate movement from
+
+ */
         for (int i=0;i<10;i++) //testing multiple times because direction will be randomized
         {
-            Direction nextMovement = targetedMovementGenerator.next(testMaze, new Point(3, 5));
+            Direction nextMovement = targetedMovementGenerator.next(mockMaze, new Point(3, 5));
             assert (nextMovement == Direction.East || nextMovement == Direction.North);
         }
     }
@@ -267,22 +282,22 @@ public class TargetedMovementGeneratorTest {
     @Test
     public void testTargetSouthWalls()
     {
-        /*
-    Current maze setup:
-                {4,4,4,4,4,4,4,4,4},
-                {4,0,0,0,E,0,0,0,4},
-                {4,0,0,4,4,4,0,0,4},
-                {4,0,4,0,0,0,4,0,4},
-                {4,0,4,0,T,0,4,0,4},
-                {4,0,4,0,0,0,4,0,4},
-                {4,0,0,4,4,4,0,0,4},
-                {4,0,0,0,0,0,0,0,4},
-                {4,4,4,4,4,4,4,0,4}
-     Where T is the target, 4 are walls, and 0 are empty spaces, E is the position of the entity to generate movement from
-     
-     */
+    /*
+Current maze setup:
+            {4,4,4,4,4,4,4,4,4},
+            {4,0,0,0,E,0,0,0,4},
+            {4,0,0,4,4,4,0,0,4},
+            {4,0,4,0,0,0,4,0,4},
+            {4,0,4,0,T,0,4,0,4},
+            {4,0,4,0,0,0,4,0,4},
+            {4,0,0,4,4,4,0,0,4},
+            {4,0,0,0,0,0,0,0,4},
+            {4,4,4,4,4,4,4,0,4}
+ Where T is the target, 4 are walls, and 0 are empty spaces, E is the position of the entity to generate movement from
+
+ */
         for (int i=0;i<10;i++) {
-            Direction nextMovement = targetedMovementGenerator.next(testMaze, new Point(4, 1));
+            Direction nextMovement = targetedMovementGenerator.next(mockMaze, new Point(4, 1));
             assert (nextMovement == Direction.East || nextMovement == Direction.West);
         }
     }
@@ -291,22 +306,22 @@ public class TargetedMovementGeneratorTest {
     @Test
     public void testTargetNorthWalls()
     {
-        /*
-    Current maze setup:
-                {4,4,4,4,4,4,4,4,4},
-                {4,0,0,0,0,0,0,0,4},
-                {4,0,0,4,4,4,0,0,4},
-                {4,0,4,0,0,0,4,0,4},
-                {4,0,4,0,T,0,4,0,4},
-                {4,0,4,0,0,0,4,0,4},
-                {4,0,0,4,4,4,0,0,4},
-                {4,0,0,0,E,0,0,0,4},
-                {4,4,4,4,4,4,4,0,4}
-     Where T is the target, 4 are walls, and 0 are empty spaces, E is the position of the entity to generate movement from
-     
-     */
+    /*
+Current maze setup:
+            {4,4,4,4,4,4,4,4,4},
+            {4,0,0,0,0,0,0,0,4},
+            {4,0,0,4,4,4,0,0,4},
+            {4,0,4,0,0,0,4,0,4},
+            {4,0,4,0,T,0,4,0,4},
+            {4,0,4,0,0,0,4,0,4},
+            {4,0,0,4,4,4,0,0,4},
+            {4,0,0,0,E,0,0,0,4},
+            {4,4,4,4,4,4,4,0,4}
+ Where T is the target, 4 are walls, and 0 are empty spaces, E is the position of the entity to generate movement from
+
+ */
         for (int i=0;i<10;i++) {
-            Direction nextMovement = targetedMovementGenerator.next(testMaze, new Point(4, 7));
+            Direction nextMovement = targetedMovementGenerator.next(mockMaze, new Point(4, 7));
             assert (nextMovement == Direction.East || nextMovement == Direction.West);
         }
     }
@@ -315,22 +330,22 @@ public class TargetedMovementGeneratorTest {
     @Test
     public void testTargetEastWalls()
     {
-        /*
-    Current maze setup:
-                {4,4,4,4,4,4,4,4,4},
-                {4,0,0,0,0,0,0,0,4},
-                {4,0,0,4,4,4,0,0,4},
-                {4,0,4,0,0,0,4,0,4},
-                {4,E,4,0,T,0,4,0,4},
-                {4,0,4,0,0,0,4,0,4},
-                {4,0,0,4,4,4,0,0,4},
-                {4,0,0,0,0,0,0,0,4},
-                {4,4,4,4,4,4,4,0,4}
-     Where T is the target, 4 are walls, and 0 are empty spaces, E is the position of the entity to generate movement from
-     
-     */
+    /*
+Current maze setup:
+            {4,4,4,4,4,4,4,4,4},
+            {4,0,0,0,0,0,0,0,4},
+            {4,0,0,4,4,4,0,0,4},
+            {4,0,4,0,0,0,4,0,4},
+            {4,E,4,0,T,0,4,0,4},
+            {4,0,4,0,0,0,4,0,4},
+            {4,0,0,4,4,4,0,0,4},
+            {4,0,0,0,0,0,0,0,4},
+            {4,4,4,4,4,4,4,0,4}
+ Where T is the target, 4 are walls, and 0 are empty spaces, E is the position of the entity to generate movement from
+
+ */
         for (int i=0;i<10;i++) {
-            Direction nextMovement = targetedMovementGenerator.next(testMaze, new Point(1, 4));
+            Direction nextMovement = targetedMovementGenerator.next(mockMaze, new Point(1, 4));
             assert (nextMovement == Direction.North || nextMovement == Direction.South);
         }
     }
@@ -339,22 +354,22 @@ public class TargetedMovementGeneratorTest {
     @Test
     public void testTargetWestWalls()
     {
-        /*
-    Current maze setup:
-                {4,4,4,4,4,4,4,4,4},
-                {4,0,0,0,0,0,0,0,4},
-                {4,0,0,4,4,4,0,0,4},
-                {4,0,4,0,0,0,4,0,4},
-                {4,0,4,0,T,0,4,E,4},
-                {4,0,4,0,0,0,4,0,4},
-                {4,0,0,4,4,4,0,0,4},
-                {4,0,0,0,0,0,0,0,4},
-                {4,4,4,4,4,4,4,0,4}
-     Where T is the target, 4 are walls, and 0 are empty spaces, E is the position of the entity to generate movement from
-     
-     */
+    /*
+Current maze setup:
+            {4,4,4,4,4,4,4,4,4},
+            {4,0,0,0,0,0,0,0,4},
+            {4,0,0,4,4,4,0,0,4},
+            {4,0,4,0,0,0,4,0,4},
+            {4,0,4,0,T,0,4,E,4},
+            {4,0,4,0,0,0,4,0,4},
+            {4,0,0,4,4,4,0,0,4},
+            {4,0,0,0,0,0,0,0,4},
+            {4,4,4,4,4,4,4,0,4}
+ Where T is the target, 4 are walls, and 0 are empty spaces, E is the position of the entity to generate movement from
+
+ */
         for (int i=0;i<10;i++) {
-            Direction nextMovement = targetedMovementGenerator.next(testMaze, new Point(7, 4));
+            Direction nextMovement = targetedMovementGenerator.next(mockMaze, new Point(7, 4));
             assert (nextMovement == Direction.North || nextMovement == Direction.South);
         }
     }
@@ -362,23 +377,23 @@ public class TargetedMovementGeneratorTest {
     //Testing movement generation when target is southwest of entity with  walls in the west
     @Test
     public void testTargetSouthWestWallsWest() {
-        /*
-        Testing if blocked by wall in the west
+    /*
+    Testing if blocked by wall in the west
 
-    Current maze setup:
-                {4,4,4,4,4,4,4,4,4},
-                {4,0,0,0,0,0,0,0,4},
-                {4,0,0,4,4,4,0,0,4},
-                {4,0,4,0,0,0,4,E,4},
-                {4,0,4,0,T,0,4,0,4},
-                {4,0,4,0,0,0,4,0,4},
-                {4,0,0,4,4,4,0,0,4},
-                {4,0,0,0,0,0,0,0,4},
-                {4,4,4,4,4,4,4,0,4}
-     Where T is the target, 4 are walls, and 0 are empty spaces, E is the position of the entity to generate movement from
-     
-     */
-        Direction nextMovement = targetedMovementGenerator.next(testMaze, new Point(7, 3));
+Current maze setup:
+            {4,4,4,4,4,4,4,4,4},
+            {4,0,0,0,0,0,0,0,4},
+            {4,0,0,4,4,4,0,0,4},
+            {4,0,4,0,0,0,4,E,4},
+            {4,0,4,0,T,0,4,0,4},
+            {4,0,4,0,0,0,4,0,4},
+            {4,0,0,4,4,4,0,0,4},
+            {4,0,0,0,0,0,0,0,4},
+            {4,4,4,4,4,4,4,0,4}
+ Where T is the target, 4 are walls, and 0 are empty spaces, E is the position of the entity to generate movement from
+
+ */
+        Direction nextMovement = targetedMovementGenerator.next(mockMaze, new Point(7, 3));
         assert (nextMovement == Direction.South);
     }
 
@@ -386,23 +401,23 @@ public class TargetedMovementGeneratorTest {
     @Test
     public void testTargetSouthWestWallsSouth() {
 
-        /*
-        Testing if blocked by wall in the south
+    /*
+    Testing if blocked by wall in the south
 
-    Current maze setup:
-                {4,4,4,4,4,4,4,4,4},
-                {4,0,0,0,0,E,0,0,4},
-                {4,0,0,4,4,4,0,0,4},
-                {4,0,4,0,0,0,4,0,4},
-                {4,0,4,0,T,0,4,0,4},
-                {4,0,4,0,0,0,4,0,4},
-                {4,0,0,4,4,4,0,0,4},
-                {4,0,0,0,0,0,0,0,4},
-                {4,4,4,4,4,4,4,0,4}
-     Where T is the target, 4 are walls, and 0 are empty spaces, E is the position of the entity to generate movement from
-     
-     */
-        Direction nextMovement = targetedMovementGenerator.next(testMaze, new Point(5, 1));
+Current maze setup:
+            {4,4,4,4,4,4,4,4,4},
+            {4,0,0,0,0,E,0,0,4},
+            {4,0,0,4,4,4,0,0,4},
+            {4,0,4,0,0,0,4,0,4},
+            {4,0,4,0,T,0,4,0,4},
+            {4,0,4,0,0,0,4,0,4},
+            {4,0,0,4,4,4,0,0,4},
+            {4,0,0,0,0,0,0,0,4},
+            {4,4,4,4,4,4,4,0,4}
+ Where T is the target, 4 are walls, and 0 are empty spaces, E is the position of the entity to generate movement from
+
+ */
+        Direction nextMovement = targetedMovementGenerator.next(mockMaze, new Point(5, 1));
         assert (nextMovement == Direction.West);
     }
 
@@ -410,24 +425,24 @@ public class TargetedMovementGeneratorTest {
     @Test
     public void testTargetSouthWestWallsSouthAndWest(){
 
-        /*
-        Testing if blocked by wall in the south and west
+    /*
+    Testing if blocked by wall in the south and west
 
-    Current maze setup:
-                {4,4,4,4,4,4,4,4,4},
-                {4,0,0,0,0,0,0,0,4},
-                {4,0,0,4,4,4,E,0,4},
-                {4,0,4,0,0,0,4,0,4},
-                {4,0,4,0,T,0,4,0,4},
-                {4,0,4,0,0,0,4,0,4},
-                {4,0,0,4,4,4,0,0,4},
-                {4,0,0,0,0,0,0,0,4},
-                {4,4,4,4,4,4,4,0,4}
-     Where T is the target, 4 are walls, and 0 are empty spaces, E is the position of the entity to generate movement from
-     
-     */
+Current maze setup:
+            {4,4,4,4,4,4,4,4,4},
+            {4,0,0,0,0,0,0,0,4},
+            {4,0,0,4,4,4,E,0,4},
+            {4,0,4,0,0,0,4,0,4},
+            {4,0,4,0,T,0,4,0,4},
+            {4,0,4,0,0,0,4,0,4},
+            {4,0,0,4,4,4,0,0,4},
+            {4,0,0,0,0,0,0,0,4},
+            {4,4,4,4,4,4,4,0,4}
+ Where T is the target, 4 are walls, and 0 are empty spaces, E is the position of the entity to generate movement from
+
+ */
         for (int i=0;i<10;i++) {
-            Direction nextMovement = targetedMovementGenerator.next(testMaze, new Point(6, 2));
+            Direction nextMovement = targetedMovementGenerator.next(mockMaze, new Point(6, 2));
             assert (nextMovement == Direction.North || nextMovement == Direction.East);
         }
     }
@@ -435,23 +450,23 @@ public class TargetedMovementGeneratorTest {
     //Testing movement generation when target is southeast of entity with  walls in East
     @Test
     public void testTargetSouthEastWallsEast() {
-        /*
-        Testing if blocked by wall in the east
+    /*
+    Testing if blocked by wall in the east
 
-    Current maze setup:
-                {4,4,4,4,4,4,4,4,4},
-                {4,0,0,0,0,0,0,0,4},
-                {4,0,0,4,4,4,0,0,4},
-                {4,E,4,0,0,0,4,0,4},
-                {4,0,4,0,T,0,4,0,4},
-                {4,0,4,0,0,0,4,0,4},
-                {4,0,0,4,4,4,0,0,4},
-                {4,0,0,0,0,0,0,0,4},
-                {4,4,4,4,4,4,4,0,4}
-     Where T is the target, 4 are walls, and 0 are empty spaces, E is the position of the entity to generate movement from
-     
-     */
-        Direction nextMovement = targetedMovementGenerator.next(testMaze, new Point(1, 3));
+Current maze setup:
+            {4,4,4,4,4,4,4,4,4},
+            {4,0,0,0,0,0,0,0,4},
+            {4,0,0,4,4,4,0,0,4},
+            {4,E,4,0,0,0,4,0,4},
+            {4,0,4,0,T,0,4,0,4},
+            {4,0,4,0,0,0,4,0,4},
+            {4,0,0,4,4,4,0,0,4},
+            {4,0,0,0,0,0,0,0,4},
+            {4,4,4,4,4,4,4,0,4}
+ Where T is the target, 4 are walls, and 0 are empty spaces, E is the position of the entity to generate movement from
+
+ */
+        Direction nextMovement = targetedMovementGenerator.next(mockMaze, new Point(1, 3));
         assert (nextMovement == Direction.South);
     }
 
@@ -459,23 +474,23 @@ public class TargetedMovementGeneratorTest {
     @Test
     public void testTargetSouthEastWallsSouth() {
 
-        /*
-        Testing if blocked by wall in the south
+    /*
+    Testing if blocked by wall in the south
 
-    Current maze setup:
-                {4,4,4,4,4,4,4,4,4},
-                {4,0,0,E,0,0,0,0,4},
-                {4,0,0,4,4,4,0,0,4},
-                {4,0,4,0,0,0,4,0,4},
-                {4,0,4,0,T,0,4,0,4},
-                {4,0,4,0,0,0,4,0,4},
-                {4,0,0,4,4,4,0,0,4},
-                {4,0,0,0,0,0,0,0,4},
-                {4,4,4,4,4,4,4,0,4}
-     Where T is the target, 4 are walls, and 0 are empty spaces, E is the position of the entity to generate movement from
-     
-     */
-        Direction nextMovement = targetedMovementGenerator.next(testMaze, new Point(3, 1));
+Current maze setup:
+            {4,4,4,4,4,4,4,4,4},
+            {4,0,0,E,0,0,0,0,4},
+            {4,0,0,4,4,4,0,0,4},
+            {4,0,4,0,0,0,4,0,4},
+            {4,0,4,0,T,0,4,0,4},
+            {4,0,4,0,0,0,4,0,4},
+            {4,0,0,4,4,4,0,0,4},
+            {4,0,0,0,0,0,0,0,4},
+            {4,4,4,4,4,4,4,0,4}
+ Where T is the target, 4 are walls, and 0 are empty spaces, E is the position of the entity to generate movement from
+
+ */
+        Direction nextMovement = targetedMovementGenerator.next(mockMaze, new Point(3, 1));
         assert (nextMovement == Direction.East);
     }
 
@@ -483,24 +498,24 @@ public class TargetedMovementGeneratorTest {
     @Test
     public void testTargetSouthEastWallsSouthAndEast() {
 
-        /*
-        Testing if blocked by wall in the south and east
+    /*
+    Testing if blocked by wall in the south and east
 
-    Current maze setup:
-                {4,4,4,4,4,4,4,4,4},
-                {4,0,0,0,0,0,0,0,4},
-                {4,0,E,4,4,4,0,0,4},
-                {4,0,4,0,0,0,4,0,4},
-                {4,0,4,0,T,0,4,0,4},
-                {4,0,4,0,0,0,4,0,4},
-                {4,0,0,4,4,4,0,0,4},
-                {4,0,0,0,0,0,0,0,4},
-                {4,4,4,4,4,4,4,0,4}
-     Where T is the target, 4 are walls, and 0 are empty spaces, E is the position of the entity to generate movement from
-     
-     */
+Current maze setup:
+            {4,4,4,4,4,4,4,4,4},
+            {4,0,0,0,0,0,0,0,4},
+            {4,0,E,4,4,4,0,0,4},
+            {4,0,4,0,0,0,4,0,4},
+            {4,0,4,0,T,0,4,0,4},
+            {4,0,4,0,0,0,4,0,4},
+            {4,0,0,4,4,4,0,0,4},
+            {4,0,0,0,0,0,0,0,4},
+            {4,4,4,4,4,4,4,0,4}
+ Where T is the target, 4 are walls, and 0 are empty spaces, E is the position of the entity to generate movement from
+
+ */
         for (int i=0;i<10;i++) {
-            Direction nextMovement = targetedMovementGenerator.next(testMaze, new Point(2, 2));
+            Direction nextMovement = targetedMovementGenerator.next(mockMaze, new Point(2, 2));
             assert (nextMovement == Direction.North || nextMovement == Direction.West);
         }
     }
@@ -508,23 +523,23 @@ public class TargetedMovementGeneratorTest {
     //Testing movement generation when target is northwest of entity with walls in west
     @Test
     public void testTargetNorthWestWallsWest() {
-       /*
-        Testing if blocked by wall in the west
+   /*
+    Testing if blocked by wall in the west
 
-    Current maze setup:
-                {4,4,4,4,4,4,4,4,4},
-                {4,0,0,0,0,0,0,0,4},
-                {4,0,0,4,4,4,0,0,4},
-                {4,0,4,0,0,0,4,0,4},
-                {4,0,4,0,T,0,4,0,4},
-                {4,0,4,0,0,0,4,E,4},
-                {4,0,0,4,4,4,0,0,4},
-                {4,0,0,0,0,0,0,0,4},
-                {4,4,4,4,4,4,4,0,4}
-     Where T is the target, 4 are walls, and 0 are empty spaces, E is the position of the entity to generate movement from
+Current maze setup:
+            {4,4,4,4,4,4,4,4,4},
+            {4,0,0,0,0,0,0,0,4},
+            {4,0,0,4,4,4,0,0,4},
+            {4,0,4,0,0,0,4,0,4},
+            {4,0,4,0,T,0,4,0,4},
+            {4,0,4,0,0,0,4,E,4},
+            {4,0,0,4,4,4,0,0,4},
+            {4,0,0,0,0,0,0,0,4},
+            {4,4,4,4,4,4,4,0,4}
+ Where T is the target, 4 are walls, and 0 are empty spaces, E is the position of the entity to generate movement from
 
-     */
-        Direction nextMovement = targetedMovementGenerator.next(testMaze, new Point(7, 5));
+ */
+        Direction nextMovement = targetedMovementGenerator.next(mockMaze, new Point(7, 5));
         assert (nextMovement == Direction.North);
     }
 
@@ -532,23 +547,23 @@ public class TargetedMovementGeneratorTest {
     @Test
     public void testTargetNorthWestWallsNorth() {
 
-        /*
-        Testing if blocked by wall in the north
+    /*
+    Testing if blocked by wall in the north
 
-    Current maze setup:
-                {4,4,4,4,4,4,4,4,4},
-                {4,0,0,0,0,0,0,0,4},
-                {4,0,0,4,4,4,0,0,4},
-                {4,0,4,0,0,0,4,0,4},
-                {4,0,4,0,T,0,4,0,4},
-                {4,0,4,0,0,0,4,0,4},
-                {4,0,0,4,4,4,0,0,4},
-                {4,0,0,0,0,E,0,0,4},
-                {4,4,4,4,4,4,4,0,4}
-     Where T is the target, 4 are walls, and 0 are empty spaces, E is the position of the entity to generate movement from
+Current maze setup:
+            {4,4,4,4,4,4,4,4,4},
+            {4,0,0,0,0,0,0,0,4},
+            {4,0,0,4,4,4,0,0,4},
+            {4,0,4,0,0,0,4,0,4},
+            {4,0,4,0,T,0,4,0,4},
+            {4,0,4,0,0,0,4,0,4},
+            {4,0,0,4,4,4,0,0,4},
+            {4,0,0,0,0,E,0,0,4},
+            {4,4,4,4,4,4,4,0,4}
+ Where T is the target, 4 are walls, and 0 are empty spaces, E is the position of the entity to generate movement from
 
-     */
-        Direction nextMovement = targetedMovementGenerator.next(testMaze, new Point(5, 7));
+ */
+        Direction nextMovement = targetedMovementGenerator.next(mockMaze, new Point(5, 7));
         assert (nextMovement == Direction.West);
     }
 
@@ -557,24 +572,24 @@ public class TargetedMovementGeneratorTest {
     public void testTargetNorthWestWallsNorthAndWest()
     {
 
-        /*
-        Testing if blocked by wall in the north and west
+    /*
+    Testing if blocked by wall in the north and west
 
-    Current maze setup:
-                {4,4,4,4,4,4,4,4,4},
-                {4,0,0,0,0,0,0,0,4},
-                {4,0,0,4,4,4,0,0,4},
-                {4,0,4,0,0,0,4,0,4},
-                {4,0,4,0,T,0,4,0,4},
-                {4,0,4,0,0,0,4,0,4},
-                {4,0,0,4,4,4,E,0,4},
-                {4,0,0,0,0,0,0,0,4},
-                {4,4,4,4,4,4,4,0,4}
-     Where T is the target, 4 are walls, and 0 are empty spaces, E is the position of the entity to generate movement from
+Current maze setup:
+            {4,4,4,4,4,4,4,4,4},
+            {4,0,0,0,0,0,0,0,4},
+            {4,0,0,4,4,4,0,0,4},
+            {4,0,4,0,0,0,4,0,4},
+            {4,0,4,0,T,0,4,0,4},
+            {4,0,4,0,0,0,4,0,4},
+            {4,0,0,4,4,4,E,0,4},
+            {4,0,0,0,0,0,0,0,4},
+            {4,4,4,4,4,4,4,0,4}
+ Where T is the target, 4 are walls, and 0 are empty spaces, E is the position of the entity to generate movement from
 
-     */
+ */
         for (int i=0;i<10;i++) {
-            Direction nextMovement = targetedMovementGenerator.next(testMaze, new Point(6, 6));
+            Direction nextMovement = targetedMovementGenerator.next(mockMaze, new Point(6, 6));
             assert (nextMovement == Direction.South || nextMovement == Direction.East);
         }
     }
@@ -582,23 +597,23 @@ public class TargetedMovementGeneratorTest {
     //Testing movement generation when target is northeast of entity with walls in east
     @Test
     public void testTargetNorthEastWallsEast() {
-        /*
-        Testing if blocked by wall in the east
+    /*
+    Testing if blocked by wall in the east
 
-    Current maze setup:
-                {4,4,4,4,4,4,4,4,4},
-                {4,0,0,0,0,0,0,0,4},
-                {4,0,0,4,4,4,0,0,4},
-                {4,0,4,0,0,0,4,0,4},
-                {4,0,4,0,T,0,4,0,4},
-                {4,E,4,0,0,0,4,0,4},
-                {4,0,0,4,4,4,0,0,4},
-                {4,0,0,0,0,0,0,0,4},
-                {4,4,4,4,4,4,4,0,4}
-     Where T is the target, 4 are walls, and 0 are empty spaces, E is the position of the entity to generate movement from
+Current maze setup:
+            {4,4,4,4,4,4,4,4,4},
+            {4,0,0,0,0,0,0,0,4},
+            {4,0,0,4,4,4,0,0,4},
+            {4,0,4,0,0,0,4,0,4},
+            {4,0,4,0,T,0,4,0,4},
+            {4,E,4,0,0,0,4,0,4},
+            {4,0,0,4,4,4,0,0,4},
+            {4,0,0,0,0,0,0,0,4},
+            {4,4,4,4,4,4,4,0,4}
+ Where T is the target, 4 are walls, and 0 are empty spaces, E is the position of the entity to generate movement from
 
-     */
-        Direction nextMovement = targetedMovementGenerator.next(testMaze, new Point(1, 5));
+ */
+        Direction nextMovement = targetedMovementGenerator.next(mockMaze, new Point(1, 5));
         assert (nextMovement == Direction.North);
     }
 
@@ -606,23 +621,23 @@ public class TargetedMovementGeneratorTest {
     @Test
     public void testTargetNorthEastWallsSouth(){
 
-        /*
-        Testing if blocked by wall in the south
+    /*
+    Testing if blocked by wall in the south
 
-    Current maze setup:
-                {4,4,4,4,4,4,4,4,4},
-                {4,0,0,0,0,0,0,0,4},
-                {4,0,0,4,4,4,0,0,4},
-                {4,0,4,0,0,0,4,0,4},
-                {4,0,4,0,T,0,4,0,4},
-                {4,0,4,0,0,0,4,0,4},
-                {4,0,0,4,4,4,0,0,4},
-                {4,0,0,E,0,0,0,0,4},
-                {4,4,4,4,4,4,4,0,4}
-     Where T is the target, 4 are walls, and 0 are empty spaces, E is the position of the entity to generate movement from
+Current maze setup:
+            {4,4,4,4,4,4,4,4,4},
+            {4,0,0,0,0,0,0,0,4},
+            {4,0,0,4,4,4,0,0,4},
+            {4,0,4,0,0,0,4,0,4},
+            {4,0,4,0,T,0,4,0,4},
+            {4,0,4,0,0,0,4,0,4},
+            {4,0,0,4,4,4,0,0,4},
+            {4,0,0,E,0,0,0,0,4},
+            {4,4,4,4,4,4,4,0,4}
+ Where T is the target, 4 are walls, and 0 are empty spaces, E is the position of the entity to generate movement from
 
-     */
-        Direction nextMovement = targetedMovementGenerator.next(testMaze, new Point(3, 7));
+ */
+        Direction nextMovement = targetedMovementGenerator.next(mockMaze, new Point(3, 7));
         assert (nextMovement == Direction.East);
     }
 
@@ -630,24 +645,24 @@ public class TargetedMovementGeneratorTest {
     @Test
     public void testTargetNorthEastWallsNorthAndEast(){
 
-        /*
-        Testing if blocked by wall in the north and east
+    /*
+    Testing if blocked by wall in the north and east
 
-    Current maze setup:
-                {4,4,4,4,4,4,4,4,4},
-                {4,0,0,0,0,0,0,0,4},
-                {4,0,0,4,4,4,0,0,4},
-                {4,0,4,0,0,0,4,0,4},
-                {4,0,4,0,T,0,4,0,4},
-                {4,0,4,0,0,0,4,0,4},
-                {4,0,E,4,4,4,0,0,4},
-                {4,0,0,0,0,0,0,0,4},
-                {4,4,4,4,4,4,4,0,4}
-     Where T is the target, 4 are walls, and 0 are empty spaces, E is the position of the entity to generate movement from
+Current maze setup:
+            {4,4,4,4,4,4,4,4,4},
+            {4,0,0,0,0,0,0,0,4},
+            {4,0,0,4,4,4,0,0,4},
+            {4,0,4,0,0,0,4,0,4},
+            {4,0,4,0,T,0,4,0,4},
+            {4,0,4,0,0,0,4,0,4},
+            {4,0,E,4,4,4,0,0,4},
+            {4,0,0,0,0,0,0,0,4},
+            {4,4,4,4,4,4,4,0,4}
+ Where T is the target, 4 are walls, and 0 are empty spaces, E is the position of the entity to generate movement from
 
-     */
+ */
         for (int i=0;i<10;i++) {
-            Direction nextMovement = targetedMovementGenerator.next(testMaze, new Point(2, 6));
+            Direction nextMovement = targetedMovementGenerator.next(mockMaze, new Point(2, 6));
             assert (nextMovement == Direction.South || nextMovement == Direction.West);
         }
     }
