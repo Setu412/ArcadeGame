@@ -1,5 +1,6 @@
-package ca.sfu.cmpt276.spring2021.group8.project.game;
+package ca.sfu.cmpt276.spring2021.group8.project.game.entity.movable;
 
+import ca.sfu.cmpt276.spring2021.group8.project.game.Maze;
 import ca.sfu.cmpt276.spring2021.group8.project.game.containers.EntityList;
 import ca.sfu.cmpt276.spring2021.group8.project.game.entity.Barrier;
 import ca.sfu.cmpt276.spring2021.group8.project.game.entity.movable.Player;
