@@ -72,6 +72,12 @@ public class TargetedMovementGeneratorTest {
         targetedMovementGenerator=new TargetedMovementGenerator(target);
     }
 
+    @Test
+    public void testGetTarget()
+    {
+        assert (targetedMovementGenerator.getTarget().getPosition().equals(new Point(4,4)));
+    }
+
     /*
     Current maze setup:
                 {4,4,4,4,4,4,4,4,4},
