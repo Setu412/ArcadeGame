@@ -7,14 +7,11 @@ import java.awt.Point;
  */
 public enum Direction {
     // Ordered in clockwise fashion
-    // Note: Do NOT change the order, changing the order modifies methods defined below
     North,
     East,
     South,
-    West;
-
-    public final static int SIZE=Direction.values().length;
-    public final static Direction[] values=values();
+    West,
+    None;
 
     /**
      * Returns a new Point one unit in the direction.
@@ -37,6 +34,9 @@ public enum Direction {
             case South:
                 newPoint.y += 1;
                 break;
+
+            case None:
+                break;
         }
         return newPoint;
     }
@@ -49,7 +49,20 @@ public enum Direction {
      */
     public Direction getOppositeDirection()
     {
-        return values[(this.ordinal()+2)%SIZE];
+        switch (this) {
+            case West:
+                return East;
+
+            case North:
+                return South;
+
+            case East:
+                return West;
+
+            case South:
+                return North;
+        }
+        return None;
     }
 
     /**
@@ -60,18 +73,44 @@ public enum Direction {
      */
     public Direction getCWOrthogonalDirection()
     {
-        return values[(this.ordinal()+1)%SIZE];
+        switch (this) {
+            case West:
+                return North;
+
+            case North:
+                return East;
+
+            case East:
+                return South;
+
+            case South:
+                return West;
+        }
+        return None;
     }
 
     /**
      * Returns the first perpendicular direction from the caller in counter clockwise order
      * eg: North.getCounterCWOrthogonalDirection() will return West
      *
-     * @return the first perpendicular direction from the caller in counter clockwise orde
+     * @return the first perpendicular direction from the caller in counter clockwise order
      */
     public Direction getCounterCWOrthogonalDirection()
     {
-        return values[(this.ordinal()+3)%SIZE];
+        switch (this) {
+            case West:
+                return South;
+
+            case North:
+                return West;
+
+            case East:
+                return North;
+
+            case South:
+                return East;
+        }
+        return None;
     }
 
 }
