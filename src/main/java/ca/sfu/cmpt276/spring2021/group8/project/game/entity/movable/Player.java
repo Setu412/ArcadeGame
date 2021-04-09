@@ -14,6 +14,7 @@ import ca.sfu.cmpt276.spring2021.group8.project.game.positioning.PositionValidat
 public class Player extends MovableEntity {
     private BufferedImage player;
     private boolean hasMoved=false;
+    private Direction nextMove=Direction.None;
 
     /**
      * Sets the starting position for the player
@@ -24,6 +25,14 @@ public class Player extends MovableEntity {
         super(startPosition);
     }
 
+    public Direction getNextMove() {
+        return nextMove;
+    }
+
+    public void setNextMove(Direction nextMove) {
+        this.nextMove = nextMove;
+    }
+
     /**
      * Tries to move the player
      *
@@ -32,7 +41,7 @@ public class Player extends MovableEntity {
      */
     public void move(PositionValidator validator, Direction direction) {
         tryMove(validator, direction.getNewPosition(getPosition()), direction);
-        hasMoved=true;
+        facing=direction;
     }
 
     /**
@@ -43,6 +52,10 @@ public class Player extends MovableEntity {
     public boolean getHasMoved()
     {
         return hasMoved;
+    }
+
+    public void setHasMoved(boolean hasMoved) {
+        this.hasMoved = hasMoved;
     }
 
     /**

@@ -178,7 +178,7 @@ public class Game implements KeyListener {
                 break;
         }
 
-        this.world.movePlayer(direction);
+        this.world.changePlayerNextMove(direction);
     }
 
     @Override

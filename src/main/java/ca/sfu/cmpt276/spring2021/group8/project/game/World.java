@@ -14,14 +14,15 @@ import java.awt.*;
  * The World class contains all the game entities and handles interactions between these entities, and renders
  */
 public class World {
-    private final static long MS_PER_ENEMY_MOVE = 1000;
+    private final static long MS_PER_ENTITY_MOVE = 500;
+    //private final static long MS_PER_PLAYER_MOVE = 500;
     private final static long MS_PER_BARRIER_CHANGE_POS = 13000;
     private final static long MS_PER_BS_VISIBLE = 5000;
 
     private final static int NUM_REWARDS = 40; //40
     private static int NUM_PUNISHMENTS = 20; //20
     private final static int NUM_BARRIERS = 10; //10
-    private final static int NUM_ENEMIES=5; //5
+    private final static int NUM_ENEMIES=2; //5
 
     private Maze maze;
     private Player player;
@@ -31,7 +32,8 @@ public class World {
     private EntityList<Enemy> enemies = new EntityList<>();
     private EntityList<Collectable> collectables = new EntityList<>();
 
-    private long msSinceLastMove = 0;
+    private long msSinceLastEnemyMove = 0;
+    private long msSinceLastPlayerMove = 0;
     private long msSinceLastBRVisible = 0;
     private long msSinceLastMoveBarrier = 0;
     private int rewardCollected = 0;
@@ -154,17 +156,18 @@ public class World {
         updateBarriers(deltaTime);
         updateEnemy(deltaTime);
         updateBR(deltaTime);
+        updatePlayer(deltaTime);
     }
 
     /**
-     * Ensures enemies make a move in game after every 1 second
+     * Ensures enemies make a move in game after every tick
      *
      * @param deltaTime long value containing time difference between two consecutive ticks
      */
     public void updateEnemy(long deltaTime){
-        msSinceLastMove += deltaTime;
-        if (msSinceLastMove > MS_PER_ENEMY_MOVE) {
-            msSinceLastMove -= MS_PER_ENEMY_MOVE;
+        msSinceLastEnemyMove += deltaTime;
+        if (msSinceLastEnemyMove > MS_PER_ENTITY_MOVE) {
+            msSinceLastEnemyMove -= MS_PER_ENTITY_MOVE;
 
             for (Enemy enemy : enemies) {
                 if (player.getHasMoved()) {
@@ -207,10 +210,37 @@ public class World {
         }
     }
 
+    private void updatePlayer(long deltaTime)
+    {
+        msSinceLastPlayerMove += deltaTime;
+        if (msSinceLastPlayerMove > MS_PER_ENTITY_MOVE) {
+            msSinceLastPlayerMove -= MS_PER_ENTITY_MOVE;
+
+            movePlayer(player.getNextMove());
+        }
+    }
+
+    /**
+     * Moves the player by the given direction parameter
+     * @param direction Direction of the player movement
+     */
+    public void movePlayer(Direction direction) {
+        if (player.getHasMoved()&&direction!=Direction.None) {
+            player.move(new CompositePositionValidator(maze, barriers), direction);
+            player.setNextMove(Direction.None);
+        }
+    }
+
+    public void changePlayerNextMove(Direction direction)
+    {
+        player.setHasMoved(true);
+        player.setNextMove(direction);
+    }
+
     /**
      * Identifies type of Collectible and called createScoreEffect to update score,
-     * or createLoseeffct with enemy is encountered or createWinEffect in case all reward are collected
-     * upon player movemenet
+     * or createLoseEffect with enemy is encountered or createWinEffect in case all reward are collected
+     * upon player movement
      *
      * @return the type of GameEffect for eg. WinEffect, LoseEffects or ScoreEffect
      */
@@ -280,13 +310,6 @@ public class World {
         return null;
     }
 
-    /**
-     * Moves the player by the given direction parameter
-     * @param direction Direction of the player movement
-     */
-    public void movePlayer(Direction direction) {
-        player.move(new CompositePositionValidator(maze, barriers), direction);
-    }
 
     /**
      * Draws the grid onto canvas
