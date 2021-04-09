@@ -148,7 +148,7 @@ public class World {
     /**
      * Calls individual update functions for Barriers, enemies and Bonus reward
      *
-     * @param deltaTime Integer value containing time difference between two consecutive ticks
+     * @param deltaTime long value containing time difference between two consecutive ticks
      */
     public void update(long deltaTime) {
         updateBarriers(deltaTime);
@@ -159,7 +159,7 @@ public class World {
     /**
      * Ensures enemies make a move in game after every 1 second
      *
-     * @param deltaTime Integer value containing time difference between two consecutive ticks
+     * @param deltaTime long value containing time difference between two consecutive ticks
      */
     public void updateEnemy(long deltaTime){
         msSinceLastMove += deltaTime;
@@ -177,7 +177,7 @@ public class World {
     /**
      * Updates the position of barriers with new position after every 13 seconds
      *
-     * @param deltaTime Integer value containing time difference between two consecutive ticks
+     * @param deltaTime long value containing time difference between two consecutive ticks
      */
     public void updateBarriers(long deltaTime){
         msSinceLastMoveBarrier+= deltaTime;
@@ -193,7 +193,7 @@ public class World {
      * Ensures BonusReward appears and disappears in the game after every 5 second.
      * Updates the position of BonusReward with new position after each reappearance
      *
-     * @param deltaTime Integer value containing time difference between two consecutive ticks
+     * @param deltaTime long value containing time difference between two consecutive ticks
      */
     private void updateBR(long deltaTime) {
         msSinceLastBRVisible += deltaTime;
