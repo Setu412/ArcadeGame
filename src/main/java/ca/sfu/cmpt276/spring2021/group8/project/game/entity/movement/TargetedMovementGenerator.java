@@ -23,6 +23,14 @@ public class TargetedMovementGenerator implements MovementGenerator {
     }
 
     /**
+     * Getter function for target of the movement generator
+     * @return the target as an Entity class
+     */
+    public Entity getTarget() {
+        return target;
+    }
+
+    /**
      * Generates the next move of an entity in the general direction of the target
      * @param currentPosition Point of the current position of the entity to move
      * @return Direction of the next move of an entity in general direction of the target

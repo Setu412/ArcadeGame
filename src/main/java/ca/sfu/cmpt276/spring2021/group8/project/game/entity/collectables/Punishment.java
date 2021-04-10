@@ -10,7 +10,7 @@ import java.awt.*;
  */
 public class Punishment extends Collectable {
 
-    final static int PUNISHMENT_POINTS = -4;
+    final static int PUNISHMENT_POINTS = -5;
 
     /**
      * Constructs Punishment object and assigns a position on maze to it

@@ -131,7 +131,7 @@ public abstract class EndingScreen extends JPanel {
      * Prepares the panel which contains the final time of the player
      * Sets the boundary, background color, borders, text color, and text font
      */
-    public void prepareTimePanel()
+    private void prepareTimePanel()
     {
         this.add(timePanel);
         timePanel.setBounds(647,540,210,60);
@@ -148,7 +148,7 @@ public abstract class EndingScreen extends JPanel {
      * Sets the boundary of the panel and background color of the panel, sets up and add the button to the panel
      * @see GUIConfigurations#setBtnUI(JButton)
      */
-    public void preparePlayAgainPanel()
+    private void preparePlayAgainPanel()
     {
         this.add(playAgainPanel);
         playAgainPanel.setBounds(250,630,322,87);
@@ -163,7 +163,7 @@ public abstract class EndingScreen extends JPanel {
      * Sets the boundary of the panel and background color of the panel, sets up and add the button to the panel
      * @see GUIConfigurations#setBtnUI(JButton)
      */
-    public void prepareMainMenuPanel()
+    private void prepareMainMenuPanel()
     {
         this.add(mainMenuPanel);
         mainMenuPanel.setBounds(705,630,350,87);

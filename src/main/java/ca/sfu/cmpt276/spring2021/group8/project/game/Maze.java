@@ -96,8 +96,8 @@ public class Maze implements PositionValidator {
 
         exit = new Point(x2, x1);
 
-        nextToStart = nextToDoors(start);
-        nextToExit = nextToDoors(exit);
+        //nextToStart = nextToDoors(start);
+        //nextToExit = nextToDoors(exit);
     }
 
     /**

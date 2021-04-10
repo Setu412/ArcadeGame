@@ -102,7 +102,7 @@ public class MainFrame {
         cardLayout.show(panel,SCREEN_MAINMENU);
 
         try {
-            SoundEffects.BRplayMusic("src/resources/Audio/Background.wav");
+            SoundEffects.BRplayMusic("src/main/resources/Audio/Background.wav");
         } catch (Exception e) {
             e.printStackTrace();
         }

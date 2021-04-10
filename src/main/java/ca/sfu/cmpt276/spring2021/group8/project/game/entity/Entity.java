@@ -45,7 +45,7 @@ public abstract class Entity {
     /**
      * Get a targeted movement generator, where the this entity is the target for the movement generator
      */
-    public MovementGenerator getTargetedMovementGenerator() {
+    public MovementGenerator generateTargetedMovementGenerator() {
         return new TargetedMovementGenerator(this);
     }
 
