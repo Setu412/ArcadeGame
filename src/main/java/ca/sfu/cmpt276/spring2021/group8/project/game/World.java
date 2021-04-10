@@ -7,6 +7,7 @@ import ca.sfu.cmpt276.spring2021.group8.project.game.entity.collectables.*;
 import ca.sfu.cmpt276.spring2021.group8.project.game.entity.movable.*;
 import ca.sfu.cmpt276.spring2021.group8.project.game.entity.movement.Direction;
 import ca.sfu.cmpt276.spring2021.group8.project.game.positioning.CompositePositionValidator;
+import ca.sfu.cmpt276.spring2021.group8.project.game.positioning.PaddedEntityPositionValidator;
 
 import java.awt.*;
 
@@ -77,72 +78,20 @@ public class World {
     }
 
     /**
-     * Ensures none of the Collectable entities already exists on new point
-     *
-     * @param p Point object having new position generated
-     * @return returns true if any other collectable already exists on new point, returns false if it does not
-     */
-    private boolean isCollectiblePoint(Point p) {
-        return !collectables.isValidPosition(p);
-    }
-
-    /**
-     * Ensures none of the Barrier already exists on new point
-     *
-     * @param p Point object having new position generated
-     * @return returns true if any other Barrier already exists on new point, returns false if it does not
-     */
-    private boolean isBarrierPoint(Point p) {
-        return !barriers.isValidPosition(p);
-    }
-
-    /**
-     * Ensures none of the Bonus Reward entities already exists on new point
-     *
-     * @param p Point object having new position generated
-     * @return returns true if any other Bonus Reward already exists on new point, returns false if it does not
-     */
-    private boolean isBRPoint(Point p) {
-        return bonusReward != null && bonusReward.getPosition().equals(p);
-    }
-
-    /**
-     * Makes call to different types of entity to make sure newly generated position is empty
-     *
-     * @param p Point object having new position generated
-     * @return returns true if any other entity already exists on new point, returns false if it does not
-     */
-    private boolean isEmptyPosition(Point p) {
-        return !isCollectiblePoint(p) &&  !isBarrierPoint(p) && !isBRPoint(p) && !isAroundPlayer(p);
-    }
-
-    /**
-     *  Ensure that the the new generated position is not within 1 block around the player
-     *
-     * @param p Point object having new position generated
-     * @return True if the new generated point is around the player, Returns false if it is not around the player
-     */
-    private boolean isAroundPlayer(Point p) {
-        Point pos = player.getPosition();
-
-        if(Math.abs(pos.x - p.x)<2 && Math.abs(pos.y - p.y)<2)
-            return true;
-        return false;
-    }
-
-    /**
      * Generates a new empty position
      *
      * @return Point object having the new empty position
      */
     private Point generateEmptyPosition() {
-
-        Point p;
-        do {
-            p = maze.generatePosition();
-        } while (!isEmptyPosition(p));
-
-        return p;
+        return maze.generatePosition(
+            new CompositePositionValidator(
+                collectables,
+                barriers,
+                enemies,
+                bonusReward,
+                new PaddedEntityPositionValidator(player)
+            )
+        );
     }
 
     /**
