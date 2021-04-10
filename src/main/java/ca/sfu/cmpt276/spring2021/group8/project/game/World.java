@@ -14,7 +14,7 @@ import java.awt.*;
  * The World class contains all the game entities and handles interactions between these entities, and renders
  */
 public class World {
-    private final static long MS_PER_ENEMY_MOVE = 1000;
+    private final static long MS_PER_ENEMY_MOVE = 500;
     private final static long MS_PER_BARRIER_CHANGE_POS = 13000;
     private final static long MS_PER_BS_VISIBLE = 5000;
 
