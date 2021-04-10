@@ -36,7 +36,7 @@ public class GUIConfigurations {
     public static final Font BUTTON_FONT=timesNewRoman.deriveFont(60f); //new Font("Times New Roman",Font.PLAIN,60);
     public static final Font TEXT_FONT=timesNewRoman.deriveFont(25f); //new Font("Times New Roman",Font.PLAIN,25);
     public static final Font RULES_FONT=timesNewRoman.deriveFont(21f); //new Font("Times New Roman",Font.PLAIN,21);
-    public static final Font DIPLOMA_TITLE_FONT=timesNewRoman.deriveFont(Font.ITALIC,70f); //new Font("Times New Roman",Font.ITALIC,70);
+    public static final Font DIPLOMA_TITLE_FONT=timesNewRoman.deriveFont(Font.PLAIN,70f); //new Font("Times New Roman",Font.ITALIC,70);
     public static final Font EXPULSION_TITLE_FONT= timesNewRoman.deriveFont(Font.BOLD,70f);//new Font("Times New Roman", Font.BOLD,70);
     public static final Font LETTER_TEXT_FONT =timesNewRoman.deriveFont(33f); //new Font("Times New Roman", Font.PLAIN,33);
     public static final Font RESULT_FONT=timesNewRoman.deriveFont(40f); //new Font("Times New Roman",Font.PLAIN,40);
