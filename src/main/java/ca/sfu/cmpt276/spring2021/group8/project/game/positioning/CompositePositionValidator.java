@@ -23,10 +23,11 @@ public class CompositePositionValidator implements PositionValidator {
      */
     public boolean isValidPosition(Point p) {
         for (PositionValidator validator : validators) {
-            if (!validator.isValidPosition(p)) {
+            if (validator != null && !validator.isValidPosition(p)) {
                 return false;
             }
         }
+
         return true;
     }
 }
