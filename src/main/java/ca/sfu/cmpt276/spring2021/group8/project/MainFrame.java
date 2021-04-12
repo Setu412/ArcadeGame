@@ -197,6 +197,9 @@ public class MainFrame {
                             showLosingScreen();
                         }
                     }
+                } catch (Exception ex) {
+                    ex.printStackTrace();
+                    showMainMenu();
                 } finally {
                     canvas.removeKeyListener(game);
                 }

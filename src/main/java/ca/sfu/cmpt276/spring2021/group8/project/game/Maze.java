@@ -174,20 +174,36 @@ public class Maze implements PositionValidator {
      *
      * @return newly generated position as Point object
      */
-    public Point generatePosition() {
-        int x1;
-        int x2;
-         do {
-            x1 = getRandomInt(1, height - 2);
-            x2 = getRandomInt(1, width- 2);
+    public Point generatePosition(PositionValidator validator) {
+        Point p;
+        do {
+            p = new Point(
+                getRandomInt(1, width - 2),
+                getRandomInt(1, height - 2)
+            );
 
             /*if(nextToStart.equals(new Point(x2,x1))){
                 continue;
             }*/
 
-        }while (maze[x1][x2] != 0);
+        } while (
+            !isValidPosition(p) ||
+            (
+                validator != null &&
+                !validator.isValidPosition(p)
+            )
+        );
 
-        return new Point(x2, x1);
+        return p;
+    }
+
+    /**
+     * Generates and returns a Point on the maze to use
+     *
+     * @return newly generated position as Point object
+     */
+    public Point generatePosition() {
+        return generatePosition(null);
     }
 
     /**

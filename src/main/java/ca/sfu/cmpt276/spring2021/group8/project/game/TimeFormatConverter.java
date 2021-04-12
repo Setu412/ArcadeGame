@@ -3,7 +3,7 @@ package ca.sfu.cmpt276.spring2021.group8.project.game;
 /**
  * This interface having member function to returns time in its standard representation
  */
-public interface TimeFormatConverter {
+public class TimeFormatConverter {
 
     /**
      * Takes in the total time passed during the game in milliseconds and
@@ -12,7 +12,7 @@ public interface TimeFormatConverter {
      * @param ms Time passed in milliseconds
      * @return Standard representation of time in form of string
      */
-    static String convertTime(long ms)
+    public static String convertTime(long ms)
     {
         long seconds = ms/1000;
         long minutes = (seconds / 60);

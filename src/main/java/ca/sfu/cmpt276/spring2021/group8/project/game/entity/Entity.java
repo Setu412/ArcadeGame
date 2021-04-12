@@ -10,7 +10,7 @@ import java.awt.*;
 /**
  * Entity is an object on the game board
  */
-public abstract class Entity {
+public abstract class Entity implements PositionValidator {
 
     private Point position = new Point();
 
@@ -47,6 +47,17 @@ public abstract class Entity {
      */
     public MovementGenerator generateTargetedMovementGenerator() {
         return new TargetedMovementGenerator(this);
+    }
+
+    /**
+     * Checks if the position is valid
+     * 
+     * @param p Point object that is the coordinates of the next move
+     * @return True if the position is valid, false if position is not valid
+     */
+    @Override
+    public boolean isValidPosition(Point p) {
+        return !p.equals(this.position);
     }
 
     /**
