@@ -5,8 +5,6 @@ import org.junit.jupiter.api.Test;
 
 import java.awt.*;
 
-import static org.junit.jupiter.api.Assertions.*;
-
 class DirectionTest {
 
     @Nested
@@ -15,7 +13,7 @@ class DirectionTest {
         @Test
         public void testGetNewPositionNorth()
         {
-            assert (Direction.North.getNewPosition(new Point(0,0)).equals(new Point(0,-1)));
+            assert (Direction.North.generateNewPosition(new Point(0,0)).equals(new Point(0,-1)));
         }
 
         @Test
@@ -43,7 +41,7 @@ class DirectionTest {
         @Test
         public void testGetNewPositionSouth()
         {
-            assert (Direction.South.getNewPosition(new Point(0,0)).equals(new Point(0,1)));
+            assert (Direction.South.generateNewPosition(new Point(0,0)).equals(new Point(0,1)));
         }
 
         @Test
@@ -71,7 +69,7 @@ class DirectionTest {
         @Test
         public void testGetNewPositionEast()
         {
-            assert (Direction.East.getNewPosition(new Point(0,0)).equals(new Point(1,0)));
+            assert (Direction.East.generateNewPosition(new Point(0,0)).equals(new Point(1,0)));
         }
 
         @Test
@@ -99,7 +97,7 @@ class DirectionTest {
         @Test
         public void testGetNewPositionWest()
         {
-            assert (Direction.West.getNewPosition(new Point(0,0)).equals(new Point(-1,0)));
+            assert (Direction.West.generateNewPosition(new Point(0,0)).equals(new Point(-1,0)));
         }
 
         @Test

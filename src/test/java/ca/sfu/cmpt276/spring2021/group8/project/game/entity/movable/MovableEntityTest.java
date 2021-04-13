@@ -8,8 +8,6 @@ import org.junit.jupiter.api.Test;
 
 import java.awt.*;
 
-import static org.junit.jupiter.api.Assertions.*;
-
 class MovableEntityTest {
     class MockMovableEntity extends MovableEntity
     {
@@ -76,7 +74,7 @@ class MovableEntityTest {
          Where E is the entity, 4 are walls, and 0 are empty spaces
     */
         //Moves the entity north to test valid movement
-        mockMovableEntity.tryMove(mockMaze, Direction.North.getNewPosition(mockMovableEntity.getPosition()),Direction.North);
+        mockMovableEntity.tryMove(mockMaze, Direction.North.generateNewPosition(mockMovableEntity.getPosition()),Direction.North);
 
         /*
         Maze setup after moving north:
@@ -103,7 +101,7 @@ class MovableEntityTest {
     */
 
         //Moves the entity east to test valid movement
-        mockMovableEntity.tryMove(mockMaze, Direction.East.getNewPosition(mockMovableEntity.getPosition()),Direction.East);
+        mockMovableEntity.tryMove(mockMaze, Direction.East.generateNewPosition(mockMovableEntity.getPosition()),Direction.East);
 
         /*
         Maze setup after moving east:

@@ -41,7 +41,7 @@ public class TargetedMovementGenerator implements MovementGenerator {
         //get an arraylist of movements to test, ordered from the most optimal direct move to the worst
         ArrayList<Direction> movOrder=this.generateMovementOrder(this.getRelativeVerticalPos(currentPosition),this.getRelativeHorizontalPos(currentPosition));
         for (Direction direction : movOrder) {
-            if (validator.isValidPosition(direction.getNewPosition(currentPosition))) //check if movement is valid
+            if (validator.isValidPosition(direction.generateNewPosition(currentPosition))) //check if movement is valid
             {
                 return direction;
             }
