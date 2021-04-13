@@ -23,6 +23,8 @@ public class MainFrame {
     private CardLayout cardLayout = new CardLayout();
     private JPanel panel = new JPanel();
 
+    private BackgroundMusic backgroundMusic=new BackgroundMusic();
+
     private MainMenu mainMenu=new MainMenu();
     private HowToPlayMenu howToPlayMenu=new HowToPlayMenu();
     private WinningScreen winningScreen=new WinningScreen();
@@ -68,12 +70,16 @@ public class MainFrame {
         winningScreen.getMainMenuBtn().addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                winningScreen.stopMusic();
+                backgroundMusic.startMusic();
                 showMainMenu();
             }
         });
         winningScreen.getPlayAgainBtn().addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                winningScreen.stopMusic();
+                backgroundMusic.startMusic();
                 startGame();
             }
         });
@@ -101,11 +107,7 @@ public class MainFrame {
 
         cardLayout.show(panel,SCREEN_MAINMENU);
 
-        try {
-            SoundEffects.BRplayMusic("src/main/resources/Audio/Background.wav");
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        backgroundMusic.startMusic();
     }
 
     /**
@@ -128,6 +130,8 @@ public class MainFrame {
      */
     private void showWinningScreen()
     {
+        winningScreen.startMusic();
+        backgroundMusic.stopMusic();
         cardLayout.show(panel,SCREEN_WIN);
     }
 

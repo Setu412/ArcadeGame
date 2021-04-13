@@ -30,10 +30,11 @@ public class WinningScreen extends EndingScreen{
     }
 
     /**
-     * Starts playing the winning song
+     * Starts playing the winning song from the beginning
      */
     public void startMusic()
     {
+        winningSong.setFramePosition(0);
         winningSong.start();
     }
 
