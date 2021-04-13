@@ -4,6 +4,9 @@ import ca.sfu.cmpt276.spring2021.group8.project.game.entity.Entity;
 
 import java.awt.Point;
 
+/**
+ * A position validator that invalidates the position around an entity in a given radius
+ */
 public class PaddedEntityPositionValidator implements PositionValidator {
     private Entity entity;
     private int radius;
