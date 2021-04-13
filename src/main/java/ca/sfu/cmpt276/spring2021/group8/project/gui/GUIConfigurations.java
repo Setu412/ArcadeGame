@@ -51,9 +51,6 @@ public class GUIConfigurations {
     //Tabs
     public static final String tab="&nbsp;&nbsp;&nbsp;&nbsp;";
 
-    public GUIConfigurations() throws IOException, FontFormatException {
-    }
-
     /**
      * Prepares the button in the parameter, setting its font, background color, text color, removing borders, removing focus indications, and adding an on click color change
      * @param btn Jbutton object that the user can click on
