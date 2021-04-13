@@ -224,6 +224,11 @@ public class World {
         }
 
         if (player.getPosition().equals(maze.exitPosition())) {
+            try {
+                SoundEffects.playMusic("src/main/resources/Audio/WinningSound.wav");
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
             return GameEffect.createWinEffect();
         }
         return null;
