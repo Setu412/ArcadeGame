@@ -1,10 +1,49 @@
 package ca.sfu.cmpt276.spring2021.group8.project.gui;
 
+import javax.sound.sampled.AudioInputStream;
+import javax.sound.sampled.AudioSystem;
+import javax.sound.sampled.Clip;
+import java.io.File;
+
 /**
  * The screen that shows up when the player wins the game
  * @see EndingScreen
  */
 public class WinningScreen extends EndingScreen{
+
+    private Clip winningSong;
+
+    /**
+     * Creates a new WinningScreen and plays winning song
+     * @see EndingScreen#EndingScreen()
+     */
+    public WinningScreen()
+    {
+        super();
+        try {
+            AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(new File("src/main/resources/Audio/PompAndCircumstance.wav").getAbsoluteFile());
+            winningSong = AudioSystem.getClip();
+            winningSong.open(audioInputStream);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    /**
+     * Starts playing the winning song
+     */
+    public void startMusic()
+    {
+        winningSong.start();
+    }
+
+    /**
+     * Stop playing the winning song
+     */
+    public void stopMusic()
+    {
+        winningSong.stop();
+    }
 
     /**
      * Prepares the content of the diploma
