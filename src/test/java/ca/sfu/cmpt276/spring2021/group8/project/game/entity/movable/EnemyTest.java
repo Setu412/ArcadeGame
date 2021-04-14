@@ -43,7 +43,7 @@ public class EnemyTest {
     }
 
     //generates north movement only for the sake of testing
-    class testNorthGenerator implements MovementGenerator
+    class TestNorthGenerator implements MovementGenerator
     {
         @Override
         public Direction next(PositionValidator validator, Point currentPosition) {
@@ -52,7 +52,7 @@ public class EnemyTest {
     }
 
     TestMaze testMaze=new TestMaze();
-    MovementGenerator movementGenerator=new testNorthGenerator();
+    MovementGenerator movementGenerator=new TestNorthGenerator();
     Enemy enemy;
 
 
