@@ -2,6 +2,7 @@ package ca.sfu.cmpt276.spring2021.group8.project.game;
 
 import java.awt.*;
 import java.lang.reflect.Field;
+import java.lang.reflect.Method;
 import java.util.ArrayList;
 
 import ca.sfu.cmpt276.spring2021.group8.project.game.effect.GameEffect;
@@ -33,6 +34,12 @@ class WorldTest {
         try {
             //Accessing private enemy field in World class using Reflection
 
+            Field PlayerField = World.class.getDeclaredField("player");
+            PlayerField.setAccessible(true);
+            Player playerCopy = (Player) PlayerField.get(world);
+            Point player_Position = playerCopy.getPosition();
+            //System.out.println("Player initial position  x = " + player_Position.x + " y = " + player_Position.y);
+
             Field EnemyField = World.class.getDeclaredField("enemies");
             EnemyField.setAccessible(true);
             EntityList<Enemy> EnemyCopy = (EntityList<Enemy>) EnemyField.get(world);
@@ -42,10 +49,18 @@ class WorldTest {
             Point EnemyAtIndex2_Pos = EnemyCopy.get(2).getPosition();
 
             //Moving the player once to start the game, to make hasMoved = true
-            world.movePlayer(Direction.South);
-            world.movePlayer(Direction.West);
-            world.movePlayer(Direction.East);
-            world.movePlayer(Direction.North);
+            if (player_Position.x == 0){
+                world.movePlayer(Direction.East);
+            }
+            else if (player_Position.y == 0){
+                world.movePlayer(Direction.South);
+            }
+            else if (player_Position.x == 20){
+                world.movePlayer(Direction.West);
+            }
+            else if (player_Position.y == 13){
+                world.movePlayer(Direction.North);
+            }
 
             //Enemies make a movement in each 0.5 sec, thus making deltaTime larger than 500 so as to ensure enemy moves
             long testDeltaTime = 600;
@@ -77,7 +92,7 @@ class WorldTest {
     }
 
     @Test
-    void TestUpdateBarriers(){
+    void testUpdateBarriers(){
 
         try {
             //Accessing Barrier field in World class using Reflection
@@ -141,10 +156,18 @@ class WorldTest {
             //System.out.println("Player initial position  x = " + player_Position.x + " y = " + player_Position.y);
 
                 //Trying to change the position of the player
-            world.movePlayer(Direction.South);
-            world.movePlayer(Direction.West);
-            world.movePlayer(Direction.East);
-            world.movePlayer(Direction.North);
+            if (player_Position.x == 0){
+                world.movePlayer(Direction.East);
+            }
+            else if (player_Position.y == 0){
+                world.movePlayer(Direction.South);
+            }
+            else if (player_Position.x == 20){
+                world.movePlayer(Direction.West);
+            }
+            else if (player_Position.y == 13){
+                world.movePlayer(Direction.North);
+            }
 
             player_Position = playerCopy.getPosition();
             //System.out.println("Player position after movement x = " + player_Position.x + " y = " + player_Position.y);
@@ -155,7 +178,6 @@ class WorldTest {
             BonusReward BR_Copy = (BonusReward) BonusRewardField.get(world);
 
             BR_Copy.setPosition(player_Position);
-            Point BR_Position = BR_Copy.getPosition();
             //System.out.println("Player and BR position equal x = " + BR_Position.x + " y = " + BR_Position.y);
 
                 //set bonusReward visibility true
@@ -191,15 +213,29 @@ class WorldTest {
            Player playerCopy = (Player) PlayerField.get(world);
 
            Point ptr = playerCopy.getPosition();
-           //System.out.println("Point x = " + ptr.x + " y = " + ptr.y);
+           System.out.println("Point x = " + ptr.x + " y = " + ptr.y);
 
-           world.movePlayer(Direction.West);
-           world.movePlayer(Direction.North);
-           world.movePlayer(Direction.East);
-           world.movePlayer(Direction.South);
-
-           assertEquals(false, ptr.equals(playerCopy.getPosition()));
-
+           //Moving Player based on the initial position of the player and asserting with new position
+           if (ptr.x == 0){
+               world.movePlayer(Direction.East);
+               System.out.println("new Point x = " + playerCopy.getPosition().x + " y = " + playerCopy.getPosition().y);
+               assertEquals(true, (new Point(ptr.x + 1,ptr.y)).equals(playerCopy.getPosition()));
+           }
+           else if (ptr.y == 0){
+               world.movePlayer(Direction.South);
+               System.out.println("new Point x = " + playerCopy.getPosition().x + " y = " + playerCopy.getPosition().y);
+               assertEquals(true, (new Point(ptr.x,ptr.y+1)).equals(playerCopy.getPosition()));
+           }
+           else if (ptr.x == 20){
+               world.movePlayer(Direction.West);
+               System.out.println("new Point x = " + playerCopy.getPosition().x + " y = " + playerCopy.getPosition().y);
+               assertEquals(true, (new Point(ptr.x-1,ptr.y)).equals(playerCopy.getPosition()));
+           }
+           else if (ptr.y == 13){
+               world.movePlayer(Direction.North);
+               System.out.println("new Point x = " + playerCopy.getPosition().x + " y = " + playerCopy.getPosition().y);
+               assertEquals(true, (new Point(ptr.x,ptr.y - 1)).equals(playerCopy.getPosition()));
+           }
        }
        catch (Exception e) {
            e.printStackTrace();
