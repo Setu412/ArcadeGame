@@ -213,27 +213,22 @@ class WorldTest {
            Player playerCopy = (Player) PlayerField.get(world);
 
            Point ptr = playerCopy.getPosition();
-           System.out.println("Point x = " + ptr.x + " y = " + ptr.y);
 
            //Moving Player based on the initial position of the player and asserting with new position
            if (ptr.x == 0){
                world.movePlayer(Direction.East);
-               System.out.println("new Point x = " + playerCopy.getPosition().x + " y = " + playerCopy.getPosition().y);
                assertEquals(true, (new Point(ptr.x + 1,ptr.y)).equals(playerCopy.getPosition()));
            }
            else if (ptr.y == 0){
                world.movePlayer(Direction.South);
-               System.out.println("new Point x = " + playerCopy.getPosition().x + " y = " + playerCopy.getPosition().y);
                assertEquals(true, (new Point(ptr.x,ptr.y+1)).equals(playerCopy.getPosition()));
            }
            else if (ptr.x == 20){
                world.movePlayer(Direction.West);
-               System.out.println("new Point x = " + playerCopy.getPosition().x + " y = " + playerCopy.getPosition().y);
                assertEquals(true, (new Point(ptr.x-1,ptr.y)).equals(playerCopy.getPosition()));
            }
            else if (ptr.y == 13){
                world.movePlayer(Direction.North);
-               System.out.println("new Point x = " + playerCopy.getPosition().x + " y = " + playerCopy.getPosition().y);
                assertEquals(true, (new Point(ptr.x,ptr.y - 1)).equals(playerCopy.getPosition()));
            }
        }
