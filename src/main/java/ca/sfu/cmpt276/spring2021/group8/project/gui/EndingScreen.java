@@ -6,7 +6,7 @@ import java.awt.*;
 /**
  * A GUI template for ending screens (winning and losing screen).
  * Contains:
- * A letter (diploma or letter of expulsion, depending on wheter or not its a winning or losing screen)
+ * A letter (diploma or letter of expulsion, depending on whether or not its a winning or losing screen)
  * A text label of the final score of the player
  * A text label of the final time of the player
  * A button to go back to the main menu
