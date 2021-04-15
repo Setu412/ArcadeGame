@@ -210,4 +210,67 @@ public class MainFrame {
             }
         }).start();
     }
+
+    /**
+     * Returns the game canvas
+     */
+    public Canvas getCanvas() {
+        return canvas;
+    }
+
+    /**
+     * Returns the cardLayout of the frame
+     */
+    public CardLayout getCardLayout() {
+        return cardLayout;
+    }
+
+    /**
+     * Returns the main panel of the frame
+     */
+    public JPanel getPanel() {
+        return panel;
+    }
+
+    /**
+     * Returns the background music object
+     */
+    public BackgroundMusic getBackgroundMusic() {
+        return backgroundMusic;
+    }
+
+    /**
+     * Returns the main menu panel
+     */
+    public MainMenu getMainMenu() {
+        return mainMenu;
+    }
+
+    /**
+     * Returns the how to play menu
+     */
+    public HowToPlayMenu getHowToPlayMenu() {
+        return howToPlayMenu;
+    }
+
+    /**
+     * Returns the winning screen
+     */
+    public WinningScreen getWinningScreen() {
+        return winningScreen;
+    }
+
+    /**
+     * Returns the losing screen
+     */
+    public LosingScreen getLosingScreen() {
+        return losingScreen;
+    }
+
+    /**
+     * Returns the main frame
+     */
+    public JFrame getFrame() {
+        return frame;
+    }
 }
