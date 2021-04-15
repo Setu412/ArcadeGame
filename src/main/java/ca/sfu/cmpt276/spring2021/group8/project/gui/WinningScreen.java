@@ -11,7 +11,7 @@ import java.io.File;
  */
 public class WinningScreen extends EndingScreen{
 
-    private Clip winningSong;
+    Clip winningSong;
 
     /**
      * Creates a new WinningScreen and plays winning song
