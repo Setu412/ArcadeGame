@@ -9,6 +9,8 @@ import java.io.IOException;
  */
 public class SoundEffects {
 
+    Clip clip;
+
     /**
      * Plays a sound clip for different game entities
      *
@@ -17,9 +19,8 @@ public class SoundEffects {
      * @throws IOException
      * @throws LineUnavailableException
      */
-    public static void playMusic(String path) throws UnsupportedAudioFileException, IOException, LineUnavailableException
+    public void playMusic(String path) throws UnsupportedAudioFileException, IOException, LineUnavailableException
     {
-        Clip clip;
         AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(new File(path).getAbsoluteFile());
         clip = AudioSystem.getClip();
         clip.open(audioInputStream);
