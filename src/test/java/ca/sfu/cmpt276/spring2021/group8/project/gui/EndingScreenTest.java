@@ -19,7 +19,6 @@ class EndingScreenTest {
 
         @Override
         void prepareLetterContent() {
-            //Empty, the letter content will be tested in WinningScreen and LosingScreen
         }
     }
 
