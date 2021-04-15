@@ -22,6 +22,7 @@ public class MainFrame {
     private Canvas canvas;
     private CardLayout cardLayout = new CardLayout();
     private JPanel panel = new JPanel();
+    private JFrame frame=new JFrame();
 
     private BackgroundMusic backgroundMusic=new BackgroundMusic();
 
@@ -34,15 +35,14 @@ public class MainFrame {
      * Creates a new game frame
      */
     public MainFrame() {
-        JFrame f = new JFrame();
 
         panel.setLayout(cardLayout);
 
-        f.add(panel);
+        frame.add(panel);
 
-        f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        f.setSize(GUIConfigurations.WIDTH, GUIConfigurations.HEIGHT);
-        f.setResizable(false);
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setSize(GUIConfigurations.WIDTH, GUIConfigurations.HEIGHT);
+        frame.setResizable(false);
 
         //mainMenu.setSize(width,height);
         mainMenu.getStartGameBtn().addActionListener(new ActionListener() {
@@ -102,8 +102,8 @@ public class MainFrame {
         panel.add(howToPlayMenu,SCREEN_HOWTOPLAY);
         panel.add(winningScreen,SCREEN_WIN);
         panel.add(losingScreen,SCREEN_LOST);
-        f.setLocationRelativeTo(null);
-        f.setVisible(true);
+        frame.setLocationRelativeTo(null);
+        frame.setVisible(true);
 
         cardLayout.show(panel,SCREEN_MAINMENU);
 
