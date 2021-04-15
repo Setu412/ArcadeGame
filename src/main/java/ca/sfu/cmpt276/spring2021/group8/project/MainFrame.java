@@ -186,18 +186,17 @@ public class MainFrame {
                         showMainMenu();
                     } else if (result instanceof GameOverResult) {
                         GameOverResult info = ((GameOverResult) result);
-                        // TODO pass game info to win/lose screens
                         showMainMenu();
                         if(((GameOverResult) result).win)
                         {
-                            winningScreen.getScoreText().setText("Score: "+((GameOverResult) result).score);
-                            winningScreen.getTimeText().setText("Time: "+TimeFormatConverter.convertTime(((GameOverResult) result).time));
+                            winningScreen.getScoreText().setText("Score: "+info.score);
+                            winningScreen.getTimeText().setText("Time: "+TimeFormatConverter.convertTime(info.time));
                             showWinningScreen();
                         }
                         else if(!((GameOverResult) result).win)
                         {
                             losingScreen.getScoreText().setText("Score: "+((GameOverResult) result).score);
-                            losingScreen.getTimeText().setText("Time: "+TimeFormatConverter.convertTime(((GameOverResult) result).time));
+                            losingScreen.getTimeText().setText("Time: "+TimeFormatConverter.convertTime(info.time));
                             showLosingScreen();
                         }
                     }
@@ -212,31 +211,10 @@ public class MainFrame {
     }
 
     /**
-     * Returns the game canvas
-     */
-    public Canvas getCanvas() {
-        return canvas;
-    }
-
-    /**
-     * Returns the cardLayout of the frame
-     */
-    public CardLayout getCardLayout() {
-        return cardLayout;
-    }
-
-    /**
      * Returns the main panel of the frame
      */
     public JPanel getPanel() {
         return panel;
-    }
-
-    /**
-     * Returns the background music object
-     */
-    public BackgroundMusic getBackgroundMusic() {
-        return backgroundMusic;
     }
 
     /**
