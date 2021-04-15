@@ -1,6 +1,7 @@
 package ca.sfu.cmpt276.spring2021.group8.project.game;
 
 import java.awt.*;
+import java.awt.image.BufferedImage;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
@@ -235,5 +236,17 @@ class WorldTest {
        catch (Exception e) {
            e.printStackTrace();
        }
+   }
+
+   @Test
+    public void testRender()
+   {
+       BufferedImage img = new BufferedImage(1280, 720, BufferedImage.TYPE_BYTE_BINARY);
+       Graphics g = img.getGraphics();
+       g.setClip(0,0,1280,720);
+
+       assertDoesNotThrow( ()->{
+           world.render(g,new Point(1280, 720));
+       });
    }
 }
