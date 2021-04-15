@@ -36,6 +36,7 @@ public class BackgroundMusic {
     public void startMusic()
     {
         bgm.setFramePosition(0);
+        bgm.loop(Clip.LOOP_CONTINUOUSLY);
         bgm.start();
     }
 
