@@ -172,6 +172,7 @@ public class Maze implements PositionValidator {
     /**
      * Generates and returns a Point on the maze to use
      *
+     * @param validator a PositionValidator to validate the points in the maze
      * @return newly generated position as Point object
      */
     public Point generatePosition(PositionValidator validator) {
