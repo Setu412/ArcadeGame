@@ -1,7 +1,5 @@
-package ca.sfu.cmpt276.spring2021.group8.project.integration.tests;
+package ca.sfu.cmpt276.spring2021.group8.project.integration;
 
-import ca.sfu.cmpt276.spring2021.group8.project.game.Game;
-import ca.sfu.cmpt276.spring2021.group8.project.game.SoundEffects;
 import ca.sfu.cmpt276.spring2021.group8.project.game.containers.EntityList;
 import ca.sfu.cmpt276.spring2021.group8.project.game.effect.GameEffect;
 import ca.sfu.cmpt276.spring2021.group8.project.game.effect.GameOverEffect;
