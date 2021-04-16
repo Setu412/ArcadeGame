@@ -31,7 +31,7 @@ public class Player extends MovableEntity {
      * @param direction The direction the player a tried to move towards
      */
     public void move(PositionValidator validator, Direction direction) {
-        tryMove(validator, direction.getNewPosition(getPosition()), direction);
+        tryMove(validator, direction.generateNewPosition(getPosition()), direction);
         hasMoved=true;
     }
 

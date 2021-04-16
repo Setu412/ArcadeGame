@@ -35,7 +35,7 @@ public class Enemy extends MovableEntity {
      */
     public void move(PositionValidator validator) {
         Direction nextDirection= movementGenerator.next(validator, getPosition());
-        tryMove(validator, nextDirection.getNewPosition(getPosition()), nextDirection);
+        tryMove(validator, nextDirection.generateNewPosition(getPosition()), nextDirection);
     }
 
     /**

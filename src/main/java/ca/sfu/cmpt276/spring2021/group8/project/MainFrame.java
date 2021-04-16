@@ -22,6 +22,9 @@ public class MainFrame {
     private Canvas canvas;
     private CardLayout cardLayout = new CardLayout();
     private JPanel panel = new JPanel();
+    private JFrame frame=new JFrame();
+
+    private BackgroundMusic backgroundMusic=new BackgroundMusic();
 
     private MainMenu mainMenu=new MainMenu();
     private HowToPlayMenu howToPlayMenu=new HowToPlayMenu();
@@ -32,15 +35,14 @@ public class MainFrame {
      * Creates a new game frame
      */
     public MainFrame() {
-        JFrame f = new JFrame();
 
         panel.setLayout(cardLayout);
 
-        f.add(panel);
+        frame.add(panel);
 
-        f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        f.setSize(GUIConfigurations.WIDTH, GUIConfigurations.HEIGHT);
-        f.setResizable(false);
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setSize(GUIConfigurations.WIDTH, GUIConfigurations.HEIGHT);
+        frame.setResizable(false);
 
         //mainMenu.setSize(width,height);
         mainMenu.getStartGameBtn().addActionListener(new ActionListener() {
@@ -68,12 +70,16 @@ public class MainFrame {
         winningScreen.getMainMenuBtn().addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                winningScreen.stopMusic();
+                backgroundMusic.startMusic();
                 showMainMenu();
             }
         });
         winningScreen.getPlayAgainBtn().addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                winningScreen.stopMusic();
+                backgroundMusic.startMusic();
                 startGame();
             }
         });
@@ -96,16 +102,12 @@ public class MainFrame {
         panel.add(howToPlayMenu,SCREEN_HOWTOPLAY);
         panel.add(winningScreen,SCREEN_WIN);
         panel.add(losingScreen,SCREEN_LOST);
-        f.setLocationRelativeTo(null);
-        f.setVisible(true);
+        frame.setLocationRelativeTo(null);
+        frame.setVisible(true);
 
         cardLayout.show(panel,SCREEN_MAINMENU);
 
-        try {
-            SoundEffects.BRplayMusic("src/main/resources/Audio/Background.wav");
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        backgroundMusic.startMusic();
     }
 
     /**
@@ -128,6 +130,8 @@ public class MainFrame {
      */
     private void showWinningScreen()
     {
+        winningScreen.startMusic();
+        backgroundMusic.stopMusic();
         cardLayout.show(panel,SCREEN_WIN);
     }
 
@@ -182,18 +186,17 @@ public class MainFrame {
                         showMainMenu();
                     } else if (result instanceof GameOverResult) {
                         GameOverResult info = ((GameOverResult) result);
-                        // TODO pass game info to win/lose screens
                         showMainMenu();
                         if(((GameOverResult) result).win)
                         {
-                            winningScreen.getScoreText().setText("Score: "+((GameOverResult) result).score);
-                            winningScreen.getTimeText().setText("Time: "+TimeFormatConverter.convertTime(((GameOverResult) result).time));
+                            winningScreen.getScoreText().setText("Score: "+info.score);
+                            winningScreen.getTimeText().setText("Time: "+TimeFormatConverter.convertTime(info.time));
                             showWinningScreen();
                         }
                         else if(!((GameOverResult) result).win)
                         {
                             losingScreen.getScoreText().setText("Score: "+((GameOverResult) result).score);
-                            losingScreen.getTimeText().setText("Time: "+TimeFormatConverter.convertTime(((GameOverResult) result).time));
+                            losingScreen.getTimeText().setText("Time: "+TimeFormatConverter.convertTime(info.time));
                             showLosingScreen();
                         }
                     }
@@ -205,5 +208,47 @@ public class MainFrame {
                 }
             }
         }).start();
+    }
+
+    /**
+     * Returns the main panel of the frame
+     */
+    public JPanel getPanel() {
+        return panel;
+    }
+
+    /**
+     * Returns the main menu panel
+     */
+    public MainMenu getMainMenu() {
+        return mainMenu;
+    }
+
+    /**
+     * Returns the how to play menu
+     */
+    public HowToPlayMenu getHowToPlayMenu() {
+        return howToPlayMenu;
+    }
+
+    /**
+     * Returns the winning screen
+     */
+    public WinningScreen getWinningScreen() {
+        return winningScreen;
+    }
+
+    /**
+     * Returns the losing screen
+     */
+    public LosingScreen getLosingScreen() {
+        return losingScreen;
+    }
+
+    /**
+     * Returns the main frame
+     */
+    public JFrame getFrame() {
+        return frame;
     }
 }

@@ -166,6 +166,8 @@ public class World {
     public GameEffect getGameEffect() {
         Point pos = player.getPosition();
 
+        SoundEffects soundEffects = new SoundEffects();
+
         for (Collectable collectable : collectables) {
             if (!collectable.getPosition().equals(pos)) {
                 continue;
@@ -173,7 +175,7 @@ public class World {
 
             if (collectable instanceof Reward) {
                 try {
-                    SoundEffects.playMusic("src/main/resources/Audio/RewardCollection.wav");
+                    soundEffects.playMusic("src/main/resources/Audio/RewardCollection.wav");
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
@@ -185,7 +187,7 @@ public class World {
 
             if (collectable instanceof Punishment) {
                 try {
-                    SoundEffects.playMusic("src/main/resources/Audio/Punishment.wav");
+                    soundEffects.playMusic("src/main/resources/Audio/Punishment.wav");
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
@@ -201,7 +203,7 @@ public class World {
                 msSinceLastBRVisible = 0;
 
                     try {
-                        SoundEffects.playMusic("src/main/resources/Audio/BRCollection.wav");
+                        soundEffects.playMusic("src/main/resources/Audio/BRCollection.wav");
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
@@ -214,7 +216,7 @@ public class World {
             if (enemy.getPosition().equals(pos)) {
 
                 try {
-                    SoundEffects.playMusic("src/main/resources/Audio/Punishment.wav");
+                    soundEffects.playMusic("src/main/resources/Audio/Punishment.wav");
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
@@ -224,6 +226,7 @@ public class World {
         }
 
         if (player.getPosition().equals(maze.exitPosition())) {
+
             return GameEffect.createWinEffect();
         }
         return null;

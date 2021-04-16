@@ -19,7 +19,7 @@ public enum Direction {
     /**
      * Returns a new Point one unit in the direction.
      */
-    public Point getNewPosition(Point p) {
+    public Point generateNewPosition(Point p) {
         Point newPoint = new Point(p);
         switch (this) {
             case West:

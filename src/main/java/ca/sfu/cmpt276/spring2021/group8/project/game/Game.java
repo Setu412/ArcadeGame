@@ -34,10 +34,10 @@ public class Game implements KeyListener {
         if (effect != null) {
             if (effect instanceof GameOverEffect) {
                 if (((GameOverEffect) effect).win) {
-                    System.out.println("won the game :D");
+                    //System.out.println("won the game :D");
                     return GameResult.createWinResult(score, msSinceGameStart());
                 } else {
-                    System.out.println("lost the game :(");
+                    //System.out.println("lost the game :(");
                     return GameResult.createLoseResult(score, msSinceGameStart());
                 }
             } else if (effect instanceof ScoreEffect) {
@@ -46,7 +46,7 @@ public class Game implements KeyListener {
     
                 //check if score is negative --> ends game
                 if(this.score < 0){
-                    System.out.println("lost the game :(");
+                    //System.out.println("lost the game :(");
                     return GameResult.createLoseResult(score, msSinceGameStart());
                 }
             }

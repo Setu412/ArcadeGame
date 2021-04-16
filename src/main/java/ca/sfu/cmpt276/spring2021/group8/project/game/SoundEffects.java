@@ -9,6 +9,8 @@ import java.io.IOException;
  */
 public class SoundEffects {
 
+    Clip clip;
+
     /**
      * Plays a sound clip for different game entities
      *
@@ -17,32 +19,31 @@ public class SoundEffects {
      * @throws IOException
      * @throws LineUnavailableException
      */
-    public static void playMusic(String path) throws UnsupportedAudioFileException, IOException, LineUnavailableException
+    public void playMusic(String path) throws UnsupportedAudioFileException, IOException, LineUnavailableException
     {
-        Clip clip;
         AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(new File(path).getAbsoluteFile());
         clip = AudioSystem.getClip();
         clip.open(audioInputStream);
         clip.start();
     }
 
-    /**
-     * Plays a background sound clip
-     *
-     * @param path Location for required audio file
-     * @throws UnsupportedAudioFileException
-     * @throws IOException
-     * @throws LineUnavailableException
-     */
-    public static void BRplayMusic(String path) throws UnsupportedAudioFileException, IOException, LineUnavailableException
-    {
-        Clip clip;
-        AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(new File(path).getAbsoluteFile());
-        clip = AudioSystem.getClip();
-        clip.open(audioInputStream);
-        FloatControl control = (FloatControl)clip.getControl(FloatControl.Type.MASTER_GAIN);
-        control.setValue(-30.0f);
-        clip.loop(Clip.LOOP_CONTINUOUSLY);
-        clip.start();
-    }
+//    /**
+//     * Plays a background sound clip
+//     *
+//     * @param path Location for required audio file
+//     * @throws UnsupportedAudioFileException
+//     * @throws IOException
+//     * @throws LineUnavailableException
+//     */
+//    public static void BRplayMusic(String path) throws UnsupportedAudioFileException, IOException, LineUnavailableException
+//    {
+//        Clip clip;
+//        AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(new File(path).getAbsoluteFile());
+//        clip = AudioSystem.getClip();
+//        clip.open(audioInputStream);
+//        FloatControl control = (FloatControl)clip.getControl(FloatControl.Type.MASTER_GAIN);
+//        control.setValue(-30.0f);
+//        clip.loop(Clip.LOOP_CONTINUOUSLY);
+//        clip.start();
+//    }
 }
