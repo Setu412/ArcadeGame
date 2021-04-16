@@ -3,7 +3,6 @@ package ca.sfu.cmpt276.spring2021.group8.project.game;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.lang.reflect.Field;
-import java.lang.reflect.Method;
 import java.util.ArrayList;
 
 import ca.sfu.cmpt276.spring2021.group8.project.game.effect.GameEffect;
@@ -39,7 +38,6 @@ class WorldTest {
             PlayerField.setAccessible(true);
             Player playerCopy = (Player) PlayerField.get(world);
             Point player_Position = playerCopy.getPosition();
-            //System.out.println("Player initial position  x = " + player_Position.x + " y = " + player_Position.y);
 
             Field EnemyField = World.class.getDeclaredField("enemies");
             EnemyField.setAccessible(true);
@@ -154,7 +152,6 @@ class WorldTest {
             PlayerField.setAccessible(true);
             Player playerCopy = (Player) PlayerField.get(world);
             Point player_Position = playerCopy.getPosition();
-            //System.out.println("Player initial position  x = " + player_Position.x + " y = " + player_Position.y);
 
                 //Trying to change the position of the player
             if (player_Position.x == 0){
@@ -171,15 +168,13 @@ class WorldTest {
             }
 
             player_Position = playerCopy.getPosition();
-            //System.out.println("Player position after movement x = " + player_Position.x + " y = " + player_Position.y);
 
-            // //Accessing BonusReward field in World class using Reflection
+            //Accessing BonusReward field in World class using Reflection
             Field BonusRewardField = World.class.getDeclaredField("bonusReward");
             BonusRewardField.setAccessible(true);
             BonusReward BR_Copy = (BonusReward) BonusRewardField.get(world);
 
             BR_Copy.setPosition(player_Position);
-            //System.out.println("Player and BR position equal x = " + BR_Position.x + " y = " + BR_Position.y);
 
                 //set bonusReward visibility true
             BR_Copy.isVisible = true;
@@ -191,14 +186,15 @@ class WorldTest {
             //Asserting the increment in score to be equal to BonusRewardPoints
             assertEquals(BR_Copy.getPoints(), score);
 
-            /*
+
             //Setting random position for BonusReward
             BR_Copy.setPosition(new Point(15,7));
             effect = world.getGameEffect();
             score = 0;
-            score = score + ((ScoreEffect) effect).score;
-            assertNotEquals(BR_Copy.getPoints(),score);
-            */
+            if(effect == null) {
+                //No update for the score as the effect is Null
+                assertEquals(0, score);
+            }
         }
         catch (Exception e) {
             e.printStackTrace();
