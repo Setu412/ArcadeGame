@@ -18,9 +18,11 @@ Follow this link to install Maven:
 
 Follow these steps to build the game using maven:
 
-1. Clone the repository to local machine  
-    >Clone using SSH :  git@csil-git1.cs.surrey.sfu.ca:cmpt276s21_group8/project.git  
-    >Clone using HTTPS :  https://csil-git1.cs.surrey.sfu.ca/cmpt276s21_group8/project.git
+1. Clone the repository to local machine
+    ```
+    Clone using SSH :  git@csil-git1.cs.surrey.sfu.ca:cmpt276s21_group8/project.git  
+    Clone using HTTPS :  https://csil-git1.cs.surrey.sfu.ca/cmpt276s21_group8/project.git
+    ```
 
 2. Open the shell of your choice (eg. Command Prompt(Windows users) or Terminal(Mac or Linux users))
 3. Navigate to the project directory
