@@ -20,7 +20,7 @@ public class LosingScreen extends EndingScreen{
                 "<html><body style='width: 600 px; text-align:center'>"
                 +"<b><u>LETTER OF EXPULSION</u></b>"
                 +"<br><br>"
-                +"By the suggestion of Professor Name mcFake, "
+                +"By the suggestion of Professor Name McFake, "
                 +"<br>"
                 +"<b>YOU</b>"
                 +"<br>"
