@@ -2,7 +2,13 @@
 
 How To Not Fail University is an arcade-style game based on a university setting. The game revolves around the main playable character, who is a university student trying to complete their computer science degree. The objective of the game is to graduate university by finishing all their course requirements without getting caught by the “evil” professors.
 
-## Getting Started 
+### Game Demo
+
+Checkout our video for a short briefing, highlights and gameplay of our game:
+    
+>https://youtu.be/RxVfeI6rw6c
+
+## Installation Guide
 
 ### Prerequisites
 
@@ -64,4 +70,26 @@ Follow these steps to run the tests:
     ```
     mvn test
     ```
+
+### Generating Javadocs
+
+Follow these steps to generating documentations or javadocs for this project:
+
+1. Open the shell of your choice (eg. Command Prompt(Windows users) or Terminal(macOS or Linux users))
+
+2. Navigate to the project directory
+
+3. Give this command to generate javadocs:  
+    ```
+    mvn javadoc:javadoc
+    ```
+
+The required javadocs must be generated on your local machine. To access these, navigate yourself to 'apidocs' directory under the project directory on your local machine which contains all the reqired files and HTML files to access these documentations. Follow this filepath to find apidocs folder under project directory: `project\target\site\apidocs`  
+
+
+
+
+
+
+
 
