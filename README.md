@@ -4,7 +4,7 @@ How To Not Fail University is an arcade-style game based on a university setting
 
 ### Game Demo
 
-Checkout our video for a short briefing, highlights and gameplay of our game:
+Check out our video demo showing a short briefing and gameplay of our game:
     
 >https://youtu.be/RxVfeI6rw6c
 
@@ -59,8 +59,7 @@ Follow these steps to run the game:
 
 ### Testing the game
 
-First the user needs to make sure the game is successfully build on the local machine.
-Follow these steps to run the tests:
+Follow these steps to run tests on the game without building a new jar file:
 
 1. Open the shell of your choice (eg. Command Prompt(Windows users) or Terminal(macOS or Linux users))
 
@@ -73,7 +72,7 @@ Follow these steps to run the tests:
 
 ### Generating Javadocs
 
-Follow these steps to generating documentations or javadocs for this project:
+Follow these steps to generate documentation (javadocs) for the project:
 
 1. Open the shell of your choice (eg. Command Prompt(Windows users) or Terminal(macOS or Linux users))
 
